@@ -1,0 +1,21 @@
+{
+  "name": "wpdtrt-anchorlinks",
+  "version": "0.0.1",
+  "description": "Anchor links plugin.",
+  "main": "wpdtrt-anchorlinks.php",
+  "authors": [
+    {
+      "name": "Dan Smith",
+      "email": "dev@dotherightthing.co.nz"
+    }
+  ],
+  "dependencies": {},
+  "license": "All Rights Reserved",
+  "homepage": "https://github.com/dotherightthing/wpdtrt-anchorlinks",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "vendor"
+  ],
+  "private": true
+}

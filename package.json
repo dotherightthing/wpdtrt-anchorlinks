@@ -1,0 +1,31 @@
+{
+  "name": "wpdtrt-anchorlinks",
+  "version": "0.0.1",
+  "description": "Anchor links plugin.",
+  "main": "wpdtrt-anchorlinks.php",
+  "person": {
+    "name": "Dan Smith",
+    "email": "dev@dotherightthing.co.nz",
+    "url": "https://profiles.wordpress.org/dotherightthingnz"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:dotherightthing/wpdtrt-anchorlinks.git"
+  },
+  "browserslist": [
+    "last 2 versions",
+    "ie >= 11"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/dotherightthing/wpdtrt-anchorlinks",
+  "srcDir": "/Volumes/DanBackup/Websites/wpdtrt-anchorlinks",
+  "dependencies": {
+    "bower": "^1.8.2"
+  }
+}

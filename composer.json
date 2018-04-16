@@ -1,0 +1,42 @@
+{
+	"name": "dotherightthing/wpdtrt-anchorlinks",
+	"description": "Anchor links plugin.",
+	"type": "library",
+    "keywords": ["anchor links", "content links", "sticky", "pinned", "scrollto"],
+    "license": "ISC",
+    "authors": [
+        {
+            "name": "Dan Smith",
+            "email": "dev@dotherightthing.co.nz",
+            "homepage": "https://github.com/dotherightthing/wpdtrt-anchorlinks",
+            "role": "Developer"
+        }
+    ],
+    "support": {
+        "email": "support@dotherightthing.co.nz",
+        "issues": "https://github.com/dotherightthing/wpdtrt-anchorlinks/issues"
+    },
+    "require": {
+        "dotherightthing/wpdtrt-plugin": "1.2.20",
+		"tgmpa/tgm-plugin-activation": "2.6.*"
+    },
+    "minimum-stability": "stable",
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://repo.packagist.com/dotherightthing/"
+        },
+        {
+            "packagist.org": false
+        }
+    ],
+    "config": {
+        "vendor-dir": "vendor"
+    },
+	"require-dev": {
+		"phpdocumentor/phpdocumentor": "2.9.0",
+		"phpunit/phpunit": "^5.7",
+		"psy/psysh": "~0.6",
+		"wp-cli/wp-cli": "~0.22"
+	}
+}
