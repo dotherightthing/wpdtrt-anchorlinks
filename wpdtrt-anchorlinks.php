@@ -107,7 +107,7 @@ if( ! defined( 'WPDTRT_ANCHORLINKS_URL' ) ) {
 
   // sub classes
   require_once(WPDTRT_ANCHORLINKS_PATH . 'src/class-wpdtrt-anchorlinks-plugin.php');
-  require_once(WPDTRT_ANCHORLINKS_PATH . 'src/class-wpdtrt-anchorlinks-widgets.php');
+  //require_once(WPDTRT_ANCHORLINKS_PATH . 'src/class-wpdtrt-anchorlinks-widgets.php');
 
   // log & trace helpers
   $debug = new DoTheRightThing\WPDebug\Debug;
@@ -138,14 +138,7 @@ if( ! defined( 'WPDTRT_ANCHORLINKS_URL' ) ) {
      * @see https://github.com/dotherightthing/wpdtrt-plugin/blob/master/views/form-element-select.php
      * @see https://github.com/dotherightthing/wpdtrt-plugin/blob/master/views/form-element-text.php
      */
-    $plugin_options = array(
-      'pluginoption1' => array(
-        'type' => 'text',
-        'label' => __('Field label', 'wpdtrt-anchorlinks'),
-        'size' => 10,
-        'tip' => __('Helper text', 'wpdtrt-anchorlinks')
-      )
-    );
+    $plugin_options = array();
 
     /**
      * All options available to Widgets and Shortcodes
@@ -156,14 +149,7 @@ if( ! defined( 'WPDTRT_ANCHORLINKS_URL' ) ) {
      * @see https://github.com/dotherightthing/wpdtrt-plugin/blob/master/views/form-element-select.php
      * @see https://github.com/dotherightthing/wpdtrt-plugin/blob/master/views/form-element-text.php
      */
-    $instance_options = array(
-      'instanceoption1' => array(
-        'type' => 'text',
-        'label' => __('Field label', 'wpdtrt-anchorlinks'),
-        'size' => 10,
-        'tip' => __('Helper text', 'wpdtrt-anchorlinks')
-      )
-    );
+    $instance_options = array();
 
     $wpdtrt_anchorlinks_plugin = new WPDTRT_Anchorlinks_Plugin(
       array(
@@ -185,85 +171,19 @@ if( ! defined( 'WPDTRT_ANCHORLINKS_URL' ) ) {
         'plugin_options' => $plugin_options,
         'instance_options' => $instance_options,
         'version' => WPDTRT_ANCHORLINKS_VERSION,
-        /*
         'plugin_dependencies' => array(
           array(
-            'name'          => 'Plugin Name',
-            'slug'          => 'plugin-name',
-            'source'        => 'https://github.com/user/library/archive/master.zip',
-            'required'      => true,
-            'is_callable'   => 'function_name'
+            'name'      => 'Better Anchor Links',
+            'slug'      => 'better-anchor-links',
+            'required'  => true,
           )
         ),
-        */
         'demo_shortcode_params' => null
       )
     );
   }
 
   add_action( 'init', 'wpdtrt_anchorlinks_init', 0 );
-
-  /**
-   * Register a WordPress widget, passing in an instance of our custom widget class
-   * The plugin does not require registration, but widgets and shortcodes do.
-   * Note: widget_init fires before init, unless init has a priority of 0
-   *
-   * @uses        ../../../../wp-includes/widgets.php
-   * @see         https://codex.wordpress.org/Function_Reference/register_widget#Example
-   * @see         https://wp-mix.com/wordpress-widget_init-not-working/
-   * @see         https://codex.wordpress.org/Plugin_API/Action_Reference
-   * @uses        https://github.com/dotherightthing/wpdtrt/tree/master/library/sidebars.php
-   *
-   * @version     0.0.1
-   * @since       0.7.0
-   * @todo        Add form field parameters to the options array
-   * @todo        Investigate the 'classname' option
-   */
-  function wpdtrt_anchorlinks_widget_1_init() {
-
-    global $wpdtrt_anchorlinks_plugin;
-
-    $wpdtrt_anchorlinks_widget_1 = new WPDTRT_Anchorlinks_Widget_1(
-      array(
-        'name' => 'wpdtrt_anchorlinks_widget_1',
-        'title' => __(' Anchor Links Widget', 'wpdtrt-anchorlinks'),
-        'description' => __('Anchor links plugin..', 'wpdtrt-anchorlinks'),
-        'plugin' => $wpdtrt_anchorlinks_plugin,
-        'template' => '',
-        'selected_instance_options' => array(
-          'instanceoption1'
-        )
-      )
-    );
-
-    register_widget( $wpdtrt_anchorlinks_widget_1 );
-  }
-
-  add_action( 'widgets_init', 'wpdtrt_anchorlinks_widget_1_init' );
-
-  /**
-   * Register Shortcode
-   *
-   * @todo Add centigrade as a shortcode option (#1)
-   * @todo Add units as a shortcode option (#2)
-   */
-  function wpdtrt_anchorlinks_shortcode_1_init() {
-
-    global $wpdtrt_anchorlinks_plugin;
-
-    $wpdtrt_anchorlinks_shortcode_1 = new DoTheRightThing\WPPlugin\Shortcode(
-      array(
-        'name' => 'wpdtrt_anchorlinks_shortcode_1',
-        'plugin' => $wpdtrt_anchorlinks_plugin,
-        'template' => '',
-        'selected_instance_options' => array(
-          'instanceoption1'
-        )
-      )
-    );
-  }
-
-  add_action( 'init', 'wpdtrt_anchorlinks_shortcode_1_init', 100 );
 
   /**
    * Register functions to be run when the plugin is activated.

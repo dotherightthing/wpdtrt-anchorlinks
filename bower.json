@@ -9,7 +9,9 @@
       "email": "dev@dotherightthing.co.nz"
     }
   ],
-  "dependencies": {},
+  "dependencies": {
+    "waypoints": "^4.0.0"
+  },
   "license": "All Rights Reserved",
   "homepage": "https://github.com/dotherightthing/wpdtrt-anchorlinks",
   "ignore": [
