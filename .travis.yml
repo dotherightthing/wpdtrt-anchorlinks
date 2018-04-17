@@ -74,7 +74,7 @@ install:
 # https://github.com/wp-cli/sample-plugin/blob/master/.travis.yml
 before_script:
   - export PATH="$HOME/.composer/vendor/bin:$PATH"
-  - bash bin/install-wp-tests.sh    localhost $WP_VERSION
+  - bash bin/install-wp-tests.sh wpdtrt_anchorlinksTest root "" localhost $WP_VERSION
 
 # Run the build script
 script:
