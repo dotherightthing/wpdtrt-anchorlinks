@@ -2,7 +2,7 @@
 	"name": "dotherightthing/wpdtrt-anchorlinks",
 	"description": "Anchor links plugin.",
 	"type": "library",
-    "keywords": ["anchor links", "content links", "sticky", "pinned", "scrollto"],
+    "keywords": ["anchor links", "content links", "menu", "navigation", "sticky", "scrollto"],
     "license": "ISC",
     "authors": [
         {

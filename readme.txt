@@ -2,7 +2,7 @@
 === DTRT Anchor Links ===
 Contributors: dotherightthingnz
 Donate link: http://dotherightthing.co.nz
-Tags: anchor links, content links, sticky, pinned, scrollto
+Tags: anchor links, content links, menu, navigation, sticky, scrollto
 Requires at least: 4.9.5
 Tested up to: 4.9.5
 Requires PHP: 5.6.30
