@@ -172,11 +172,21 @@ if( ! defined( 'WPDTRT_ANCHORLINKS_URL' ) ) {
         'instance_options' => $instance_options,
         'version' => WPDTRT_ANCHORLINKS_VERSION,
         'plugin_dependencies' => array(
+          // Dependency: Pinning & scrolling is in addition to stock BAL link generation
           array(
             'name'      => 'Better Anchor Links',
             'slug'      => 'better-anchor-links',
             'required'  => true,
-          )
+          ),
+          // Dependency: Sections are used as scroll targets
+          array(
+            'name'          => 'DTRT Content Sections',
+            'slug'          => 'wpdtrt-contentsections',
+            'source'        => 'https://github.com/dotherightthing/wpdtrt-contentsections/releases/download/0.0.1/release.zip',
+            'version'       => '0.0.1',
+            'external_url'  => 'https://github.com/dotherightthing/wpdtrt-contentsections',
+            'required'      => true,
+          ),
         ),
         'demo_shortcode_params' => null
       )
