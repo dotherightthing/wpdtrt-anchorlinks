@@ -113,7 +113,7 @@ class wpdtrt_anchorlinksTest extends WP_UnitTestCase {
 	 */
 	public function test_placeholder() {
 
-		$this->assertEqual(
+		$this->assertEquals(
 			'abc123',
 			'abc123',
 			'Strings do not match'
