@@ -1,6 +1,6 @@
 # DTRT Anchor Links
 
-[![GitHub tags](https://img.shields.io/github/tag/dotherightthing/wpdtrt-anchorlinks.svg)](https://github.com/dotherightthing/wpdtrt-anchorlinks/tags) [![Build Status](https://travis-ci.org/dotherightthing/wpdtrt-anchorlinks.svg?branch=master)](https://travis-ci.org/dotherightthing/wpdtrt-anchorlinks) [![GitHub issues](https://img.shields.io/github/issues/dotherightthing/wpdtrt-anchorlinks.svg)](https://github.com/dotherightthing/wpdtrt-anchorlinks/issues)
+[![GitHub release](https://img.shields.io/github/release/dotherightthing/wpdtrt-anchorlinks.svg)](https://github.com/dotherightthing/wpdtrt-anchorlinks/releases) [![Build Status](https://travis-ci.org/dotherightthing/wpdtrt-anchorlinks.svg?branch=master)](https://travis-ci.org/dotherightthing/wpdtrt-anchorlinks) [![GitHub issues](https://img.shields.io/github/issues/dotherightthing/wpdtrt-anchorlinks.svg)](https://github.com/dotherightthing/wpdtrt-anchorlinks/issues)
 
 Anchor links plugin.
 
