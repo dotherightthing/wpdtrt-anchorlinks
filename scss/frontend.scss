@@ -1,17 +1,23 @@
-/**
- * Styles for the public front-end
- *
- * Jump links + stickyNavbar.js
- * Multiple injected wrappers ensure that
- * .mwm-aal-container stays in the same horz location when sticky
- *
- * @package     WPDTRT_Anchorlinks
- * @version 	0.0.1
- * @since       0.7.0
- */
+//
+// Styles for the public front-end
+//
+// Jump links + stickyNavbar.js
+// Multiple injected wrappers ensure that
+// .mwm-aal-container stays in the same horz location when sticky
+//
+// @package     WPDTRT_Anchorlinks
+// @version 	0.0.1
+// @since       0.7.0
+//
 
 @import "vendor/dotherightthing/wpdtrt-plugin/scss/_variables.scss";
 @import "vendor/dotherightthing/wpdtrt-plugin/scss/_extends.scss";
+@import "variables";
+@import "extends";
+
+// -------------------------------------------------------------------
+// Styles
+// -------------------------------------------------------------------
 
 .page-summary {
  	position: relative; // AP
@@ -39,7 +45,7 @@
 	}
 
 	li > a {
-		color: #555;
+		color: $wpdtrt-anchorlinks-link-text-color;
 		text-decoration: none;
 		box-shadow: 0 0 0 0 currentColor;
 
@@ -54,8 +60,8 @@
 		}
 
 		&.active {
-			color: #000;
-			border-color: #555;
+			color: $wpdtrt-anchorlinks-link-text-color--active;
+			border-color: $wpdtrt-anchorlinks-link-border-color--active;
 			font-weight: bold;
 		}
 	}
@@ -64,7 +70,7 @@
 .mwm-aal-title {
 	position: relative;
 	padding-bottom: 1.5em;
-	border-bottom: 1px solid #ccc;
+	border-bottom: 1px solid $wpdtrt-anchorlinks-title-border-color;
 	margin-top: .3em;
 	margin-bottom: 3em; // align with top of gallery viewer (assumes there is a gallery viewer..
 
@@ -75,3 +81,8 @@
 		width: 0;
 	}
 }
+
+// -------------------------------------------------------------------
+// Media Queries
+// -------------------------------------------------------------------
+
