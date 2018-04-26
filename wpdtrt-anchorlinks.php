@@ -173,6 +173,8 @@ if( ! defined( 'WPDTRT_ANCHORLINKS_URL' ) ) {
           'demo_shortcode_title' => __('Demo shortcode', 'wpdtrt-anchorlinks'),
           'demo_data_description' => __('This demo was generated from the following data', 'wpdtrt-anchorlinks'),
           'demo_date_last_updated' => __('Data last updated', 'wpdtrt-anchorlinks'),
+          'demo_data_length' => __('results', 'wpdtrt-anchorlinks'),
+          'demo_data_displayed_length' => __('results displayed', 'wpdtrt-anchorlinks'),
         ),
         'plugin_options' => $plugin_options,
         'instance_options' => $instance_options,
