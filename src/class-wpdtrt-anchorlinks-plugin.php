@@ -73,7 +73,7 @@ class WPDTRT_Anchorlinks_Plugin extends DoTheRightThing\WPPlugin\Plugin {
         $attach_to_footer = true;
 
         wp_register_script( 'jquery_waypoints',
-            $this->get_url() . 'vendor/waypoints/lib/jquery.waypoints.min.js',
+            $this->get_url() . 'node_modules/waypoints/lib/jquery.waypoints.min.js',
             array(
                 // load these registered dependencies first:
                 'jquery',
@@ -91,7 +91,7 @@ class WPDTRT_Anchorlinks_Plugin extends DoTheRightThing\WPPlugin\Plugin {
          * then error = 'Uncaught TypeError: Waypoint.Inview is not a constructor'
          */
         wp_register_script( 'waypoints_sticky',
-            $this->get_url() . 'vendor/waypoints/lib/shortcuts/sticky.min.js',
+            $this->get_url() . 'node_modules/waypoints/lib/shortcuts/sticky.min.js',
             array(
                 // load these registered dependencies first:
                 'jquery_waypoints',

@@ -1,4 +1,5 @@
 {
+  "private": true,
   "name": "wpdtrt-anchorlinks",
   "version": "0.0.2",
   "description": "Anchor links plugin.",
@@ -11,6 +12,9 @@
   "devDependencies": {
     "gulp": "^3.9.1"
   },
+  "workspaces": [
+    "vendor/dotherightthing/wpdtrt-plugin/"
+  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -26,6 +30,6 @@
   "homepage": "https://github.com/dotherightthing/wpdtrt-anchorlinks",
   "srcDir": "/Volumes/DanBackup/Websites/wpdtrt-anchorlinks",
   "dependencies": {
-    "bower": "^1.8.2"
+    "waypoints": "^4.0.1"
   }
 }
