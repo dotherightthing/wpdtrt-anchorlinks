@@ -6,7 +6,7 @@ Tags: anchor links, content links, menu, navigation, sticky, scrollto
 Requires at least: 4.9.5
 Tested up to: 4.9.5
 Requires PHP: 5.6.30
-Stable tag: 0.0.2
+Stable tag: 0.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -51,6 +51,16 @@ Please refer to the *Shortcode Options* on Settings->DTRT Anchor Links.
 2. The caption for ./images/screenshot-2.(png|jpg|jpeg|gif)
 
 == Changelog ==
+
+= 0.0.3 =
+* Migrate Bower & NPM to Yarn
+* Update Node from 6.11.2 to 8.11.1
+* Add messages required by shortcode demo
+* Add SCSS partials for project-specific extends and variables
+* Change tag badge to release badge
+* Fix default .pot file
+* Document dependencies
+* Update wpdtrt-plugin
 
 = 0.0.2 =
 * Migrate code from wpdtrt and wpdtrt-dbth themes
