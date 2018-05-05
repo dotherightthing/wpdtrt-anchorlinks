@@ -52,7 +52,7 @@ Please refer to the *Shortcode Options* on Settings->DTRT Anchor Links.
 
 == Changelog ==
 
-= 0.0.3 =
+= 0.1.0 =
 * Migrate Bower & NPM to Yarn
 * Update Node from 6.11.2 to 8.11.1
 * Add messages required by shortcode demo
@@ -60,7 +60,7 @@ Please refer to the *Shortcode Options* on Settings->DTRT Anchor Links.
 * Change tag badge to release badge
 * Fix default .pot file
 * Document dependencies
-* Update wpdtrt-plugin
+* Update wpdtrt-plugin to 1.3.1
 
 = 0.0.2 =
 * Migrate code from wpdtrt and wpdtrt-dbth themes
