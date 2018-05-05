@@ -157,6 +157,7 @@ if( ! defined( 'WPDTRT_ANCHORLINKS_URL' ) ) {
         'prefix' => 'wpdtrt_anchorlinks',
         'slug' => 'wpdtrt-anchorlinks',
         'menu_title' => __('Anchor Links', 'wpdtrt-anchorlinks'),
+        'settings_title' => __('Settings', 'wpdtrt-anchorlinks'),
         'developer_prefix' => '',
         'path' => WPDTRT_ANCHORLINKS_PATH,
         'messages' => array(
