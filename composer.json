@@ -34,5 +34,6 @@
     },
     "require-dev": {
         "dotherightthing/wpdtrt-contentsections": "^0.0.2"
+        "ambrosite/nextprevious-post-link-plus": "2.4.*",
     }
 }
