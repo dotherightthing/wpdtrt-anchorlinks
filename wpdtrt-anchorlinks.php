@@ -3,7 +3,7 @@
  * Plugin Name:  DTRT Anchor Links
  * Plugin URI:   https://github.com/dotherightthing/wpdtrt-anchorlinks
  * Description:  Anchor links plugin.
- * Version:      0.1.3
+ * Version:      0.1.4
  * Author:       Dan Smith
  * Author URI:   https://profiles.wordpress.org/dotherightthingnz
  * License:      GPLv2 or later
@@ -67,7 +67,7 @@ if( ! defined( 'WPDTRT_ANCHORLINKS_VERSION' ) ) {
  * @version   0.0.1
  * @since     0.7.0
  */
-  define( 'WPDTRT_ANCHORLINKS_VERSION', '0.1.3' );
+  define( 'WPDTRT_ANCHORLINKS_VERSION', '0.1.4' );
 }
 
 if( ! defined( 'WPDTRT_ANCHORLINKS_PATH' ) ) {
