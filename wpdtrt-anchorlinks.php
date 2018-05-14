@@ -202,8 +202,8 @@ if( ! defined( 'WPDTRT_ANCHORLINKS_URL' ) ) {
           array(
             'name'          => 'DTRT Content Sections',
             'slug'          => 'wpdtrt-contentsections',
-            'source'        => 'https://github.com/dotherightthing/wpdtrt-contentsections/releases/download/0.0.1/release.zip',
-            'version'       => '0.0.1',
+            'source'        => 'https://github.com/dotherightthing/wpdtrt-contentsections/releases/download/0.1.1/release.zip',
+            'version'       => '0.1.1',
             'external_url'  => 'https://github.com/dotherightthing/wpdtrt-contentsections',
             'required'      => true,
           ),
