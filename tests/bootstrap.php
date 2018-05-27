@@ -25,7 +25,7 @@ function _manually_load_plugin() {
 	require dirname( dirname( __FILE__ ) ) . '/wpdtrt-anchorlinks.php';
 	require dirname( dirname( __FILE__ ) ) . '/vendor/ambrosite/nextprevious-post-link-plus/ambrosite-post-link-plus.php';
 
-	if ( !defined( 'WPDTRT_CONTENTSECTIONS_TEST_DEPENDENCY' ) ) {
+	if ( ! defined( 'WPDTRT_CONTENTSECTIONS_TEST_DEPENDENCY' ) ) {
 		define( 'WPDTRT_CONTENTSECTIONS_TEST_DEPENDENCY', true );
 	}
 	require dirname( dirname( __FILE__ ) ) . '/vendor/dotherightthing/wpdtrt-contentsections/wpdtrt-contentsections.php';

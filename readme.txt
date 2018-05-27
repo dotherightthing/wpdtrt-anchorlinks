@@ -6,7 +6,7 @@ Tags: anchor links, content links, menu, navigation, sticky, scrollto
 Requires at least: 4.9.5
 Tested up to: 4.9.5
 Requires PHP: 5.6.30
-Stable tag: 0.1.9
+Stable tag: 0.1.10
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -52,6 +52,11 @@ Please refer to the *Shortcode Options* on Settings->DTRT Anchor Links.
 
 == Changelog ==
 
+= 0.1.10 =
+* Rename wpdtrt-plugin to wpdtrt-plugin-boilerplate
+* Update wpdtrt-plugin-boilerplate to 1.4.22
+* Fix package name
+
 = 0.1.9 =
 * Update wpdtrt-contentsections dependency
 
@@ -62,10 +67,10 @@ Please refer to the *Shortcode Options* on Settings->DTRT Anchor Links.
 * Clean Composer files
 
 = 0.1.6 =
-* Update wpdtrt-contentsections
+* Update wpdtrt-contentsections dependency
 
 = 0.1.5 =
-* Update wpdtrt-contentsections
+* Update wpdtrt-contentsections dependency
 
 = 0.1.4 =
 * Update wpdtrt-plugin to 1.4.14
