@@ -3,7 +3,7 @@
  * Plugin Name:  DTRT Anchor Links
  * Plugin URI:   https://github.com/dotherightthing/wpdtrt-anchorlinks
  * Description:  Anchor links plugin.
- * Version:      0.1.10
+ * Version:      0.1.11
  * Author:       Dan Smith
  * Author URI:   https://profiles.wordpress.org/dotherightthingnz
  * License:      GPLv2 or later
@@ -43,7 +43,7 @@ if ( ! defined( 'WPDTRT_ANCHORLINKS_VERSION' ) ) {
 	 * @see $plugin_data = get_plugin_data( __FILE__ ); $plugin_version = $plugin_data['Version'];
 	 * @see https://wordpress.stackexchange.com/questions/18268/i-want-to-get-a-plugin-version-number-dynamically
 	 */
-	define( 'WPDTRT_ANCHORLINKS_VERSION', '0.1.10' );
+	define( 'WPDTRT_ANCHORLINKS_VERSION', '0.1.11' );
 }
 
 if ( ! defined( 'WPDTRT_ANCHORLINKS_PATH' ) ) {

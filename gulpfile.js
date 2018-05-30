@@ -8,7 +8,7 @@
  *    gulp dist --gulpfile ./vendor/dotherightthing/wpdtrt-plugin-boilerplate/gulpfile.js --cwd ./
  *
  * @package     WPDTRT_Anchorlinks
- * @version 	0.1.10
+ * @version 	0.1.11
  * @since       0.7.0
  */
  

@@ -19,7 +19,8 @@
     "require": {
         "dotherightthing/wpdtrt-plugin-boilerplate": "^1.0.0"
     },
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "repositories": [
         {
             "type": "composer",
