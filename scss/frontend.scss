@@ -5,9 +5,9 @@
 // Multiple injected wrappers ensure that
 // .mwm-aal-container stays in the same horz location when sticky
 //
-// @package     WPDTRT_Anchorlinks
-// @version 	0.0.1
-// @since       0.7.0
+// @package WPDTRT_Anchorlinks
+// @version 0.0.1
+// @since 0.7.0
 //
 
 @import 'vendor/dotherightthing/wpdtrt-plugin-boilerplate/scss/variables';
@@ -20,66 +20,66 @@
 // -------------------------------------------------------------------
 
 .page-summary {
- 	position: relative; // AP
+    position: relative; // AP
 }
 
 .mwm-aal-container {
- 	font-size: .75em;
- 	margin-bottom: 4em;
+    font-size: .75em;
+    margin-bottom: 4em;
 
- 	.sticky & {
-		position: relative;
-		top: auto;
-		right: auto;
- 	}
+    .sticky & {
+        position: relative;
+        top: auto;
+        right: auto;
+    }
 
-	> a.mwm-aal-item {
-		display: none;
-	}
+    > a.mwm-aal-item {
+        display: none;
+    }
 
-	ol,
-	li {
-		list-style: none;
-		padding-left: 0;
-		margin-left: 0;
-	}
+    ol,
+    li {
+        list-style: none;
+        padding-left: 0;
+        margin-left: 0;
+    }
 
-	li > a {
-		color: $wpdtrt-anchorlinks-link-text-color;
-		text-decoration: none;
-		box-shadow: 0 0 0 0 currentColor;
+    li > a {
+        color: $wpdtrt-anchorlinks-link-text-color;
+        text-decoration: none;
+        box-shadow: 0 0 0 0 currentColor;
 
-		line-height: 1.4;
-		display: block;
-		padding: .3em 0;
-		margin-bottom: 0.125em;
+        line-height: 1.4;
+        display: block;
+        padding: .3em 0;
+        margin-bottom: .125em;
 
-		&:hover,
-		&:focus {
-			text-decoration: underline;
-		}
+        &:hover,
+        &:focus {
+            text-decoration: underline;
+        }
 
-		&.active {
-			color: $wpdtrt-anchorlinks-link-text-color--active;
-			border-color: $wpdtrt-anchorlinks-link-border-color--active;
-			font-weight: bold;
-		}
-	}
+        &.active {
+            color: $wpdtrt-anchorlinks-link-text-color--active;
+            border-color: $wpdtrt-anchorlinks-link-border-color--active;
+            font-weight: bold;
+        }
+    }
 }
 
 .mwm-aal-title {
-	position: relative;
-	padding-bottom: 1.5em;
-	border-bottom: 1px solid $wpdtrt-anchorlinks-title-border-color;
-	margin-top: .3em;
-	margin-bottom: 3em; // align with top of gallery viewer (assumes there is a gallery viewer..
+    position: relative;
+    padding-bottom: 1.5em;
+    border-bottom: 1px solid $wpdtrt-anchorlinks-title-border-color;
+    margin-top: .3em;
+    margin-bottom: 3em; // align with top of gallery viewer (assumes there is a gallery viewer..
 
-	.scroll-progress {
-		position: absolute;
-		top: 100%;
-		left: 0;
-		width: 0;
-	}
+    .scroll-progress {
+       position: absolute;
+        top: 100%;
+        left: 0;
+        width: 0;
+    }
 }
 
 // -------------------------------------------------------------------
