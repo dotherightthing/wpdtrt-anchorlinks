@@ -33,7 +33,7 @@
         right: auto;
     }
 
-    > a.mwm-aal-item {
+    > .mwm-aal-item {
         display: none;
     }
 
@@ -45,13 +45,12 @@
     }
 
     li > a {
-        color: $wpdtrt-anchorlinks-link-text-color;
-        text-decoration: none;
-        box-shadow: 0 0 0 0 currentColor;
-
-        line-height: 1.4;
         display: block;
+        color: $wpdtrt-anchorlinks-link-text-color;
+        line-height: 1.4;
+        text-decoration: none;
         padding: .3em 0;
+        box-shadow: 0 0 0 0 currentColor;
         margin-bottom: .125em;
 
         &:hover,
@@ -61,8 +60,8 @@
 
         &.active {
             color: $wpdtrt-anchorlinks-link-text-color--active;
-            border-color: $wpdtrt-anchorlinks-link-border-color--active;
             font-weight: bold;
+            border-color: $wpdtrt-anchorlinks-link-border-color--active;
         }
     }
 }
@@ -75,7 +74,7 @@
     margin-bottom: 3em; // align with top of gallery viewer (assumes there is a gallery viewer..
 
     .scroll-progress {
-       position: absolute;
+        position: absolute;
         top: 100%;
         left: 0;
         width: 0;
