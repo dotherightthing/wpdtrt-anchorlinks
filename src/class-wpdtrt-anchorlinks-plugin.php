@@ -98,7 +98,7 @@ class WPDTRT_Anchorlinks_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplat
 		// init
 		// from Plugin.php + extra dependencies
 		wp_enqueue_script( $this->get_prefix(),
-			$this->get_url() . 'js/frontend.js',
+			$this->get_url() . 'js/frontend-es5.js',
 			array(
 				// load these registered dependencies first:
 				'jquery',
