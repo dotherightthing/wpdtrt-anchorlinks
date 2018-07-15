@@ -27,6 +27,22 @@
         "dotherightthing/wpdtrt-contentsections": "^0.1.0",
         "wpackagist-plugin/ambrosite-nextprevious-post-link-plus": "2.4.*"
     },
+    "extras": {
+        "require-wp": [
+            {
+                "name": "DTRT Content Sections",
+                "host": "github",
+                "repository": "dotherightthing/wpdtrt-contentsections",
+                "description": "Provides the scroll targets"
+            },
+            {
+                "name": "Next/Previous Post Link Plus",
+                "host": "wpackagist",
+                "repository": "wpackagist-plugin/ambrosite-nextprevious-post-link-plus",
+                "description": "Provides the basic anchor links, to which pinning & scrolling are added"
+            }
+        ]
+    },
     "minimum-stability": "dev",
     "prefer-stable": true,
     "repositories": [
