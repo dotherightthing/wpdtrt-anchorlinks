@@ -17,15 +17,15 @@
         "issues": "https://github.com/dotherightthing/wpdtrt-anchorlinks/issues"
     },
     "require": {
-        "dotherightthing/wpdtrt-plugin-boilerplate": "^1.4.38"
+        "dotherightthing/wpdtrt-plugin-boilerplate": "^1.4.39"
     },
     "require-dev": {
         "phpdocumentor/phpdocumentor": "2.9.0",
         "phpunit/phpunit": "^5.7",
         "psy/psysh" : "~0.6",
         "wp-cli/wp-cli" : "~0.22",
-        "dotherightthing/wpdtrt-contentsections": "^0.1.0",
-        "wpackagist-plugin/better-anchor-links": "^1.7.*"
+        "dotherightthing/wpdtrt-contentsections": "^0.1.8",
+        "wpackagist-plugin/better-anchor-links": "1.7.*"
     },
     "extras": {
         "require-wp": [

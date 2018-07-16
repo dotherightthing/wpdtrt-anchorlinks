@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b51fb32ce24ac0153394bbf4afddf933",
+    "content-hash": "476eabfc13b9c75940f47fa5ea0e0d86",
     "packages": [
         {
             "name": "dotherightthing/wpdtrt-debug",
@@ -54,16 +54,16 @@
         },
         {
             "name": "dotherightthing/wpdtrt-plugin-boilerplate",
-            "version": "1.4.38",
+            "version": "1.4.39",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dotherightthing/wpdtrt-plugin-boilerplate.git",
-                "reference": "e638f0d7b358707a4a3b55a6d83e785c357f84eb"
+                "reference": "872e5f5ae01c15a2385d0cb3e1cfc6dcd96c128f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dotherightthing/wpdtrt-plugin-boilerplate/zipball/e638f0d7b358707a4a3b55a6d83e785c357f84eb",
-                "reference": "e638f0d7b358707a4a3b55a6d83e785c357f84eb",
+                "url": "https://api.github.com/repos/dotherightthing/wpdtrt-plugin-boilerplate/zipball/872e5f5ae01c15a2385d0cb3e1cfc6dcd96c128f",
+                "reference": "872e5f5ae01c15a2385d0cb3e1cfc6dcd96c128f",
                 "shasum": ""
             },
             "require": {
@@ -81,7 +81,7 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "DoTheRightThing\\WPDTRT_Plugin_Boilerplate\\r_1_4_38\\": "src"
+                    "DoTheRightThing\\WPDTRT_Plugin_Boilerplate\\r_1_4_39\\": "src"
                 }
             },
             "license": [
@@ -103,9 +103,9 @@
             "support": {
                 "email": "support@dotherightthing.co.nz",
                 "issues": "https://github.com/dotherightthing/wpdtrt-tourdates/issues",
-                "source": "https://github.com/dotherightthing/wpdtrt-plugin-boilerplate/tree/1.4.38"
+                "source": "https://github.com/dotherightthing/wpdtrt-plugin-boilerplate/tree/1.4.39"
             },
-            "time": "2018-07-11T11:12:15+00:00"
+            "time": "2018-07-15T13:11:03+00:00"
         },
         {
             "name": "gamajo/template-loader",
@@ -941,20 +941,20 @@
         },
         {
             "name": "dotherightthing/wpdtrt-contentsections",
-            "version": "0.1.7",
+            "version": "0.1.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dotherightthing/wpdtrt-contentsections.git",
-                "reference": "e294bb4a751312997c14cad76f8a6704ec5f6128"
+                "reference": "cadc17aaa9759a47e3b7c8e19d795774637a3dc3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dotherightthing/wpdtrt-contentsections/zipball/e294bb4a751312997c14cad76f8a6704ec5f6128",
-                "reference": "e294bb4a751312997c14cad76f8a6704ec5f6128",
+                "url": "https://api.github.com/repos/dotherightthing/wpdtrt-contentsections/zipball/cadc17aaa9759a47e3b7c8e19d795774637a3dc3",
+                "reference": "cadc17aaa9759a47e3b7c8e19d795774637a3dc3",
                 "shasum": ""
             },
             "require": {
-                "dotherightthing/wpdtrt-plugin-boilerplate": "^1.4.38"
+                "dotherightthing/wpdtrt-plugin-boilerplate": "^1.4.39"
             },
             "require-dev": {
                 "phpdocumentor/phpdocumentor": "2.9.0",
@@ -986,9 +986,9 @@
             "support": {
                 "email": "support@dotherightthing.co.nz",
                 "issues": "https://github.com/dotherightthing/wpdtrt-contentsections/issues",
-                "source": "https://github.com/dotherightthing/wpdtrt-contentsections/tree/0.1.7"
+                "source": "https://github.com/dotherightthing/wpdtrt-contentsections/tree/0.1.8"
             },
-            "time": "2018-07-11T11:32:09+00:00"
+            "time": "2018-07-15T13:49:29+00:00"
         },
         {
             "name": "erusev/parsedown",
@@ -4759,16 +4759,16 @@
             "time": "2016-10-25T15:14:00+00:00"
         },
         {
-            "name": "wpackagist-plugin/ambrosite-nextprevious-post-link-plus",
-            "version": "2.4",
+            "name": "wpackagist-plugin/better-anchor-links",
+            "version": "1.7.5",
             "source": {
                 "type": "svn",
-                "url": "https://plugins.svn.wordpress.org/ambrosite-nextprevious-post-link-plus/",
-                "reference": "trunk"
+                "url": "https://plugins.svn.wordpress.org/better-anchor-links/",
+                "reference": "tags/1.7.5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/ambrosite-nextprevious-post-link-plus.zip?timestamp=1329404482",
+                "url": "https://downloads.wordpress.org/plugin/better-anchor-links.1.7.5.zip",
                 "reference": null,
                 "shasum": null
             },
@@ -4776,7 +4776,7 @@
                 "composer/installers": "~1.0"
             },
             "type": "wordpress-plugin",
-            "homepage": "https://wordpress.org/plugins/ambrosite-nextprevious-post-link-plus/"
+            "homepage": "https://wordpress.org/plugins/better-anchor-links/"
         },
         {
             "name": "zendframework/zend-cache",
