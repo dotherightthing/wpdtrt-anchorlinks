@@ -1,5 +1,13 @@
 <?php
 /**
+ * DTRT Anchor Links
+ *
+ * @package     WPDTRT_Anchorlinks
+ * @author      Dan Smith
+ * @copyright   2018 Do The Right Thing
+ * @license     GPL-2.0+
+ *
+ * @wordpress-plugin
  * Plugin Name:  DTRT Anchor Links
  * Plugin URI:   https://github.com/dotherightthing/wpdtrt-anchorlinks
  * Description:  Anchor links plugin.
@@ -100,8 +108,8 @@ require_once $project_root_path . 'vendor/autoload.php';
 if ( is_admin() ) {
 	// This replaces the TGMPA autoloader
 	// @see dotherightthing/generator-wpdtrt-plugin-boilerplate#77
-	// @see dotherightthing/wpdtrt-plugin-boilerplate#136
-	require_once( $project_root_path . 'vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php');
+	// @see dotherightthing/wpdtrt-plugin-boilerplate#136.
+	require_once( $project_root_path . 'vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php' );
 }
 
 // sub classes, not loaded via PSR-4.
@@ -110,7 +118,7 @@ require_once WPDTRT_ANCHORLINKS_PATH . 'src/class-wpdtrt-anchorlinks-plugin.php'
 
 // log & trace helpers.
 global $debug;
-$debug = new DoTheRightThing\WPDebug\Debug;
+$debug = new DoTheRightThing\WPDebug\Debug();
 
 /**
  * ===== WordPress Integration =====
@@ -171,7 +179,7 @@ function wpdtrt_anchorlinks_helper_deactivate() {
  */
 function wpdtrt_anchorlinks_plugin_init() {
 	// pass object reference between classes via global
-	// because the object does not exist until the WordPress init action has fired
+	// because the object does not exist until the WordPress init action has fired.
 	global $wpdtrt_anchorlinks_plugin;
 
 	/**

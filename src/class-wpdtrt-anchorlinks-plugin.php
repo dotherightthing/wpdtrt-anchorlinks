@@ -21,10 +21,9 @@ class WPDTRT_Anchorlinks_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplat
 	 * @since     1.0.0
 	 * @version   1.1.0
 	 */
-	function __construct( $options ) {
+	public function __construct( $options ) {
 
 		// edit here.
-
 		parent::__construct( $options );
 	}
 
@@ -41,10 +40,9 @@ class WPDTRT_Anchorlinks_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplat
 	protected function wp_setup() {
 
 		// edit here.
-
 		parent::wp_setup();
 
-		// add actions and filters here
+		// add actions and filters here.
 		add_filter( 'wpdtrt_anchorlinks_set_api_endpoint', array( $this, 'filter_set_api_endpoint' ) );
 	}
 
@@ -70,7 +68,7 @@ class WPDTRT_Anchorlinks_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplat
 		wp_register_script( 'jquery_waypoints',
 			$this->get_url() . 'node_modules/waypoints/lib/jquery.waypoints.min.js',
 			array(
-				// load these registered dependencies first:
+				// load these registered dependencies first:.
 				'jquery',
 			),
 			'4.0.0',
@@ -78,7 +76,7 @@ class WPDTRT_Anchorlinks_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplat
 		);
 
 		/**
-		 * waypoints sticky nav highlighting
+		 * Waypoints sticky nav highlighting
 		 * Note: this plugin is also loaded via wpdtrt-gallery,
 		 * using the same hook of 'jquery_waypoints',
 		 * so that is is only loaded once (by wpdtrt-gallery);
@@ -88,7 +86,7 @@ class WPDTRT_Anchorlinks_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplat
 		wp_register_script( 'waypoints_sticky',
 			$this->get_url() . 'node_modules/waypoints/lib/shortcuts/sticky.min.js',
 			array(
-				// load these registered dependencies first:
+				// load these registered dependencies first:.
 				'jquery_waypoints',
 			),
 			'4.0.0',
@@ -96,11 +94,11 @@ class WPDTRT_Anchorlinks_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplat
 		);
 
 		// init
-		// from Plugin.php + extra dependencies
+		// from Plugin.php + extra dependencies.
 		wp_enqueue_script( $this->get_prefix(),
 			$this->get_url() . 'js/frontend-es5.js',
 			array(
-				// load these registered dependencies first:
+				// load these registered dependencies first:.
 				'jquery',
 				'waypoints_sticky',
 			),
@@ -108,19 +106,19 @@ class WPDTRT_Anchorlinks_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplat
 			$attach_to_footer
 		);
 
-		// from Plugin.php
+		// from Plugin.php.
 		wp_localize_script( $this->get_prefix(),
 			$this->get_prefix() . '_config',
 			array(
 				// since 2.8 ajaxurl is always defined in the admin header and points to admin-ajax.php
-				// but we need to explicitly expose it to frontend pages
-				'ajaxurl' => admin_url( 'admin-ajax.php' ), // wpdtrt_foobar_config.ajaxurl
-				'options' => $this->get_options(), // wpdtrt_foobar_config.options
+				// but we need to explicitly expose it to frontend pages.
+				'ajaxurl' => admin_url( 'admin-ajax.php' ), // wpdtrt_foobar_config.ajaxurl.
+				'options' => $this->get_options(), // wpdtrt_foobar_config.options.
 			)
 		);
 
 		// Replace rather than extend, in order to specify dependencies:
-		// parent::render_js_frontend();
+		// parent::render_js_frontend();.
 	}
 
 	/**
