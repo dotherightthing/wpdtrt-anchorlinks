@@ -99,7 +99,7 @@ const wpdtrt_anchorlinks_ui = {
             });
 
             $("section.scrollto").waypoint(
-                (direction) => {
+                function(direction) {
                     // Highlight element when related content
                     // is 10% percent from the bottom...
                     // remove if below
@@ -112,7 +112,7 @@ const wpdtrt_anchorlinks_ui = {
             );
 
             $("section.scrollto").waypoint(
-                (direction) => {
+                function(direction) {
                     // Highlight element when bottom of related content
                     // is 100px from the top - remove if less
                     getRelatedNavigation(this.element).toggleClass("active", direction === "up");
@@ -148,8 +148,8 @@ const wpdtrt_anchorlinks_ui = {
         "use strict";
 
         // https://web-design-weekly.com/snippets/scroll-to-position-with-jquery/
-        $.fn.scrollView = (offset, duration) => {
-            return this.each( () => {
+        $.fn.scrollView = function(offset, duration) {
+            return this.each( function() {
                 $("html, body").animate({
                     scrollTop: $(this).offset().top - offset
                 }, duration);
