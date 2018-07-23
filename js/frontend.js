@@ -165,5 +165,5 @@ jQuery(document).ready( ($) => {
     "use strict";
 
     const config = wpdtrt_anchorlinks_config;
-    wpdtrt_anchorlinks_ui.init();
+    wpdtrt_anchorlinks_ui.init($);
 });
