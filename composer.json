@@ -17,7 +17,7 @@
         "issues": "https://github.com/dotherightthing/wpdtrt-anchorlinks/issues"
     },
     "require": {
-        "dotherightthing/wpdtrt-plugin-boilerplate": "^1.4.39"
+        "dotherightthing/wpdtrt-plugin-boilerplate": "^1.5.0"
     },
     "require-dev": {
         "phpdocumentor/phpdocumentor": "2.9.0",
@@ -26,7 +26,7 @@
         "wp-cli/wp-cli" : "~0.22",
         "wp-coding-standards/wpcs": "^0.14.1",
         "DealerDirect/phpcodesniffer-composer-installer": "^0.4.4",
-        "dotherightthing/wpdtrt-contentsections": "^0.1.8",
+        "dotherightthing/wpdtrt-contentsections": "^0.2.1",
         "wpackagist-plugin/better-anchor-links": "1.7.*"
     },
     "extras": {
