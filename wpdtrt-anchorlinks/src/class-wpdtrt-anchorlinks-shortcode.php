@@ -1,6 +1,6 @@
 <?php
 /**
- * Rewrite sub class.
+ * Shortcode sub class.
  *
  * @package WPDTRT_Anchorlinks
  * @since   0.7.17 DTRT WordPress Plugin Boilerplate Generator
@@ -14,12 +14,12 @@
  * @since   1.0.0
  * @version 1.0.0
  */
-class WPDTRT_Anchorlinks_Rewrite extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\r_1_5_1\Rewrite {
+class WPDTRT_Anchorlinks_Shortcode extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\r_1_5_0\Shortcode {
 
 	/**
-	 * Supplement plugin initialisation.
+	 * Supplement shortcode initialisation.
 	 *
-	 * @param     array $options Rewrite options.
+	 * @param     array $options Shortcode options.
 	 * @since     1.0.0
 	 * @version   1.1.0
 	 */
@@ -34,7 +34,7 @@ class WPDTRT_Anchorlinks_Rewrite extends DoTheRightThing\WPDTRT_Plugin_Boilerpla
 	 */
 
 	/**
-	 * Supplement rewrite's WordPress setup.
+	 * Supplement shortcode's WordPress setup.
 	 * Note: Default priority is 10. A higher priority runs later.
 	 *
 	 * @see https://codex.wordpress.org/Plugin_API/Action_Reference Action order
