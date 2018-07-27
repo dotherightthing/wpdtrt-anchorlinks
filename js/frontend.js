@@ -157,6 +157,8 @@ const wpdtrt_anchorlinks_ui = {
         };
 
         wpdtrt_anchorlinks_ui.sticky_jump_menu($);
+
+        console.log("wpdtrt_anchorlinks_ui.init");
     }
 };
 
