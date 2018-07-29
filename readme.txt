@@ -6,7 +6,7 @@ Tags: anchor links, content links, menu, navigation, sticky, scrollto
 Requires at least: 4.9.5
 Tested up to: 4.9.5
 Requires PHP: 5.6.30
-Stable tag: 0.2.3
+Stable tag: 0.2.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -51,6 +51,10 @@ Please refer to the *Shortcode Options* on Settings->DTRT Anchor Links.
 2. The caption for ./images/screenshot-2.(png|jpg|jpeg|gif)
 
 == Changelog ==
+
+= 0.2.4 =
+* Update wpdtrt-plugin-boilerplate to 1.5.4 to fix 'slug' error
+* Add missing initialisation message
 
 = 0.2.3 =
 * Update wpdtrt-plugin-boilerplate to 1.5.3
