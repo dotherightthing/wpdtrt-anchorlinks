@@ -125,7 +125,7 @@ const wpdtrt_anchorlinks_ui = {
                 }
             );
 
-            $("#comments").waypoint(
+            $(".site-footer").waypoint(
                 (direction) => {
 
                     if ( direction === "down" ) {
