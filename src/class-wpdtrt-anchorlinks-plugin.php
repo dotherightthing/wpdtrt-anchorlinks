@@ -44,6 +44,7 @@ class WPDTRT_Anchorlinks_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplat
 
 		// add actions and filters here.
 		add_filter( 'wpdtrt_anchorlinks_set_api_endpoint', array( $this, 'filter_set_api_endpoint' ) );
+		add_filter( 'the_content', array( $this, 'filter_add_anchors' ), 10 );
 	}
 
 	/**
@@ -124,6 +125,51 @@ class WPDTRT_Anchorlinks_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplat
 	/**
 	 * ===== Filters =====
 	 */
+
+	/**
+	 * Method: filter_add_anchors
+	 *
+	 * Add an anchor to each heading.
+	 * Replacement for Better Anchor Links.
+	 *
+	 * Parameters:
+	 *   $content - Content
+	 *
+	 * Returns:
+	 *   $content - Content
+	 *
+	 * See:
+	 * <https://developer.wordpress.org/reference/functions/sanitize_title/>
+	 */
+	public function filter_add_anchors( string $content ) : string {
+		
+		$dom = new DOMDocument();
+		$dom->loadHTML( mb_convert_encoding( $content, 'HTML-ENTITIES', 'UTF-8' ) );
+
+		$headings     = $dom->getElementsByTagName( 'h2' );
+		$replacements = array();
+
+		foreach ( $headings as $key => $heading ) {
+			$heading_span = $dom->createElement( 'span', '#' );
+			$heading_span->setAttribute( 'aria-label', 'Anchor' );
+			$heading_span->setAttribute( 'class', 'wpdtrt-anchorlinks__anchor-icon' );
+
+			$heading_link = $dom->createElement( 'a' );
+			$heading_link->setAttribute( 'class', 'wpdtrt-anchorlinks__anchor-link' );
+
+			$heading->setAttribute( 'class', 'wpdtrt-anchorlinks__anchor' );
+			$heading_id = sanitize_title( $heading->nodeValue );
+			$heading->setAttribute( 'id', $heading_id );
+
+			$heading_link->setAttribute( 'href', '#' . $heading_id );
+			$heading_link->appendChild( $heading_span );
+			$heading->appendChild( $heading_link );
+		}
+
+		$body = $dom->getElementsByTagName('body')->item(0);
+
+		return $dom->saveHTML( $body );
+	}
 
 	/**
 	 * ===== Helpers =====
