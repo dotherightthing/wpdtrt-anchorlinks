@@ -23,7 +23,7 @@ class WPDTRT_Anchorlinks_Widget extends DoTheRightThing\WPDTRT_Plugin_Boilerplat
 	 * @since     1.0.0
 	 * @version   1.1.0
 	 */
-	public function __construct( $options ) {
+	public function __construct( $options ) { // phpcs:ignore
 
 		// edit here.
 		parent::__construct( $options );
