@@ -26,11 +26,20 @@ $breakpoints: (
 );
 
 // -------------------------------------------------------------------
-// Colors
-// http://hex2rgba.devoth.com/
+// CSS Variables
 // -------------------------------------------------------------------
 
-$wpdtrt-anchorlinks-link-text-color: rgba(85, 85, 85, 1);
-$wpdtrt-anchorlinks-link-text-color--active: rgba(0, 0, 0, 1);
-$wpdtrt-anchorlinks-link-border-color--active: rgba(85, 85, 85, 1);
-$wpdtrt-anchorlinks-title-border-color: rgba(204, 204, 204, 1);
+:root {
+    --wpdtrt-anchorlinks-color-link: hsla(0, 0%, 33%, 1);
+    --wpdtrt-anchorlinks-color-link-active: hsla(0, 0%, 0%, 1);
+    --wpdtrt-anchorlinks-color-border-link: hsla(0, 0%, 80%, 1);
+    --wpdtrt-anchorlinks-color-border-link-active: hsla(0, 0%, 33%, 1);
+    --wpdtrt-anchorlinks-color-border-scroll-progress: hsla(0, 0%, 0%, 1);
+    --wpdtrt-anchorlinks-color-link-hover: hsla(0, 0%, 0%, 1);
+    --wpdtrt-anchorlinks-font-weight-active: bold;
+    --wpdtrt-anchorlinks-line-height-link: 1.4;
+    --wpdtrt-anchorlinks-padding-link: .3em 0;
+    --wpdtrt-anchorlinks-padding-title: 0 0 1.5em;
+    --wpdtrt-anchorlinks-margin-link: 0 0 .125em;
+    --wpdtrt-anchorlinks-margin-title: .3em 0 3em;
+}

@@ -18,16 +18,10 @@
 
 // -------------------------------------------------------------------
 // Styles
+// .sticky is applied to .wpdtrt-anchorlinks__site
 // -------------------------------------------------------------------
 
-.page-summary {
-    position: relative; // AP
-}
-
 .wpdtrt-anchorlinks {
-    font-size: .75em;
-    margin-bottom: 4em;
-
     .sticky & {
         position: relative;
         top: auto;
@@ -47,22 +41,23 @@
 
     &__list-link {
         display: block;
-        color: $wpdtrt-anchorlinks-link-text-color;
-        line-height: 1.4;
+        color: var(--wpdtrt-anchorlinks-color-link);
+        line-height: var(--wpdtrt-anchorlinks-line-height-link);
         text-decoration: none;
-        padding: .3em 0;
-        box-shadow: 0 0 0 0 currentColor;
-        margin-bottom: .125em;
+        padding: var(--wpdtrt-anchorlinks-padding-link);
+        // box-shadow: 0 0 0 0 currentColor;
+        margin-bottom: var(--wpdtrt-anchorlinks-margin-link);
 
         &:hover,
         &:focus {
+            color: var(--wpdtrt-anchorlinks-color-link-hover);
             text-decoration: underline;
         }
 
         &.active {
-            color: $wpdtrt-anchorlinks-link-text-color--active;
-            font-weight: bold;
-            border-color: $wpdtrt-anchorlinks-link-border-color--active;
+            color: var(--wpdtrt-anchorlinks-color-link-active);
+            font-weight: var(--wpdtrt-anchorlinks-font-weight-active);
+            border-color: var(--wpdtrt-anchorlinks-color-border-link-active);
         }
     }
 
@@ -71,13 +66,18 @@
         top: 100%;
         left: 0;
         width: 0;
+
+        .sticky & {
+            border-top: 1px solid var(--wpdtrt-anchorlinks-color-border-scroll-progress);
+        }
     }
 
     &__title {
         position: relative;
-        padding-bottom: 1.5em;
-        border-bottom: 1px solid $wpdtrt-anchorlinks-title-border-color;
-        margin-top: .3em;
-        margin-bottom: 3em; // align with top of gallery viewer (assumes there is a gallery viewer..
+        font-family: inherit;
+        font-size: inherit;
+        padding: var(--wpdtrt-anchorlinks-padding-title);
+        border-bottom: 1px solid var(--wpdtrt-anchorlinks-color-border-link);
+        margin: var(--wpdtrt-anchorlinks-margin-title); // align with top of gallery viewer (assumes there is a gallery viewer..
     }
 }
