@@ -142,7 +142,6 @@ class WPDTRT_Anchorlinks_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplat
 	 * <https://developer.wordpress.org/reference/functions/sanitize_title/>
 	 */
 	public function filter_content_anchors( string $content ) : string {
-		
 		$dom = new DOMDocument();
 		$dom->loadHTML( mb_convert_encoding( $content, 'HTML-ENTITIES', 'UTF-8' ) );
 
@@ -158,7 +157,7 @@ class WPDTRT_Anchorlinks_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplat
 			$heading_link->setAttribute( 'class', 'wpdtrt-anchorlinks__anchor-link' );
 
 			$heading->setAttribute( 'class', 'wpdtrt-anchorlinks__anchor' );
-			$heading_id = sanitize_title( $heading->nodeValue );
+			$heading_id = sanitize_title( $heading->nodeValue ); // phpcs:ignore
 			$heading->setAttribute( 'id', $heading_id );
 
 			$heading_link->setAttribute( 'href', '#' . $heading_id );
@@ -166,7 +165,7 @@ class WPDTRT_Anchorlinks_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplat
 			$heading->appendChild( $heading_link );
 		}
 
-		$body = $dom->getElementsByTagName('body')->item(0);
+		$body = $dom->getElementsByTagName( 'body' )->item( 0 );
 
 		return $dom->saveHTML( $body );
 	}
