@@ -2,13 +2,13 @@
  * @file DTRT Anchor Links frontend.js
  * @summary
  *     Front-end scripting for public pages
- *     PHP variables are provided in `wpdtrtAnchorlinksConfig`.
+ *     PHP variables are provided in `wpdtrt_anchorlinks_config`.
  * @version 0.0.1
  * @see 0.7.0 DTRT WordPress Plugin Boilerplate Generator
  */
 
 /* eslint-env browser */
-/* global jQuery, wpdtrtAnchorlinksConfig, Waypoint */
+/* global jQuery, wpdtrt_anchorlinks_config, Waypoint */
 /* eslint-disable no-unused-vars, max-len, require-jsdoc */
 
 /**
@@ -192,6 +192,6 @@ const wpdtrtAnchorlinksUi = {
 };
 
 jQuery(document).ready(($) => {
-    const config = wpdtrtAnchorlinksConfig;
+    const config = wpdtrt_anchorlinks_config; // eslint-disable-line camelcase
     wpdtrtAnchorlinksUi.init($);
 });
