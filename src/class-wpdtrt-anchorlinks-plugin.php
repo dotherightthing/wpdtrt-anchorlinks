@@ -86,24 +86,23 @@ class WPDTRT_Anchorlinks_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplat
 	 * Returns:
 	 *   $anchors
 	 */
-	protected function get_anchor_list_html( $page_id ) {
-
+	public function get_anchor_list_html( $page_id ) {
 		$post    = get_post( $page_id );
 		$content = apply_filters( 'the_content', $post->post_content );
 
 		$dom = new DOMDocument();
 		$dom->loadHTML( mb_convert_encoding( $content, 'HTML-ENTITIES', 'UTF-8' ) );
 
-		$children    = $dom->childNodes();
+		$children    = $dom->getElementsByTagName( 'h2' );
 		$anchors     = array();
 		$anchor_list = '';
 
 		foreach ( $children as $child ) {
 			if ( $child->getAttribute( 'class' ) === 'wpdtrt-anchorlinks__anchor' ) {
-				array_push( $anchors, array(
-					$child->nodeValue(),
+				$anchors[] = array(
+					$child->nodeValue, // phpcs:ignore
 					$child->getAttribute( 'id' ),
-				) );
+				);
 			}
 		}
 
@@ -111,7 +110,8 @@ class WPDTRT_Anchorlinks_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplat
 			$anchor_list = $dom->createElement( 'ul' );
 
 			foreach ( $anchors as $anchor ) {
-				$anchor_list_item_link = $dom->createElement( 'a', $anchor[0] );
+				$anchor_list_item_text = str_replace( '#', '', $anchor[0] );
+				$anchor_list_item_link = $dom->createElement( 'a', $anchor_list_item_text );
 				$anchor_list_item_link->setAttribute( 'href', '#' . $anchor[1] );
 				$anchor_list_item_link->setAttribute( 'class', 'wpdtrt-anchorlinks__list-link' );
 
