@@ -55,6 +55,7 @@ Please refer to the *Shortcode Options* on Settings->DTRT Anchor Links.
 = 0.2.5 =
 * Remove better-anchor-links dependency
 * Remove wpdtrt-contentsections dependency
+* Replace gulp with wpdtrt-npm-scripts
 
 = 0.2.4 =
 * Update wpdtrt-plugin-boilerplate to 1.5.4 to fix 'slug' error
