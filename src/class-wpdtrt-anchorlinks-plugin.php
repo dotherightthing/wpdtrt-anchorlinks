@@ -124,7 +124,7 @@ class WPDTRT_Anchorlinks_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplat
 			}
 		}
 
-		$anchor_list_html = $this->get_html( $anchor_list );
+		$anchor_list_html = $this->get_html( $anchor_list, true );
 
 		return $anchor_list_html;
 	}
