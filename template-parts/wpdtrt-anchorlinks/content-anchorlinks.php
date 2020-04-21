@@ -34,7 +34,7 @@ echo $before_title . $title . $after_title;
 
 <div class="wpdtrt-anchorlinks">
 	<?php
-		/* ====== Add plugin output here ====== */
+		/* ====== Generate links here ====== */
 	?>
 </div>
 
