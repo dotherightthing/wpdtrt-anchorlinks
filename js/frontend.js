@@ -24,38 +24,83 @@
 const wpdtrtAnchorlinksUi = {
 
     /**
-     * @function sticky_jump_menu
-     * @summary Inject wrappers required for fixed positioning, manage scroll link highlighting
+     * @function getRelatedNavigation
+     * @summary Get link by section or article id
      * @memberof wpdtrtAnchorlinksUi
      * @protected
      *
-     * @param {external:jQuery} $ - jQuery
+     * @param {external:jQuery} el - anchor element
+     * @returns {external:jQuery} link element
      */
-    sticky_jump_menu: ($) => {
-        const $jumpMenu = $('.wpdtrt-anchorlinks');
+    getRelatedNavigation: ($, el) => $(`.wpdtrt-anchorlinks__list-link[href='#${$(el).attr('id')}']`),
 
-        if (!$jumpMenu.length) {
-            return;
-        }
-
-        // inject the summary section into the nav
+    /**
+     * @function injectSummaryLink
+     * @summary Inject the summary section into the nav.
+     * @memberof wpdtrtAnchorlinksUi
+     * @protected
+     *
+     * @param {external:jQuery} $jumpMenu - .wpdtrt-anchorlinks
+     */
+    injectSummaryLink: ($jumpMenu) => {
         const $firstItem = $jumpMenu.find('.wpdtrt-anchorlinks__list-item').eq(0);
         let summaryItem = '';
+
         summaryItem += '<li class="wpdtrt-anchorlinks__list-item">';
-        summaryItem += '<a class="wpdtrt-anchorlinks__list-link" href="#summary">'
+        summaryItem += '<a href="#summary" class="wpdtrt-anchorlinks__list-link">'
         summaryItem += 'Introduction';
         summaryItem += '</a>';
         summaryItem += '</li>';
 
         $firstItem.before(summaryItem);
+    },
 
-        // the wrapper is assigned critical dimensions as the page, and then fixed to the top
-        // this allows the actual menu bar to be positioned within a page like construct
+    /**
+     * @function showScrollProgress
+     * @summary Resize the indicator according to the scroll progress
+     * @memberof wpdtrtAnchorlinksUi
+     * @protected
+     *
+     * @param {external:jQuery} $ - jQuery
+     */
+    showScrollProgress: ($) => {
+        const $title = $('.wpdtrt-anchorlinks__title');
+        const $links = $('.wpdtrt-anchorlinks__list-link');
+        const linksCount = $links.length;
+        const $linkActive = $('.wpdtrt-anchorlinks__list-link.active');
+        const linksActiveIndex = $links.index($linkActive) + 1;
+        let pctThru = (linksActiveIndex / linksCount) * 100;
+        const $scrollProgress = $('.wpdtrt-anchorlinks__scroll-progress');
+
+        if (!$scrollProgress.length) {
+            $title.append('<div class="wpdtrt-anchorlinks__scroll-progress"></div>');
+        }
+
+        // if we're in a section, show how far through we are
+        // else assume that we're all the way through
+        if (linksActiveIndex < 1) {
+            pctThru = 100;
+        }
+
+        $('.wpdtrt-anchorlinks__scroll-progress').css('width', `${pctThru}%`);
+    },
+
+    /**
+     * @function wrapMenu
+     * @summary Add wrappers to allow the pinned menu bar to be positioned within a page-like construct.
+     * @memberof wpdtrtAnchorlinksUi
+     * @protected
+     *
+     * @param {external:jQuery} $ - jQuery
+     * @param {external:jQuery} $jumpMenu - .wpdtrt-anchorlinks
+     * @returns {external:jQuery} .wpdtrt-anchorlinks__site
+     */
+    wrapMenu: ($, $jumpMenu) => {
         let html = '';
-        html += '<div class=\'wpdtrt_anchorlinks__site\'>';
-        html += '<div class=\'wpdtrt_anchorlinks__site-inner\'>';
-        html += '<div class=\'wpdtrt_anchorlinks__site-content\'>';
-        html += '<div class=\'wpdtrt_anchorlinks__entry-content\'>';
+        html += '<div class="wpdtrt-anchorlinks__site">';
+        html += '<div class="wpdtrt-anchorlinks__site-inner">';
+        html += '<div class="wpdtrt-anchorlinks__site-content">';
+        html += '<div class="wpdtrt-anchorlinks__entry-content">';
         html += '</div>';
         html += '</div>';
         html += '</div>';
@@ -63,11 +108,30 @@ const wpdtrtAnchorlinksUi = {
 
         $jumpMenu.wrap(html);
 
-        const $jumpMenuLayout = $('.wpdtrt-anchorlinks__site');
+        return $('.wpdtrt-anchorlinks__site');
+    },
+
+    /**
+     * @function sticky_jump_menu
+     * @summary Inject wrappers required for fixed positioning, manage scroll link highlighting
+     * @memberof wpdtrtAnchorlinksUi
+     * @protected
+     *
+     * @param {external:jQuery} $ - jQuery
+     * @param {external:jQuery} $jumpMenu - Jump menu
+     */
+    sticky_jump_menu: ($, $jumpMenu) => {
+        if (!$jumpMenu.length) {
+            return;
+        }
+
+        wpdtrtAnchorlinksUi.injectSummaryLink($jumpMenu);
+
+        const $wrapper = wpdtrtAnchorlinksUi.wrapMenu($, $jumpMenu);
 
         // removed as this makes for a terrible tab order
         // var $summary = $('.entry-summary-wrapper');
-        // $summary.after($jumpMenuLayout);
+        // $summary.after($wrapper);
 
         /*
          * highlight active nav item on scroll
@@ -80,72 +144,33 @@ const wpdtrtAnchorlinksUi = {
          * + DTRT make sticky
          */
 
-        /**
-         * @function getRelatedNavigation
-         * @summary Get link by section or article id
-         * @memberof wpdtrtAnchorlinksUi
-         * @protected
-         *
-         * @param {external:jQuery} el - anchor element
-         * @returns {external:jQuery} link element
-         */
-        function getRelatedNavigation(el) {
-            return $(`.wpdtrt-anchorlinks__list-link[href='#${$(el).attr('id')}']`);
-        }
+        const $anchors = $('.wpdtrt-anchorlinks__anchor');
 
-        /**
-         * @function showScrollProgress
-         * @summary Resize the indicator according to the scroll progress
-         * @memberof wpdtrtAnchorlinksUi
-         * @protected
-         */
-        function showScrollProgress() {
-            const $mwmTitle = $('.wpdtrt-anchorlinks__title');
-            const $mwmLinks = $('.wpdtrt-anchorlinks__list-link');
-            const mwmLinksCount = $mwmLinks.length;
-            const $mwmLinkActive = $('.wpdtrt-anchorlinks__list-link.active');
-            const mwmLinksActiveIndex = $mwmLinks.index($mwmLinkActive) + 1;
-            let pctThru = (mwmLinksActiveIndex / mwmLinksCount) * 100;
-            const $scrollProgress = $('.wpdtrt-anchorlinks__scroll-progress');
-
-            if (!$scrollProgress.length) {
-                $mwmTitle.append('<div class=\'wpdtrt_anchorlinks__scroll-progress\'></div>');
-            }
-
-            // if we're in a section, show how far through we are
-            // else assume that we're all the way through
-            if (mwmLinksActiveIndex < 1) {
-                pctThru = 100;
-            }
-
-            $('.wpdtrt-anchorlinks__scroll-progress').css('width', `${pctThru}%`);
-        }
-
-        if ($('.wpdtrt-anchorlinks__anchor').length) {
+        if ($anchors.length) {
             const sticky = new Waypoint.Sticky({
-                element: $jumpMenuLayout[0],
+                element: $wrapper[0],
                 stuckClass: 'sticky'
             });
 
-            $('.wpdtrt-anchorlinks__anchor').waypoint(
+            $anchors.waypoint(
                 function (direction) { // eslint-disable-line func-names
                     // Highlight element when related content
                     // is 10% percent from the bottom...
                     // remove if below
-                    getRelatedNavigation(this.element).toggleClass('active', direction === 'down');
-                    showScrollProgress();
+                    wpdtrtAnchorlinksUi.getRelatedNavigation($, this.element).toggleClass('active', direction === 'down');
+                    wpdtrtAnchorlinksUi.showScrollProgress($);
                 },
                 {
                     offset: '90%'
                 }
             );
 
-            $('.wpdtrt-anchorlinks__anchor').waypoint(
+            $anchors.waypoint(
                 function (direction) { // eslint-disable-line func-names
                     // Highlight element when bottom of related content
                     // is 100px from the top - remove if less
-                    getRelatedNavigation(this.element).toggleClass('active', direction === 'up');
-                    showScrollProgress();
+                    wpdtrtAnchorlinksUi.getRelatedNavigation($, this.element).toggleClass('active', direction === 'up');
+                    wpdtrtAnchorlinksUi.showScrollProgress($);
                 },
                 {
                     offset: function () {
@@ -172,7 +197,7 @@ const wpdtrtAnchorlinksUi = {
     },
 
     /**
-     * @function showScrollProgress
+     * @function init
      * @summary Initialise the component
      * @memberof wpdtrtAnchorlinksUi
      * @public
@@ -189,7 +214,7 @@ const wpdtrtAnchorlinksUi = {
             });
         };
 
-        wpdtrtAnchorlinksUi.sticky_jump_menu($);
+        wpdtrtAnchorlinksUi.sticky_jump_menu($, $('.wpdtrt-anchorlinks')); 
 
         console.log('wpdtrtAnchorlinksUi.init'); // eslint-disable-line no-console
     }
