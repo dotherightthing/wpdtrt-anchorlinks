@@ -44,7 +44,7 @@ class WPDTRT_Anchorlinks_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplat
 
 		// add actions and filters here.
 		add_filter( 'wpdtrt_anchorlinks_set_api_endpoint', array( $this, 'filter_set_api_endpoint' ) );
-		add_filter( 'the_content', array( $this, 'filter_add_anchors' ), 10 );
+		add_filter( 'the_content', array( $this, 'filter_content_anchors' ), 10 );
 	}
 
 	/**
@@ -127,7 +127,7 @@ class WPDTRT_Anchorlinks_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplat
 	 */
 
 	/**
-	 * Method: filter_add_anchors
+	 * Method: filter_content_anchors
 	 *
 	 * Add an anchor to each heading.
 	 * Replacement for Better Anchor Links.
@@ -141,7 +141,7 @@ class WPDTRT_Anchorlinks_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplat
 	 * See:
 	 * <https://developer.wordpress.org/reference/functions/sanitize_title/>
 	 */
-	public function filter_add_anchors( string $content ) : string {
+	public function filter_content_anchors( string $content ) : string {
 		
 		$dom = new DOMDocument();
 		$dom->loadHTML( mb_convert_encoding( $content, 'HTML-ENTITIES', 'UTF-8' ) );
