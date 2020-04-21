@@ -24,7 +24,7 @@
     position: relative; // AP
 }
 
-.mwm-aal-container {
+.wpdtrt-anchorlinks {
     font-size: .75em;
     margin-bottom: 4em;
 
@@ -34,18 +34,18 @@
         right: auto;
     }
 
-    > .mwm-aal-item {
-        display: none;
-    }
+    // > .mwm-aal-item {
+    //     display: none;
+    // }
 
-    ol,
-    li {
+    &__list,
+    &__list-item {
         list-style: none;
         padding-left: 0;
         margin-left: 0;
     }
 
-    li > a {
+    &__list-link {
         display: block;
         color: $wpdtrt-anchorlinks-link-text-color;
         line-height: 1.4;
@@ -65,23 +65,19 @@
             border-color: $wpdtrt-anchorlinks-link-border-color--active;
         }
     }
-}
 
-.mwm-aal-title {
-    position: relative;
-    padding-bottom: 1.5em;
-    border-bottom: 1px solid $wpdtrt-anchorlinks-title-border-color;
-    margin-top: .3em;
-    margin-bottom: 3em; // align with top of gallery viewer (assumes there is a gallery viewer..
-
-    .scroll-progress {
+    &__scroll-progress {
         position: absolute;
         top: 100%;
         left: 0;
         width: 0;
     }
-}
 
-// -------------------------------------------------------------------
-// Media Queries
-// -------------------------------------------------------------------
+    &__title {
+        position: relative;
+        padding-bottom: 1.5em;
+        border-bottom: 1px solid $wpdtrt-anchorlinks-title-border-color;
+        margin-top: .3em;
+        margin-bottom: 3em; // align with top of gallery viewer (assumes there is a gallery viewer..
+    }
+}

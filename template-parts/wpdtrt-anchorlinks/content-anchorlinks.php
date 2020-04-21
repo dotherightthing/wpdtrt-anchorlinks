@@ -38,8 +38,8 @@ echo $before_widget;
 echo $before_title . $title . $after_title;
 ?>
 
-<div class="wpdtrt-anchorlinks mwm-aal-container">
-	<h3 class="wpdtrt-anchorlinks__title mwm-aal-title">Outline</h3>
+<div class="wpdtrt-anchorlinks">
+	<h3 class="wpdtrt-anchorlinks__title">Outline</h3>
 	<?php
 		echo $anchor_list_html;
 	?>

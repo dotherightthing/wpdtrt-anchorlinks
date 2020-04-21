@@ -108,6 +108,7 @@ class WPDTRT_Anchorlinks_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplat
 
 		if ( count( $anchors ) > 0 ) {
 			$anchor_list = $dom->createElement( 'ol' );
+			$anchor_list->setAttribute( 'class', 'wpdtrt-anchorlinks__list' );
 
 			foreach ( $anchors as $anchor ) {
 				$anchor_list_item_text = str_replace( '#', '', $anchor[0] );

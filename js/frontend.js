@@ -32,26 +32,30 @@ const wpdtrtAnchorlinksUi = {
      * @param {external:jQuery} $ - jQuery
      */
     sticky_jump_menu: ($) => {
-        const $jumpMenu = $('.mwm-aal-container');
+        const $jumpMenu = $('.wpdtrt-anchorlinks');
 
         if (!$jumpMenu.length) {
             return;
         }
 
         // inject the summary section into the nav
-        const $firstItem = $jumpMenu.find('ol > li').eq(0);
-        const $lastItem = $jumpMenu.find('ol > li:last');
-        const summaryItem = '<li><a href=\'#summary\'>Introduction</a</li>';
+        const $firstItem = $jumpMenu.find('.wpdtrt-anchorlinks__list-item').eq(0);
+        let summaryItem = '';
+        summaryItem += '<li class="wpdtrt-anchorlinks__list-item">';
+        summaryItem += '<a class="wpdtrt-anchorlinks__list-link" href="#summary">'
+        summaryItem += 'Introduction';
+        summaryItem += '</a>';
+        summaryItem += '</li>';
 
         $firstItem.before(summaryItem);
 
         // the wrapper is assigned critical dimensions as the page, and then fixed to the top
         // this allows the actual menu bar to be positioned within a page like construct
         let html = '';
-        html += '<div class=\'mwm-aal-container--site\'>';
-        html += '<div class=\'mwm-aal-container--site-inner\'>';
-        html += '<div class=\'mwm-aal-container--site-content\'>';
-        html += '<div class=\'mwm-aal-container--entry-content\'>';
+        html += '<div class=\'wpdtrt_anchorlinks__site\'>';
+        html += '<div class=\'wpdtrt_anchorlinks__site-inner\'>';
+        html += '<div class=\'wpdtrt_anchorlinks__site-content\'>';
+        html += '<div class=\'wpdtrt_anchorlinks__entry-content\'>';
         html += '</div>';
         html += '</div>';
         html += '</div>';
@@ -59,7 +63,7 @@ const wpdtrtAnchorlinksUi = {
 
         $jumpMenu.wrap(html);
 
-        const $jumpMenuLayout = $('.mwm-aal-container--site');
+        const $jumpMenuLayout = $('.wpdtrt-anchorlinks__site');
 
         // removed as this makes for a terrible tab order
         // var $summary = $('.entry-summary-wrapper');
@@ -86,7 +90,7 @@ const wpdtrtAnchorlinksUi = {
          * @returns {external:jQuery} link element
          */
         function getRelatedNavigation(el) {
-            return $(`.mwm-aal-container a[href='#${$(el).attr('id')}']`);
+            return $(`.wpdtrt-anchorlinks__list-link[href='#${$(el).attr('id')}']`);
         }
 
         /**
@@ -96,16 +100,16 @@ const wpdtrtAnchorlinksUi = {
          * @protected
          */
         function showScrollProgress() {
-            const $mwmTitle = $('.mwm-aal-title');
-            const $mwmLinks = $('.mwm-aal-container > ol a');
+            const $mwmTitle = $('.wpdtrt-anchorlinks__title');
+            const $mwmLinks = $('.wpdtrt-anchorlinks__list-link');
             const mwmLinksCount = $mwmLinks.length;
-            const $mwmLinkActive = $('.mwm-aal-container > ol a.active');
+            const $mwmLinkActive = $('.wpdtrt-anchorlinks__list-link.active');
             const mwmLinksActiveIndex = $mwmLinks.index($mwmLinkActive) + 1;
             let pctThru = (mwmLinksActiveIndex / mwmLinksCount) * 100;
-            const $scrollProgress = $('.scroll-progress');
+            const $scrollProgress = $('.wpdtrt-anchorlinks__scroll-progress');
 
             if (!$scrollProgress.length) {
-                $mwmTitle.append('<div class=\'scroll-progress\'></div>');
+                $mwmTitle.append('<div class=\'wpdtrt_anchorlinks__scroll-progress\'></div>');
             }
 
             // if we're in a section, show how far through we are
@@ -114,7 +118,7 @@ const wpdtrtAnchorlinksUi = {
                 pctThru = 100;
             }
 
-            $('.scroll-progress').css('width', `${pctThru}%`);
+            $('.wpdtrt-anchorlinks__scroll-progress').css('width', `${pctThru}%`);
         }
 
         if ($('.wpdtrt-anchorlinks__anchor').length) {
@@ -160,7 +164,7 @@ const wpdtrtAnchorlinksUi = {
                 },
                 {
                     offset: function () {
-                        return $('.mwm-aal-container').height();
+                        return $('.wpdtrt-anchorlinks').height();
                     }
                 }
             );
