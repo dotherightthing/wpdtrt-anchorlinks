@@ -43,13 +43,90 @@ class WPDTRT_Anchorlinks_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplat
 		parent::wp_setup();
 
 		// add actions and filters here.
-		add_filter( 'wpdtrt_anchorlinks_set_api_endpoint', array( $this, 'filter_set_api_endpoint' ) );
 		add_filter( 'the_content', array( $this, 'filter_content_anchors' ), 10 );
 	}
 
 	/**
 	 * ====== Getters and Setters ======
 	 */
+
+	/**
+	 * Method: get_html
+	 *
+	 * This is better than getting child nodes because WP shortcodes aren't HTML elements.
+	 *
+	 * Parameters:
+	 *   $n - DOM node
+	 *   $include_target_tag - whether to include the element tag in the output
+	 *
+	 * Returns:
+	 *   $html - HTML
+	 *
+	 * See:
+	 * <https://stackoverflow.com/a/53740544/6850747>
+	 */
+	public function get_html( DOMNode $n, $include_target_tag = false ) : string {
+		$dom = new DOMDocument();
+		$dom->appendChild( $dom->importNode( $n, true ) ); // $deep.
+		$html = trim( $dom->saveHTML() );
+
+		if ( $include_target_tag ) {
+			return $html;
+		}
+
+		return preg_replace( '@^<' . $n->nodeName . '[^>]*>|</'. $n->nodeName . '>$@', '', $html ); // phpcs:ignore
+	}
+
+	/**
+	 * Method: get_anchor_list_html
+	 *
+	 * Parameters:
+	 *   $page_id - Page ID
+	 *
+	 * Returns:
+	 *   $anchors
+	 */
+	protected function get_anchor_list_html( $page_id ) {
+
+		$post    = get_post( $page_id );
+		$content = apply_filters( 'the_content', $post->post_content );
+
+		$dom = new DOMDocument();
+		$dom->loadHTML( mb_convert_encoding( $content, 'HTML-ENTITIES', 'UTF-8' ) );
+
+		$children    = $dom->childNodes();
+		$anchors     = array();
+		$anchor_list = '';
+
+		foreach ( $children as $child ) {
+			if ( $child->getAttribute( 'class' ) === 'wpdtrt-anchorlinks__anchor' ) {
+				array_push( $anchors, array(
+					$child->nodeValue(),
+					$child->getAttribute( 'id' ),
+				) );
+			}
+		}
+
+		if ( count( $anchors ) > 0 ) {
+			$anchor_list = $dom->createElement( 'ul' );
+
+			foreach ( $anchors as $anchor ) {
+				$anchor_list_item_link = $dom->createElement( 'a', $anchor[0] );
+				$anchor_list_item_link->setAttribute( 'href', '#' . $anchor[1] );
+				$anchor_list_item_link->setAttribute( 'class', 'wpdtrt-anchorlinks__list-link' );
+
+				$anchor_list_item = $dom->createElement( 'li' );
+				$anchor_list_item->setAttribute( 'class', 'wpdtrt-anchorlinks__list-item' );
+				$anchor_list_item->appendChild( $anchor_list_item_link );
+
+				$anchor_list->appendChild( $anchor_list_item );
+			}
+		}
+
+		$anchor_list_html = $this->get_html( $anchor_list );
+
+		return $anchor_list_html;
+	}
 
 	/**
 	 * ===== Renderers =====

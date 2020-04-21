@@ -27,15 +27,21 @@ $options = get_query_var( 'options' );
 // @link http://kb.network.dan/php/wordpress/extract/.
 extract( $options, EXTR_IF_EXISTS );
 
+global $post;
+$post_id = $post->ID;
+
+// Logic.
+$anchor_list_html = $plugin->get_anchor_list_html( $post_id );
+
 // WordPress widget options (not output with shortcode).
 echo $before_widget;
 echo $before_title . $title . $after_title;
 ?>
 
 <div class="wpdtrt-anchorlinks">
-	<?php
-		/* ====== Generate links here ====== */
-	?>
+<?php
+	echo $anchor_list_html;
+?>
 </div>
 
 <?php

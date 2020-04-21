@@ -115,6 +115,8 @@ if ( is_admin() ) {
 // sub classes, not loaded via PSR-4.
 // remove the includes you don't need, edit the files you do need.
 require_once WPDTRT_ANCHORLINKS_PATH . 'src/class-wpdtrt-anchorlinks-plugin.php';
+require_once WPDTRT_ANCHORLINKS_PATH . 'src/class-wpdtrt-anchorlinks-shortcode.php';
+require_once WPDTRT_ANCHORLINKS_PATH . 'src/class-wpdtrt-anchorlinks-widget.php';
 
 // log & trace helpers.
 global $debug;
@@ -135,6 +137,8 @@ $debug = new DoTheRightThing\WPDebug\Debug();
 register_activation_hook( dirname( __FILE__ ), 'wpdtrt_anchorlinks_helper_activate' );
 
 add_action( 'init', 'wpdtrt_anchorlinks_plugin_init', 0 );
+add_action( 'init', 'wpdtrt_anchorlinks_shortcode_init', 100 );
+add_action( 'init', 'wpdtrt_anchorlinks_widget_init', 100 );
 
 register_deactivation_hook( dirname( __FILE__ ), 'wpdtrt_anchorlinks_helper_deactivate' );
 
@@ -273,7 +277,12 @@ function wpdtrt_anchorlinks_shortcode_init() {
 	global $wpdtrt_anchorlinks_plugin;
 
 	$wpdtrt_anchorlinks_shortcode = new WPDTRT_Anchorlinks_Shortcode(
-		array()
+		array(
+			'name'                      => 'wpdtrt_anchorlinks_shortcode',
+			'plugin'                    => $wpdtrt_anchorlinks_plugin,
+			'template'                  => 'anchorlinks',
+			'selected_instance_options' => array(),
+		)
 	);
 }
 
@@ -320,7 +329,12 @@ function wpdtrt_anchorlinks_widget_init() {
 	global $wpdtrt_anchorlinks_plugin;
 
 	$wpdtrt_anchorlinks_widget = new WPDTRT_Anchorlinks_Widget(
-		array()
+		array(
+			'name'                      => 'wpdtrt_anchorlinks_shortcode',
+			'plugin'                    => $wpdtrt_anchorlinks_plugin,
+			'template'                  => 'anchorlinks',
+			'selected_instance_options' => array(),
+		)
 	);
 
 	register_widget( $wpdtrt_anchorlinks_widget );
