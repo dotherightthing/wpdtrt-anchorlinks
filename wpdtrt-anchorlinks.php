@@ -116,7 +116,6 @@ if ( is_admin() ) {
 // remove the includes you don't need, edit the files you do need.
 require_once WPDTRT_ANCHORLINKS_PATH . 'src/class-wpdtrt-anchorlinks-plugin.php';
 require_once WPDTRT_ANCHORLINKS_PATH . 'src/class-wpdtrt-anchorlinks-shortcode.php';
-require_once WPDTRT_ANCHORLINKS_PATH . 'src/class-wpdtrt-anchorlinks-widget.php';
 
 // log & trace helpers.
 global $debug;
@@ -138,7 +137,6 @@ register_activation_hook( dirname( __FILE__ ), 'wpdtrt_anchorlinks_helper_activa
 
 add_action( 'init', 'wpdtrt_anchorlinks_plugin_init', 0 );
 add_action( 'init', 'wpdtrt_anchorlinks_shortcode_init', 100 );
-add_action( 'init', 'wpdtrt_anchorlinks_widget_init', 100 );
 
 register_deactivation_hook( dirname( __FILE__ ), 'wpdtrt_anchorlinks_helper_deactivate' );
 
@@ -315,39 +313,4 @@ function wpdtrt_anchorlinks_taxonomy_init() {
 
 	// return a reference for unit testing.
 	return $wpdtrt_anchorlinks_taxonomy;
-}
-
-/**
- * ===== Widget config =====
- */
-
-/**
- * Register a WordPress widget, passing in an instance of our custom widget class
- * The plugin does not require registration, but widgets and shortcodes do.
- * Note: widget_init fires before init, unless init has a priority of 0
- *
- * @uses        ../../../../wp-includes/widgets.php
- * @see         https://codex.wordpress.org/Function_Reference/register_widget#Example
- * @see         https://wp-mix.com/wordpress-widget_init-not-working/
- * @see         https://codex.wordpress.org/Plugin_API/Action_Reference
- * @uses        https://github.com/dotherightthing/wpdtrt/tree/master/library/sidebars.php
- * @todo        Add form field parameters to the options array
- * @todo        Investigate the 'classname' option
- */
-function wpdtrt_anchorlinks_widget_init() {
-
-	global $wpdtrt_anchorlinks_plugin;
-
-	$wpdtrt_anchorlinks_widget = new WPDTRT_Anchorlinks_Widget(
-		array(
-			'name'                      => 'wpdtrt_anchorlinks_shortcode',
-			'plugin'                    => $wpdtrt_anchorlinks_plugin,
-			'template'                  => 'anchorlinks',
-			'selected_instance_options' => array(
-				'title_text',
-			),
-		)
-	);
-
-	register_widget( $wpdtrt_anchorlinks_widget );
 }

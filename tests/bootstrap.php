@@ -2,7 +2,7 @@
 /**
  * PHPUnit bootstrap file
  *
- * @package WPDTRT_Gallery
+ * @package WPDTRT_Anchorlinks
  */
 
 $_tests_dir = getenv( 'WP_TESTS_DIR' );
