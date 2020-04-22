@@ -29,6 +29,7 @@ const wpdtrtAnchorlinksUi = {
      * @memberof wpdtrtAnchorlinksUi
      * @protected
      *
+     * @param {external:jQuery} $ - jQuery
      * @param {external:jQuery} el - anchor element
      * @returns {external:jQuery} link element
      */
@@ -47,7 +48,7 @@ const wpdtrtAnchorlinksUi = {
         let summaryItem = '';
 
         summaryItem += '<li class="wpdtrt-anchorlinks__list-item">';
-        summaryItem += '<a href="#summary" class="wpdtrt-anchorlinks__list-link">'
+        summaryItem += '<a href="#summary" class="wpdtrt-anchorlinks__list-link">';
         summaryItem += 'Introduction';
         summaryItem += '</a>';
         summaryItem += '</li>';
@@ -214,7 +215,7 @@ const wpdtrtAnchorlinksUi = {
             });
         };
 
-        wpdtrtAnchorlinksUi.sticky_jump_menu($, $('.wpdtrt-anchorlinks')); 
+        wpdtrtAnchorlinksUi.sticky_jump_menu($, $('.wpdtrt-anchorlinks'));
 
         console.log('wpdtrtAnchorlinksUi.init'); // eslint-disable-line no-console
     }
