@@ -198,7 +198,15 @@ function wpdtrt_anchorlinks_plugin_init() {
 	 *
 	 * @see https://github.com/dotherightthing/wpdtrt-plugin-boilerplate/wiki/Options:-Adding-shortcode-or-widget-options Options: Adding shortcode or widget options
 	 */
-	$instance_options = array();
+	$instance_options = array(
+		'title_text' => array(
+			'type'    => 'text',
+			'size'    => 30,
+			'label'   => __( 'Anchor list title text', 'wpdtrt-anchorlinks' ),
+			'tip'     => __( 'e.g. Outline', 'wpdtrt-anchorlinks' ),
+			'default' => __( 'Outline', 'wpdtrt-anchorlinks' ),
+		),
+	);
 
 	/**
 	 *  UI Messages
@@ -281,7 +289,9 @@ function wpdtrt_anchorlinks_shortcode_init() {
 			'name'                      => 'wpdtrt_anchorlinks_shortcode',
 			'plugin'                    => $wpdtrt_anchorlinks_plugin,
 			'template'                  => 'anchorlinks',
-			'selected_instance_options' => array(),
+			'selected_instance_options' => array(
+				'title_text',
+			),
 		)
 	);
 }
@@ -333,7 +343,9 @@ function wpdtrt_anchorlinks_widget_init() {
 			'name'                      => 'wpdtrt_anchorlinks_shortcode',
 			'plugin'                    => $wpdtrt_anchorlinks_plugin,
 			'template'                  => 'anchorlinks',
-			'selected_instance_options' => array(),
+			'selected_instance_options' => array(
+				'title_text',
+			),
 		)
 	);
 

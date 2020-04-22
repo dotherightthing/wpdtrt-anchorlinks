@@ -17,6 +17,9 @@ $title         = null;
 $after_title   = null; // register_sidebar.
 $after_widget  = null; // register_sidebar.
 
+// shortcode options.
+$title_text = null;
+
 // access to plugin.
 $plugin = null;
 
@@ -39,7 +42,9 @@ echo $before_title . $title . $after_title;
 ?>
 
 <div class="wpdtrt-anchorlinks">
-	<h3 class="wpdtrt-anchorlinks__title">Outline</h3>
+	<h3 class="wpdtrt-anchorlinks__title">
+		<?php echo $title_text; ?>
+	</h3>
 	<?php
 		echo $anchor_list_html;
 	?>
