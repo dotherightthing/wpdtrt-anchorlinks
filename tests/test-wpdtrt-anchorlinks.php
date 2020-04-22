@@ -56,8 +56,8 @@ class WPDTRT_AnchorlinksTest extends WP_UnitTestCase {
 
 		$this->post_id_1 = $this->create_post( array(
 			'post_title'   => 'DTRT Anchor Links test',
-			'post_date'    => '2018-03-14 19:00:00',
-			'post_content' => 'This is a simple test',
+			'post_date'    => '2020-04-22 13:00:00',
+			'post_content' => '<h2>Heading 1</h2><p>Text</p><h2>Heading 2</h2><p>More text</p>',
 		));
 	}
 
@@ -108,17 +108,47 @@ class WPDTRT_AnchorlinksTest extends WP_UnitTestCase {
 	 */
 
 	/**
-	 * Test shortcodes
-	 * trim() removes line break added by WordPress
-	 *
-	 * @see https://gist.github.com/dotherightthing/debaa6196e1f5258b544ace1a6c484de
+	 * Method: test_injected_anchor
 	 */
-	public function test_placeholder() {
+	public function test_injected_anchor() {
+		$this->assertEquals(
+			1,
+			1,
+			'Not ok'
+		);
+
+		$this->go_to(
+			get_post_permalink( $this->post_id_1 )
+		);
+
+		// https://stackoverflow.com/a/22270259/6850747.
+		$content = apply_filters( 'the_content', get_post_field( 'post_content', $this->post_id_1 ) );
+
+		$dom = new DOMDocument();
+		$dom->loadHTML( mb_convert_encoding( $content, 'HTML-ENTITIES', 'UTF-8' ) );
 
 		$this->assertEquals(
-			'abc123',
-			'abc123',
-			'Strings do not match'
+			count( $dom->getElementsByTagName( 'h2' ) ),
+			2,
+			'Wrong number of headings'
+		);
+
+		$this->assertEquals(
+			$dom->getElementsByTagName( 'h2' )[0]->getAttribute( 'class' ),
+			'wpdtrt-anchorlinks__anchor',
+			'Anchor has wrong classname'
+		);
+
+		$this->assertEquals(
+			count( $dom->getElementsByTagName( 'h2' )[0]->getElementsByTagName( 'a' ) ),
+			1,
+			'Anchor does not contain a link'
+		);
+
+		$this->assertEquals(
+			$dom->getElementsByTagName( 'h2' )[0]->getElementsByTagName( 'a' )[0]->getAttribute( 'class' ),
+			'wpdtrt-anchorlinks__anchor-link',
+			'Anchor link has wrong classname'
 		);
 	}
 }

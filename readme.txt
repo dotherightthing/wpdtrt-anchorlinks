@@ -37,13 +37,11 @@ One or more widgets can be displayed within one or more sidebars:
 
 ```
 <!-- within the editor -->
-[wpdtrt_anchorlinks option="value"]
+[wpdtrt_anchorlinks_shortcode title_text="On this day"]
 
 // in a PHP template, as a template tag
-<?php echo do_shortcode( '[wpdtrt_anchorlinks option="value"]' ); ?>
+<?php echo do_shortcode( '[wpdtrt_anchorlinks_shortcode title_text="On this day"]' ); ?>
 ```
-
-Please refer to the *Shortcode Options* on Settings->DTRT Anchor Links.
 
 == Screenshots ==
 
