@@ -23,6 +23,8 @@
  * @see https://codesymphony.co/writing-wordpress-plugin-unit-tests/#object-factories
  */
 
+$post = new stdClass();
+
 /**
  * WP_UnitTestCase unit tests for wpdtrt_anchorlinks
  */
@@ -111,12 +113,6 @@ class WPDTRT_AnchorlinksTest extends WP_UnitTestCase {
 	 * Method: test_injected_anchor
 	 */
 	public function test_injected_anchor() {
-		$this->assertEquals(
-			1,
-			1,
-			'Not ok'
-		);
-
 		$this->go_to(
 			get_post_permalink( $this->post_id_1 )
 		);
@@ -128,27 +124,214 @@ class WPDTRT_AnchorlinksTest extends WP_UnitTestCase {
 		$dom->loadHTML( mb_convert_encoding( $content, 'HTML-ENTITIES', 'UTF-8' ) );
 
 		$this->assertEquals(
-			count( $dom->getElementsByTagName( 'h2' ) ),
+			count(
+				$dom
+					->getElementsByTagName( 'h2' )
+			),
 			2,
 			'Wrong number of headings'
 		);
 
 		$this->assertEquals(
-			$dom->getElementsByTagName( 'h2' )[0]->getAttribute( 'class' ),
+			$dom
+				->getElementsByTagName( 'h2' )[0]
+				->getAttribute( 'class' ),
 			'wpdtrt-anchorlinks__anchor',
 			'Anchor has wrong classname'
 		);
 
 		$this->assertEquals(
-			count( $dom->getElementsByTagName( 'h2' )[0]->getElementsByTagName( 'a' ) ),
+			$dom
+				->getElementsByTagName( 'h2' )[0]
+				->getAttribute( 'id' ),
+			'heading-1',
+			'Anchor has wrong id'
+		);
+
+		$this->assertEquals(
+			$dom
+				->getElementsByTagName( 'h2' )[1]
+				->getAttribute( 'id' ),
+			'heading-2',
+			'Anchor has wrong id'
+		);
+
+		$this->assertEquals(
+			count(
+				$dom
+					->getElementsByTagName( 'h2' )[0]
+					->getElementsByTagName( 'a' )
+			),
 			1,
 			'Anchor does not contain a link'
 		);
 
 		$this->assertEquals(
-			$dom->getElementsByTagName( 'h2' )[0]->getElementsByTagName( 'a' )[0]->getAttribute( 'class' ),
+			$dom
+				->getElementsByTagName( 'h2' )[0]
+				->getElementsByTagName( 'a' )[0]
+				->getAttribute( 'class' ),
 			'wpdtrt-anchorlinks__anchor-link',
 			'Anchor link has wrong classname'
+		);
+
+		$this->assertEquals(
+			$dom
+				->getElementsByTagName( 'h2' )[0]
+				->getElementsByTagName( 'a' )[0]
+				->getAttribute( 'href' ),
+			'#heading-1',
+			'Anchor link has wrong href'
+		);
+	}
+
+	/**
+	 * Test shortcodes
+	 * trim() removes line break added by WordPress
+	 *
+	 * @todo wpdtrt_tourdates_shortcode_navigation
+	 * @todo wpdtrt_tourdates_shortcode_thumbnail
+	 * @todo Refactor wpdtrt_tourdates_shortcode_summary so that it is easier to test
+	 */
+	public function test_shortcode() {
+		$this->go_to(
+			get_post_permalink( $this->post_id_1 )
+		);
+
+		$shortcode      = '[wpdtrt_anchorlinks_shortcode title_text="Jump menu" post_id="' . $this->post_id_1 . '"]';
+		$shortcode_html = trim( do_shortcode( $shortcode ) );
+
+		$dom = new DOMDocument();
+		$dom->loadHTML( mb_convert_encoding( $shortcode_html, 'HTML-ENTITIES', 'UTF-8' ) );
+
+		$this->assertEquals(
+			count(
+				$dom
+					->getElementsByTagName( 'div' )
+			),
+			1,
+			'Anchor list wrapper not generated'
+		);
+
+		$this->assertEquals(
+			$dom
+				->getElementsByTagName( 'div' )[0]
+				->getAttribute( 'class' ),
+			'wpdtrt-anchorlinks',
+			'Anchor list wrapper has wrong classname'
+		);
+
+		$this->assertEquals(
+			count(
+				$dom
+					->getElementsByTagName( 'div' )[0]
+					->getElementsByTagName( 'h3' )
+			),
+			1,
+			'Anchor list title not generated'
+		);
+
+		$this->assertEquals(
+			$dom
+				->getElementsByTagName( 'div' )[0]
+				->getElementsByTagName( 'h3' )[0]
+				->getAttribute( 'class' ),
+			'wpdtrt-anchorlinks__title',
+			'Anchor list title has wrong classname'
+		);
+
+		$this->assertEquals(
+			trim(
+				$dom
+					->getElementsByTagName( 'div' )[0]
+					->getElementsByTagName( 'h3' )[0]
+					->nodeValue
+			),
+			'Jump menu',
+			'Anchor list title has wrong text'
+		);
+
+		$this->assertEquals(
+			count(
+				$dom
+					->getElementsByTagName( 'div' )[0]
+					->getElementsByTagName( 'ol' )
+			),
+			1,
+			'Anchor list not generated'
+		);
+
+		$this->assertEquals(
+			$dom
+				->getElementsByTagName( 'div' )[0]
+				->getElementsByTagName( 'ol' )[0]
+				->getAttribute( 'class' ),
+			'wpdtrt-anchorlinks__list',
+			'Anchor list has wrong classname'
+		);
+
+		$this->assertEquals(
+			count(
+				$dom
+					->getElementsByTagName( 'div' )[0]
+					->getElementsByTagName( 'ol' )[0]
+					->getElementsByTagName( 'li' )
+			),
+			2,
+			'Anchor list contains wrong number of items'
+		);
+
+		$this->assertEquals(
+			$dom->getElementsByTagName( 'div' )[0]
+			->getElementsByTagName( 'ol' )[0]
+			->getElementsByTagName( 'li' )[0]
+			->getAttribute( 'class' ),
+			'wpdtrt-anchorlinks__list-item',
+			'Anchor list item has wrong classname'
+		);
+
+		$this->assertEquals(
+			count(
+				$dom
+					->getElementsByTagName( 'div' )[0]
+					->getElementsByTagName( 'ol' )[0]
+					->getElementsByTagName( 'a' )
+			),
+			2,
+			'Anchor list contains wrong number of links'
+		);
+
+		$this->assertEquals(
+			$dom
+				->getElementsByTagName( 'div' )[0]
+				->getElementsByTagName( 'ol' )[0]
+				->getElementsByTagName( 'li' )[0]
+				->getElementsByTagName( 'a' )[0]
+				->getAttribute( 'class' ),
+			'wpdtrt-anchorlinks__list-link',
+			'Anchor list link has wrong classname'
+		);
+
+		$this->assertEquals(
+			$dom
+				->getElementsByTagName( 'div' )[0]
+				->getElementsByTagName( 'ol' )[0]
+				->getElementsByTagName( 'li' )[0]
+				->getElementsByTagName( 'a' )[0]
+				->getAttribute( 'href' ),
+			'#heading-1',
+			'Anchor list link has wrong href'
+		);
+
+		$this->assertEquals(
+			$dom
+				->getElementsByTagName( 'div' )[0]
+				->getElementsByTagName( 'ol' )[0]
+				->getElementsByTagName( 'li' )[0]
+				->getElementsByTagName( 'a' )[0]
+				->nodeValue,
+			'Heading 1',
+			'Anchor list link has wrong text'
 		);
 	}
 }

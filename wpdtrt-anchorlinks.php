@@ -197,6 +197,13 @@ function wpdtrt_anchorlinks_plugin_init() {
 	 * @see https://github.com/dotherightthing/wpdtrt-plugin-boilerplate/wiki/Options:-Adding-shortcode-or-widget-options Options: Adding shortcode or widget options
 	 */
 	$instance_options = array(
+		'post_id'    => array(
+			'type'    => 'number',
+			'size'    => 3,
+			'label'   => __( 'Post ID', 'wpdtrt-anchorlinks' ),
+			'tip'     => __( 'Used in unit tests', 'wpdtrt-anchorlinks' ),
+			'default' => 1,
+		),
 		'title_text' => array(
 			'type'    => 'text',
 			'size'    => 30,
@@ -288,6 +295,7 @@ function wpdtrt_anchorlinks_shortcode_init() {
 			'plugin'                    => $wpdtrt_anchorlinks_plugin,
 			'template'                  => 'anchorlinks',
 			'selected_instance_options' => array(
+				'post_id',
 				'title_text',
 			),
 		)
