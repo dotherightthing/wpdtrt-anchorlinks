@@ -3,8 +3,8 @@
 //
 // Jump links + stickyNavbar.js
 // Multiple injected wrappers ensure that
-// .mwm-aal-container stays in the same horz location when sticky
-// Note: additional styles are currently located in _wpdtrt-dbth.scss
+// .wpdtrt-anchorlinks stays in the same horz location when sticky
+// Note: customisation applied at theme level
 //
 // @package WPDTRT_Anchorlinks
 // @version 0.0.1
@@ -22,16 +22,6 @@
 // -------------------------------------------------------------------
 
 .wpdtrt-anchorlinks {
-    .sticky & {
-        position: relative;
-        top: auto;
-        right: auto;
-    }
-
-    // > .mwm-aal-item {
-    //     display: none;
-    // }
-
     &__list,
     &__list-item {
         list-style: none;
@@ -45,7 +35,6 @@
         line-height: var(--wpdtrt-anchorlinks-line-height-link);
         text-decoration: none;
         padding: var(--wpdtrt-anchorlinks-padding-link);
-        // box-shadow: 0 0 0 0 currentColor;
         margin-bottom: var(--wpdtrt-anchorlinks-margin-link);
 
         &:hover,
