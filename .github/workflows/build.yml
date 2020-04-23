@@ -40,8 +40,8 @@ jobs:
     - run: npm ci
     - run: npm run lint --if-present
     - run: npm run compile --if-present
-    - run: npm run test --if-present
     # - run: npm run release --if-present
+    - run: npm run test --if-present
 
     # https://github.com/marketplace/actions/action-release
     # - name: Upload release to the repository's Releases page
