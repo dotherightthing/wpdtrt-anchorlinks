@@ -100,18 +100,11 @@ class WPDTRT_Anchorlinks_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplat
 
 		// phpcs:disable WordPress.NamingConventions
 		foreach ( $headings as $heading ) {
-			if ( 'div' === $heading->parentNode->tagName ) {
-				$section = $heading->parentNode;
-
-				// a strpos check failed here.
-				preg_match( '/wpdtrt-anchorlinks__anchor/', $section->getAttribute( 'class' ), $matches );
-
-				if ( count( $matches ) > 0 ) {
-					$anchors[] = array(
-						$heading->nodeValue, // phpcs:ignore
-						$heading->getAttribute( 'id' ),
-					);
-				}
+			if ( null !== $heading->getAttribute( 'data-id' ) ) {
+				$anchors[] = array(
+					$heading->nodeValue, // phpcs:ignore
+					$heading->getAttribute( 'data-id' ),
+				);
 			}
 		}
 		// phpcs:enable WordPress.NamingConventions
@@ -317,6 +310,12 @@ class WPDTRT_Anchorlinks_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplat
 
 					// remove attribute.
 					$heading->removeAttribute( $attribute );
+
+					// retain the ID as the structure changes when the gallery wrappers are injected,
+					// breaking the section > heading relationship.
+					if ( 'id' === $attribute ) {
+						$heading->setAttribute( 'data-' . $attribute, $new_value );
+					}
 				}
 			}
 		}
