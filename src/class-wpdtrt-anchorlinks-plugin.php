@@ -223,10 +223,9 @@ class WPDTRT_Anchorlinks_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplat
 		$dom = new DOMDocument();
 		$dom->loadHTML( mb_convert_encoding( $content, 'HTML-ENTITIES', 'UTF-8' ) );
 
-		$headings     = $dom->getElementsByTagName( 'h2' );
-		$replacements = array();
+		$headings = $dom->getElementsByTagName( 'h2' );
 
-		foreach ( $headings as $key => $heading ) {
+		foreach ( $headings as $heading ) {
 			$heading_span = $dom->createElement( 'span', '#' );
 			$heading_span->setAttribute( 'aria-label', 'Anchor' );
 			$heading_span->setAttribute( 'class', 'wpdtrt-anchorlinks__anchor-icon' );
