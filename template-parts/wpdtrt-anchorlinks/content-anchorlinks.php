@@ -18,7 +18,7 @@ $after_title   = null; // register_sidebar.
 $after_widget  = null; // register_sidebar.
 
 // shortcode options.
-$post_id    = null;
+$post_id    = null; // $post->ID stand-in for unit tests
 $title_text = null;
 
 // access to plugin.
@@ -31,13 +31,14 @@ $options = get_query_var( 'options' );
 // @link http://kb.network.dan/php/wordpress/extract/.
 extract( $options, EXTR_IF_EXISTS );
 
-if ( ! isset( $post_id ) ) {
-	global $post;
+global $post;
+
+if ( isset( $post ) && is_object( $post ) ) {
 	$post_id = $post->ID;
 }
 
 // Logic.
-$anchor_list_html = $plugin->get_anchor_list_html( $post_id );
+$anchor_list_html = $plugin->get_anchor_list_html( (int) $post_id );
 
 // WordPress widget options (not output with shortcode).
 echo $before_widget;

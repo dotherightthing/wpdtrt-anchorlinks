@@ -86,7 +86,7 @@ class WPDTRT_Anchorlinks_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplat
 	 * Returns:
 	 *   $anchors
 	 */
-	public function get_anchor_list_html( $page_id ) {
+	public function get_anchor_list_html( int $page_id ) {
 		$post    = get_post( $page_id );
 		$content = apply_filters( 'the_content', $post->post_content );
 
