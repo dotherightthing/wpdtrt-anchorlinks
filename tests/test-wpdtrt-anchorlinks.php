@@ -134,15 +134,15 @@ class WPDTRT_AnchorlinksTest extends WP_UnitTestCase {
 
 		$this->assertEquals(
 			$dom
-				->getElementsByTagName( 'h2' )[0]
+				->getElementsByTagName( 'div' )[0]
 				->getAttribute( 'class' ),
-			'wpdtrt-anchorlinks__anchor',
+			'wpdtrt-anchorlinks__section wpdtrt-anchorlinks__anchor',
 			'Anchor has wrong classname'
 		);
 
 		$this->assertEquals(
 			$dom
-				->getElementsByTagName( 'h2' )[0]
+				->getElementsByTagName( 'div' )[0]
 				->getAttribute( 'id' ),
 			'heading-1',
 			'Anchor has wrong id'
@@ -150,7 +150,7 @@ class WPDTRT_AnchorlinksTest extends WP_UnitTestCase {
 
 		$this->assertEquals(
 			$dom
-				->getElementsByTagName( 'h2' )[1]
+				->getElementsByTagName( 'div' )[1]
 				->getAttribute( 'id' ),
 			'heading-2',
 			'Anchor has wrong id'
@@ -159,7 +159,7 @@ class WPDTRT_AnchorlinksTest extends WP_UnitTestCase {
 		$this->assertEquals(
 			count(
 				$dom
-					->getElementsByTagName( 'h2' )[0]
+					->getElementsByTagName( 'div' )[0]
 					->getElementsByTagName( 'a' )
 			),
 			1,
@@ -168,7 +168,7 @@ class WPDTRT_AnchorlinksTest extends WP_UnitTestCase {
 
 		$this->assertEquals(
 			$dom
-				->getElementsByTagName( 'h2' )[0]
+				->getElementsByTagName( 'div' )[0]
 				->getElementsByTagName( 'a' )[0]
 				->getAttribute( 'class' ),
 			'wpdtrt-anchorlinks__anchor-link',
@@ -177,7 +177,7 @@ class WPDTRT_AnchorlinksTest extends WP_UnitTestCase {
 
 		$this->assertEquals(
 			$dom
-				->getElementsByTagName( 'h2' )[0]
+				->getElementsByTagName( 'div' )[0]
 				->getElementsByTagName( 'a' )[0]
 				->getAttribute( 'href' ),
 			'#heading-1',

@@ -44,6 +44,7 @@ class WPDTRT_Anchorlinks_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplat
 
 		// add actions and filters here.
 		add_filter( 'the_content', array( $this, 'filter_content_anchors' ), 10 );
+		add_filter( 'the_content', array( $this, 'filter_content_sections' ), 10 );
 	}
 
 	/**
@@ -81,30 +82,39 @@ class WPDTRT_Anchorlinks_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplat
 	 * Method: get_anchor_list_html
 	 *
 	 * Parameters:
-	 *   $page_id - Page ID
+	 *   $post_id - Page ID
 	 *
 	 * Returns:
 	 *   $anchors
 	 */
-	public function get_anchor_list_html( int $page_id ) {
-		$post    = get_post( $page_id );
+	public function get_anchor_list_html( int $post_id ) {
+		$post    = get_post( $post_id );
 		$content = apply_filters( 'the_content', $post->post_content );
 
 		$dom = new DOMDocument();
 		$dom->loadHTML( mb_convert_encoding( $content, 'HTML-ENTITIES', 'UTF-8' ) );
 
-		$children    = $dom->getElementsByTagName( 'h2' );
-		$anchors     = array();
-		$anchor_list = '';
+		$headings         = $dom->getElementsByTagName( 'h2' );
+		$anchors          = array();
+		$anchor_list_html = '';
 
-		foreach ( $children as $child ) {
-			if ( $child->getAttribute( 'class' ) === 'wpdtrt-anchorlinks__anchor' ) {
-				$anchors[] = array(
-					$child->nodeValue, // phpcs:ignore
-					$child->getAttribute( 'id' ),
-				);
+		// phpcs:disable WordPress.NamingConventions
+		foreach ( $headings as $heading ) {
+			if ( 'div' === $heading->parentNode->tagName ) {
+				$section = $heading->parentNode;
+
+				// a strpos check failed here.
+				preg_match( '/wpdtrt-anchorlinks__anchor/', $section->getAttribute( 'class' ), $matches );
+
+				if ( count( $matches ) > 0 ) {
+					$anchors[] = array(
+						$heading->nodeValue, // phpcs:ignore
+						$heading->getAttribute( 'id' ),
+					);
+				}
 			}
 		}
+		// phpcs:enable WordPress.NamingConventions
 
 		if ( count( $anchors ) > 0 ) {
 			$anchor_list = $dom->createElement( 'ol' );
@@ -122,9 +132,9 @@ class WPDTRT_Anchorlinks_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplat
 
 				$anchor_list->appendChild( $anchor_list_item );
 			}
-		}
 
-		$anchor_list_html = $this->get_html( $anchor_list, true );
+			$anchor_list_html = $this->get_html( $anchor_list, true );
+		}
 
 		return $anchor_list_html;
 	}
@@ -241,6 +251,82 @@ class WPDTRT_Anchorlinks_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplat
 			$heading_link->appendChild( $heading_span );
 			$heading->appendChild( $heading_link );
 		}
+
+		$body = $dom->getElementsByTagName( 'body' )->item( 0 );
+
+		return $dom->saveHTML( $body );
+	}
+
+	/**
+	 * Method: filter_content_sections
+	 *
+	 * Wrap a section around each heading and its siblings.
+	 * Replacement for wpdtrt-contentsections.
+	 *
+	 * Parameters:
+	 *   $content - Content
+	 *
+	 * Returns:
+	 *   $content - Content
+	 */
+	public function filter_content_sections( string $content ) : string {
+		$heading_start = '<h2 class="wpdtrt-anchorlinks__anchor"';
+
+		// DOMDocument doesn't support HTML5 tags like <section>.
+		$section_start = '<div class="wpdtrt-anchorlinks__section">';
+		$section_end   = '</div>';
+
+		// wrap a section around each heading and its siblings.
+		$content = $section_start . str_replace(
+			$heading_start,
+			$section_end . $section_start . $heading_start,
+			$content
+		) . $section_end;
+
+		$dom = new DOMDocument();
+		$dom->loadHTML( mb_convert_encoding( $content, 'HTML-ENTITIES', 'UTF-8' ) );
+
+		$sections = $dom->getElementsByTagName( 'div' );
+
+		// remove sections after the loop, else DOMDocument gets confused.
+		$empty_sections = array();
+
+		// phpcs:disable WordPress.NamingConventions
+		foreach ( $sections as $section ) {
+
+			if ( null === $section->firstChild ) {
+
+				$empty_sections[] = $section;
+
+			} elseif ( 'h2' === $section->firstChild->tagName ) {
+
+				// move attributes from heading to section.
+				$heading    = $section->firstChild;
+				$attributes = array( 'class', 'id', 'tabindex' );
+
+				foreach ( $attributes as $attribute ) {
+					$old_value = $section->getAttribute( $attribute );
+					$new_value = $heading->getAttribute( $attribute );
+
+					if ( $old_value ) {
+						$new_value = ( $old_value . ' ' . $new_value );
+					}
+
+					// set attribute.
+					$section->setAttribute( $attribute, $new_value );
+
+					// remove attribute.
+					$heading->removeAttribute( $attribute );
+				}
+			}
+		}
+
+		foreach ( $empty_sections as $empty_section ) {
+			// remove empty section resulting from string replacement.
+			$empty_section->parentNode->removeChild( $empty_section );
+		}
+
+		// phpcs:enable WordPress.NamingConventions
 
 		$body = $dom->getElementsByTagName( 'body' )->item( 0 );
 
