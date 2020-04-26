@@ -18,10 +18,12 @@
 
 // -------------------------------------------------------------------
 // Styles
-// .sticky is applied to .wpdtrt-anchorlinks__site
+// .wpdtrt-anchorlinks__site-sticky is applied to .wpdtrt-anchorlinks__site
 // -------------------------------------------------------------------
 
 .wpdtrt-anchorlinks {
+    $block: &;
+
     &__list,
     &__list-item {
         list-style: none;
@@ -55,8 +57,10 @@
         top: 100%;
         left: 0;
         width: 0;
+    }
 
-        .sticky & {
+    &__site-sticky {
+        #{$block}__scroll-progress {
             border-top: 1px solid var(--wpdtrt-anchorlinks-color-border-scroll-progress);
         }
     }

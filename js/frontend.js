@@ -150,7 +150,8 @@ const wpdtrtAnchorlinksUi = {
         if ($anchors.length) {
             const sticky = new Waypoint.Sticky({
                 element: $wrapper[0],
-                stuckClass: 'sticky'
+                stuckClass: 'wpdtrt-anchorlinks__site-sticky',
+                wrapper: '<div class="wpdtrt-anchorlinks__site-sticky-wrapper" />'
             });
 
             $anchors.waypoint(
@@ -183,9 +184,9 @@ const wpdtrtAnchorlinksUi = {
             $('.site-footer').waypoint(
                 (direction) => {
                     if (direction === 'down') {
-                        $('.sticky').fadeOut(500);
+                        $('.wpdtrt-anchorlinks__site-sticky').fadeOut(500);
                     } else {
-                        $('.sticky').fadeIn(500);
+                        $('.wpdtrt-anchorlinks__site-sticky').fadeIn(500);
                     }
                 },
                 {
