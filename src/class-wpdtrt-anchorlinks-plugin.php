@@ -239,6 +239,7 @@ class WPDTRT_Anchorlinks_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplat
 			$heading->setAttribute( 'class', 'wpdtrt-anchorlinks__anchor' );
 			$heading_id = sanitize_title( $heading->nodeValue ); // phpcs:ignore
 			$heading->setAttribute( 'id', $heading_id );
+			$heading->setAttribute( 'tabindex', '-1' );
 
 			$heading_link->setAttribute( 'href', '#' . $heading_id );
 			$heading_link->appendChild( $heading_span );
