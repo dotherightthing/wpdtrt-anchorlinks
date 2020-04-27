@@ -37,10 +37,10 @@ One or more widgets can be displayed within one or more sidebars:
 
 ```
 <!-- within the editor -->
-[wpdtrt_anchorlinks_shortcode title_text="On this day"]
+[wpdtrt_anchorlinks_shortcode title_text="Today"]
 
 // in a PHP template, as a template tag
-<?php echo do_shortcode( '[wpdtrt_anchorlinks_shortcode title_text="On this day"]' ); ?>
+<?php echo do_shortcode( '[wpdtrt_anchorlinks_shortcode title_text="Today"]' ); ?>
 ```
 
 == Screenshots ==
