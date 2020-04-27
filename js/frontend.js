@@ -54,7 +54,7 @@ const wpdtrtAnchorlinksUi = {
 
     /**
      * @function injectSummaryLink
-     * @summary Inject the summary section into the nav.
+     * @summary Inject the summary section (outside of the page content) into the nav.
      * @memberof wpdtrtAnchorlinksUi
      * @protected
      *
@@ -204,21 +204,20 @@ const wpdtrtAnchorlinksUi = {
 
         wpdtrtAnchorlinksUi.injectSummaryLink($jumpMenu);
 
-        const $anchors = $('.wpdtrt-anchorlinks__anchor');
-
         // theme elements
+        const $anchorController = $('.wpdtrt-anchorlinks__anchor');
         const $pinController = $('[data-wpdtrt-anchorlinks-controls="list-pin"]');
         const $fadeController = $('[data-wpdtrt-anchorlinks-controls="list-fade"]');
 
-        if ($anchors.length) {
+        if ($anchorController.length) {
             if ('IntersectionObserver' in window) {
                 const highlightAnchorLinkObserver = new IntersectionObserver(wpdtrtAnchorlinksUi.highlightAnchorLink, {
                     root: null, // relative to document viewport
                     rootMargin: '0px', // margin around root, unitless values not allowed
-                    threshold: 0.25 // visible amount of item shown in relation to root
+                    threshold: 0.5 // visible amount of item shown in relation to root
                 });
 
-                $anchors.each((i, item) => {
+                $anchorController.each((i, item) => {
                     // add element to the set being watched by the IntersectionObserver
                     highlightAnchorLinkObserver.observe($(item).get(0));
                 });
