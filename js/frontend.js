@@ -122,7 +122,9 @@ const wpdtrtAnchorlinksUi = {
             // ratio of the element which is visible in the viewport
             // (entering or leaving)
             if (change.intersectionRatio > 0.5) {
-                let $anchorLinkActive = wpdtrtAnchorlinksUi.getRelatedNavigation(intersectingElement);
+                let $anchor = $(intersectingElement).parents('.wpdtrt-anchorlinks__anchor').eq(0);
+                let anchor = $anchor.get(0);
+                let $anchorLinkActive = wpdtrtAnchorlinksUi.getRelatedNavigation(anchor);
 
                 $anchorLinks.removeClass('active');
                 $anchorLinkActive.addClass('active');
@@ -204,12 +206,14 @@ const wpdtrtAnchorlinksUi = {
 
         wpdtrtAnchorlinksUi.injectSummaryLink($jumpMenu);
 
-        // theme elements
-        const $anchorController = $('.wpdtrt-anchorlinks__anchor');
-        const $pinController = $('[data-wpdtrt-anchorlinks-controls="list-pin"]');
-        const $fadeController = $('[data-wpdtrt-anchorlinks-controls="list-fade"]');
+        const $anchorLinks = $('.wpdtrt-anchorlinks__anchor');
 
-        if ($anchorController.length) {
+        // theme elements
+        const $highlightController = $('[data-wpdtrt-anchorlinks-controls="highlighting"]');
+        const $pinController = $('[data-wpdtrt-anchorlinks-controls="pinning"]');
+        const $fadeController = $('[data-wpdtrt-anchorlinks-controls="hiding"]');
+
+        if ($anchorLinks.length) {
             if ('IntersectionObserver' in window) {
                 const highlightAnchorLinkObserver = new IntersectionObserver(wpdtrtAnchorlinksUi.highlightAnchorLink, {
                     root: null, // relative to document viewport
@@ -217,7 +221,7 @@ const wpdtrtAnchorlinksUi = {
                     threshold: 0.5 // visible amount of item shown in relation to root
                 });
 
-                $anchorController.each((i, item) => {
+                $highlightController.each((i, item) => {
                     // add element to the set being watched by the IntersectionObserver
                     highlightAnchorLinkObserver.observe($(item).get(0));
                 });

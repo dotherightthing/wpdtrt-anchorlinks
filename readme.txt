@@ -33,20 +33,52 @@ One or more widgets can be displayed within one or more sidebars:
 3. Add a *Title*
 4. Specify options
 
-= How do I use the shortcode? =
+= How do I display the list of anchor links? =
 
-```
-<!-- within the editor -->
-[wpdtrt_anchorlinks_shortcode title_text="Today"]
+Within the editor: 
 
-// in a PHP template, as a template tag
-<?php echo do_shortcode( '[wpdtrt_anchorlinks_shortcode title_text="Today"]' ); ?>
-```
+`[wpdtrt_anchorlinks_shortcode title_text="Jump links"]`
+
+In a PHP template, as a template tag:
+
+`<?php echo do_shortcode( '[wpdtrt_anchorlinks_shortcode title_text="Jump links"]' ); ?>`
+
+= How do I control the dynamic pinning of the anchor links? =
+
+Pinning toggles a class of `.wpdtrt-anchorlinks__site-sticky` on the `.wpdtrt-anchorlinks__site-sticky-target`.
+
+This attached styling keeps the navigation in view, while the rest of the page content is scrolled.
+
+To control pinning, add the following data attribute to an element:
+
+`data-wpdtrt-anchorlinks-controls="pinning"`
+
+* When this element is scrolled out of the viewport, the anchor links list will be pinned
+* When this element is scrolled into the viewport, the anchor links list will be unpinned
+
+= How do I control the dynamic hiding and showing of the anchor links? =
+
+Add the following data attribute to an element.
+
+`data-wpdtrt-anchorlinks-controls="hiding"`
+
+* When this element is scrolled into the viewport, the anchor links list will be hidden
+* When this element is scrolled out of the viewport, the anchor links list will be shown
+
+= How do I control the dynamic highlighting of the anchor links? =
+
+Add the following data attribute to a the relevant child of each anchor:
+
+`data-wpdtrt-anchorlinks-controls="highlighting"`
+
+* When this element is scrolled into the viewport, the matching anchor link will be highlighted.
+* When another element is scrolled into the viewport,
+    * the previous matching anchor link will be unhighlighted
+    * the new matching anchor link will be highlighted
 
 == Screenshots ==
 
 1. The caption for ./images/screenshot-1.(png|jpg|jpeg|gif)
-2. The caption for ./images/screenshot-2.(png|jpg|jpeg|gif)
 
 == Changelog ==
 
@@ -162,3 +194,7 @@ One or more widgets can be displayed within one or more sidebars:
 
 = 0.0.1 =
 * Initial release
+
+== Validation ==
+
+This readme was validated at https://wpreadme.com/.
