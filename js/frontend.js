@@ -87,32 +87,6 @@ const wpdtrtAnchorlinksUi = {
     },
 
     /**
-     * @function wrapMenu
-     * @summary Add wrappers to allow the pinned menu bar to be positioned within a page-like construct.
-     * @memberof wpdtrtAnchorlinksUi
-     * @protected
-     *
-     * @param {external:jQuery} $ - jQuery
-     * @param {external:jQuery} $jumpMenu - .wpdtrt-anchorlinks
-     * @returns {external:jQuery} .wpdtrt-anchorlinks__site
-     */
-    wrapMenu: ($, $jumpMenu) => {
-        let html = '';
-        html += '<div class="wpdtrt-anchorlinks__site">';
-        html += '<div class="wpdtrt-anchorlinks__site-inner">';
-        html += '<div class="wpdtrt-anchorlinks__site-content">';
-        html += '<div class="wpdtrt-anchorlinks__entry-content">';
-        html += '</div>';
-        html += '</div>';
-        html += '</div>';
-        html += '</div>';
-
-        $jumpMenu.wrap(html);
-
-        return $('.wpdtrt-anchorlinks__site');
-    },
-
-    /**
      * @function sticky_jump_menu
      * @summary Inject wrappers required for fixed positioning, manage scroll link highlighting
      * @memberof wpdtrtAnchorlinksUi
@@ -128,7 +102,7 @@ const wpdtrtAnchorlinksUi = {
 
         wpdtrtAnchorlinksUi.injectSummaryLink($jumpMenu);
 
-        const $wrapper = wpdtrtAnchorlinksUi.wrapMenu($, $jumpMenu);
+        const $wrapper = $jumpMenu.parents('.wpdtrt-anchorlinks__site-sticky-target').eq(0);
 
         // removed as this makes for a terrible tab order
         // var $summary = $('.entry-summary-wrapper');

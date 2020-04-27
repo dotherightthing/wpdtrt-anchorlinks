@@ -45,13 +45,22 @@ echo $before_widget;
 echo $before_title . $title . $after_title;
 ?>
 
-<div class="wpdtrt-anchorlinks">
-	<h3 class="wpdtrt-anchorlinks__title">
-		<?php echo $title_text; ?>
-	</h3>
-	<?php
-		echo $anchor_list_html;
-	?>
+<!-- class naming mirrors wpdtrt-dbth -->
+<div class="wpdtrt-anchorlinks__site-sticky-target">
+	<div class="wpdtrt-anchorlinks__site">
+		<div class="wpdtrt-anchorlinks__site-main">
+			<div class="wpdtrt-anchorlinks__section">
+				<div class="wpdtrt-anchorlinks">
+					<h3 class="wpdtrt-anchorlinks__title">
+						<?php echo $title_text; ?>
+					</h3>
+					<?php
+						echo $anchor_list_html;
+					?>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 
 <?php
