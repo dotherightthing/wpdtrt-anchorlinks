@@ -24,12 +24,12 @@
 const wpdtrtAnchorlinksUi = {
 
     /**
-     * @function getRelatedNavigation
-     * @summary Get link by section or article id
+     * @function getNavigation
+     * @summary Get list of anchor links
      * @memberof wpdtrtAnchorlinksUi
      * @protected
      *
-     * @returns {external:jQuery} link element
+     * @returns {external:jQuery} link list
      */
     getNavigation: () => {
         let $ = wpdtrtAnchorlinksUi.jQuery;
@@ -242,33 +242,6 @@ const wpdtrtAnchorlinksUi = {
                     toggleAnchorLinksListObserver.observe($fadeController.get(0));
                 }
             }
-
-            // $anchors.waypoint(
-            //     function (direction) { // eslint-disable-line func-names
-            //         // Highlight element when related content
-            //         // is 10% percent from the bottom...
-            //         // remove if below
-            //         wpdtrtAnchorlinksUi.getRelatedNavigation(this.element).toggleClass('active', direction === 'down');
-            //         wpdtrtAnchorlinksUi.showScrollProgress();
-            //     },
-            //     {
-            //         offset: '90%'
-            //     }
-            // );
-
-            // $anchors.waypoint(
-            //     function (direction) { // eslint-disable-line func-names
-            //         // Highlight element when bottom of related content
-            //         // is 100px from the top - remove if less
-            //         wpdtrtAnchorlinksUi.getRelatedNavigation(this.element).toggleClass('active', direction === 'up');
-            //         wpdtrtAnchorlinksUi.showScrollProgress();
-            //     },
-            //     {
-            //         offset: function () {
-            //             return -$(this.element).height() + 100;
-            //         }
-            //     }
-            // );
         }
     },
 
