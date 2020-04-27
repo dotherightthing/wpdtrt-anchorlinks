@@ -75,7 +75,9 @@ class WPDTRT_Anchorlinks_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplat
 			return $html;
 		}
 
-		return preg_replace( '@^<' . $n->nodeName . '[^>]*>|</'. $n->nodeName . '>$@', '', $html ); // phpcs:ignore
+		$html = preg_replace( '@^<' . $n->nodeName . '[^>]*>|</'. $n->nodeName . '>$@', '', $html ); // phpcs:ignore
+
+		return $html;
 	}
 
 	/**
@@ -102,7 +104,7 @@ class WPDTRT_Anchorlinks_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplat
 		foreach ( $headings as $heading ) {
 			if ( null !== $heading->getAttribute( 'data-id' ) ) {
 				$anchors[] = array(
-					$heading->nodeValue, // phpcs:ignore
+					str_replace( '&', '&amp;', $heading->nodeValue ), // phpcs:ignore
 					$heading->getAttribute( 'data-id' ),
 				);
 			}
