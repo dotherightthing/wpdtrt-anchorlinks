@@ -147,34 +147,6 @@ class WPDTRT_Anchorlinks_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplat
 	public function render_js_frontend() {
 		$attach_to_footer = true;
 
-		wp_register_script( 'jquery_waypoints',
-			$this->get_url() . 'node_modules/waypoints/lib/jquery.waypoints.min.js',
-			array(
-				// load these registered dependencies first:.
-				'jquery',
-			),
-			'4.0.0',
-			$attach_to_footer
-		);
-
-		/**
-		 * Waypoints sticky nav highlighting
-		 * Note: this plugin is also loaded via wpdtrt-gallery,
-		 * using the same hook of 'jquery_waypoints',
-		 * so that is is only loaded once (by wpdtrt-gallery);
-		 * If it was loaded again after wpdtrt-gallery.js,
-		 * then error = 'Uncaught TypeError: Waypoint.Inview is not a constructor'
-		 */
-		wp_register_script( 'waypoints_sticky',
-			$this->get_url() . 'node_modules/waypoints/lib/shortcuts/sticky.min.js',
-			array(
-				// load these registered dependencies first:.
-				'jquery_waypoints',
-			),
-			'4.0.0',
-			$attach_to_footer
-		);
-
 		// init
 		// from Plugin.php + extra dependencies.
 		wp_enqueue_script( $this->get_prefix(),
@@ -182,7 +154,6 @@ class WPDTRT_Anchorlinks_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplat
 			array(
 				// load these registered dependencies first:.
 				'jquery',
-				'waypoints_sticky',
 			),
 			$this->get_version(),
 			$attach_to_footer
