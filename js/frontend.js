@@ -29,7 +29,6 @@ const wpdtrtAnchorlinksUi = {
      * @memberof wpdtrtAnchorlinksUi
      * @protected
      *
-     * @param {external:jQuery} el - anchor element
      * @returns {external:jQuery} link element
      */
     getNavigation: () => {
@@ -207,6 +206,10 @@ const wpdtrtAnchorlinksUi = {
 
         const $anchors = $('.wpdtrt-anchorlinks__anchor');
 
+        // theme elements
+        const $pinController = $('[data-wpdtrt-anchorlinks-controls="list-pin"]');
+        const $fadeController = $('[data-wpdtrt-anchorlinks-controls="list-fade"]');
+
         if ($anchors.length) {
             if ('IntersectionObserver' in window) {
                 const highlightAnchorLinkObserver = new IntersectionObserver(wpdtrtAnchorlinksUi.highlightAnchorLink, {
@@ -220,21 +223,25 @@ const wpdtrtAnchorlinksUi = {
                     highlightAnchorLinkObserver.observe($(item).get(0));
                 });
 
-                const pinAnchorLinksListObserver = new IntersectionObserver(wpdtrtAnchorlinksUi.pinAnchorLinksList, {
-                    root: null, // relative to document viewport
-                    rootMargin: '0px', // margin around root, unitless values not allowed
-                    threshold: 0.1 // visible amount of item shown in relation to root
-                });
+                if ($pinController.length) {
+                    const pinAnchorLinksListObserver = new IntersectionObserver(wpdtrtAnchorlinksUi.pinAnchorLinksList, {
+                        root: null, // relative to document viewport
+                        rootMargin: '0px', // margin around root, unitless values not allowed
+                        threshold: 0.1 // visible amount of item shown in relation to root
+                    });
 
-                pinAnchorLinksListObserver.observe($('.stack--banner').get(0));
+                    pinAnchorLinksListObserver.observe($pinController.get(0));
+                }
 
-                const toggleAnchorLinksListObserver = new IntersectionObserver(wpdtrtAnchorlinksUi.toggleAnchorLinksList, {
-                    root: null, // relative to document viewport
-                    rootMargin: '0px', // margin around root, unitless values not allowed
-                    threshold: 0.1 // visible amount of item shown in relation to root
-                });
+                if ($fadeController.length) {
+                    const toggleAnchorLinksListObserver = new IntersectionObserver(wpdtrtAnchorlinksUi.toggleAnchorLinksList, {
+                        root: null, // relative to document viewport
+                        rootMargin: '0px', // margin around root, unitless values not allowed
+                        threshold: 0.1 // visible amount of item shown in relation to root
+                    });
 
-                toggleAnchorLinksListObserver.observe($('.site-footer').get(0));
+                    toggleAnchorLinksListObserver.observe($fadeController.get(0));
+                }
             }
 
             // $anchors.waypoint(
@@ -271,8 +278,6 @@ const wpdtrtAnchorlinksUi = {
      * @summary Initialise the component
      * @memberof wpdtrtAnchorlinksUi
      * @public
-     *
-     * @param {external:jQuery} $ - jQuery
      */
     init: () => { // called from footer config script block
         let $ = wpdtrtAnchorlinksUi.jQuery;
