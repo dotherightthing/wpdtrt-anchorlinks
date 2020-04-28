@@ -201,7 +201,6 @@ class WPDTRT_AnchorlinksTest extends WP_UnitTestCase {
 
 		// shortcodes are not used in the content area,
 		// so we don't load a WordPress post here.
-
 		$shortcode      = '[wpdtrt_anchorlinks_shortcode title_text="Jump menu" post_id="' . $this->post_id_1 . '"]';
 		$shortcode_html = trim( do_shortcode( $shortcode ) );
 
@@ -209,7 +208,6 @@ class WPDTRT_AnchorlinksTest extends WP_UnitTestCase {
 		$dom->loadHTML( mb_convert_encoding( $shortcode_html, 'HTML-ENTITIES', 'UTF-8' ) );
 
 		// Anchor list.
-
 		$this->assertEquals(
 			1,
 			count(
@@ -219,48 +217,44 @@ class WPDTRT_AnchorlinksTest extends WP_UnitTestCase {
 			'Expected 1 list element'
 		);
 
-		$anchorList = $dom->getElementsByTagName( 'ol' )[0];
+		$anchor_list = $dom->getElementsByTagName( 'ol' )[0];
 
 		// Anchor list class.
-
 		$this->assertEquals(
 			'wpdtrt-anchorlinks__list',
-			$anchorList
+			$anchor_list
 				->getAttribute( 'class' ),
 			'List has unexpected classname'
 		);
 
 		// Anchor list parent class.
-
 		$this->assertEquals(
 			'wpdtrt-anchorlinks',
-			$anchorList
-				->parentNode
+			$anchor_list
+				->parentNode // phpcs:ignore
 				->getAttribute( 'class' ),
 			'List wrapper has unexpected classname'
 		);
 
 		// Anchor list outermost parent class.
-
 		$this->assertEquals(
 			'wpdtrt-anchorlinks__site-sticky-target',
-			$anchorList
-				->parentNode
-				->parentNode
-				->parentNode
-				->parentNode
-				->parentNode
+			$anchor_list
+				->parentNode // phpcs:ignore
+				->parentNode // phpcs:ignore
+				->parentNode // phpcs:ignore
+				->parentNode // phpcs:ignore
+				->parentNode // phpcs:ignore
 				->getAttribute( 'class' ),
 			'Outermost list wrapper has unexpected classname'
 		);
 
 		// Anchor list title element.
 		// firstChild / childNodes[0] is an empty string.
-
 		$this->assertEquals(
 			'h3',
-			$anchorList
-				->parentNode
+			$anchor_list
+				->parentNode // phpcs:ignore
 				->childNodes[1]
 				->tagName,
 			'List title uses unexpected element'
@@ -268,11 +262,10 @@ class WPDTRT_AnchorlinksTest extends WP_UnitTestCase {
 
 		// Anchor list title class.
 		// firstChild / childNodes[0] is an empty string.
-
 		$this->assertEquals(
 			'wpdtrt-anchorlinks__title',
-			$anchorList
-				->parentNode
+			$anchor_list
+				->parentNode // phpcs:ignore
 				->childNodes[1]
 				->getAttribute( 'class' ),
 			'List title has unexpected classname'
@@ -280,12 +273,11 @@ class WPDTRT_AnchorlinksTest extends WP_UnitTestCase {
 
 		// Anchor list title text.
 		// firstChild / childNodes[0] is an empty string.
-
 		$this->assertEquals(
 			'Jump menu',
 			trim(
-				$anchorList
-					->parentNode
+				$anchor_list
+					->parentNode // phpcs:ignore
 					->childNodes[1]
 					->textContent
 			),
@@ -293,42 +285,38 @@ class WPDTRT_AnchorlinksTest extends WP_UnitTestCase {
 		);
 
 		// Anchor list item length.
-
 		$this->assertEquals(
 			2,
 			count(
-				$anchorList
+				$anchor_list
 					->getElementsByTagName( 'li' )
 			),
 			'List contains unexpected number of items'
 		);
 
 		// Anchor list item class.
-
 		$this->assertEquals(
 			'wpdtrt-anchorlinks__list-item',
-			$anchorList
+			$anchor_list
 				->getElementsByTagName( 'li' )[0]
 				->getAttribute( 'class' ),
 			'List item has unexpected classname'
 		);
 
 		// Anchor list link length.
-
 		$this->assertEquals(
 			2,
 			count(
-				$anchorList
+				$anchor_list
 					->getElementsByTagName( 'a' )
 			),
 			'List contains unexpected number of links'
 		);
 
 		// Anchor list link class.
-
 		$this->assertEquals(
 			'wpdtrt-anchorlinks__list-link',
-			$anchorList
+			$anchor_list
 				->getElementsByTagName( 'li' )[0]
 				->getElementsByTagName( 'a' )[0]
 				->getAttribute( 'class' ),
@@ -336,10 +324,9 @@ class WPDTRT_AnchorlinksTest extends WP_UnitTestCase {
 		);
 
 		// Anchor list link href.
-
 		$this->assertEquals(
 			'#heading-1',
-			$anchorList
+			$anchor_list
 				->getElementsByTagName( 'li' )[0]
 				->getElementsByTagName( 'a' )[0]
 				->getAttribute( 'href' ),
@@ -347,11 +334,10 @@ class WPDTRT_AnchorlinksTest extends WP_UnitTestCase {
 		);
 
 		// Anchor list link text.
-	
 		$this->assertEquals(
 			'Heading 1',
 			trim(
-				$anchorList
+				$anchor_list
 					->getElementsByTagName( 'li' )[0]
 					->getElementsByTagName( 'a' )[0]
 					->nodeValue

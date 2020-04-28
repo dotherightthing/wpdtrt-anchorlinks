@@ -251,7 +251,6 @@ class WPDTRT_Anchorlinks_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplat
 		) . $section_end;
 
 		// Fix DOMDocument::loadHTML(): htmlParseStartTag: misplaced <body> tag in Entity, line: 1.
-
 		$content = str_replace( array( '<body>', '</body>' ), '', $content );
 
 		$dom = new DOMDocument();
