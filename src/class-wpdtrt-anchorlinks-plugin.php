@@ -235,6 +235,9 @@ class WPDTRT_Anchorlinks_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplat
 	 *
 	 * Returns:
 	 *   $content - Content
+	 *
+	 * See:
+	 * <https://www.php.net/manual/en/dom.constants.php>
 	 */
 	public function filter_content_sections( string $content ) : string {
 		$heading_start = '<h2 class="wpdtrt-anchorlinks__anchor"';
@@ -268,30 +271,31 @@ class WPDTRT_Anchorlinks_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplat
 
 				$empty_sections[] = $section;
 
-			} elseif ( 'h2' === $section->firstChild->tagName ) {
+			} elseif ( 1 === $section->firstChild->nodeType ) { // Node is a DOMElement (dom.constants).
+				if ( 'h2' === $section->firstChild->tagName ) {
+					// move attributes from heading to section.
+					$heading    = $section->firstChild;
+					$attributes = array( 'class', 'id', 'tabindex' );
 
-				// move attributes from heading to section.
-				$heading    = $section->firstChild;
-				$attributes = array( 'class', 'id', 'tabindex' );
+					foreach ( $attributes as $attribute ) {
+						$old_value = $section->getAttribute( $attribute );
+						$new_value = $heading->getAttribute( $attribute );
 
-				foreach ( $attributes as $attribute ) {
-					$old_value = $section->getAttribute( $attribute );
-					$new_value = $heading->getAttribute( $attribute );
+						if ( $old_value ) {
+							$new_value = ( $old_value . ' ' . $new_value );
+						}
 
-					if ( $old_value ) {
-						$new_value = ( $old_value . ' ' . $new_value );
-					}
+						// set attribute.
+						$section->setAttribute( $attribute, $new_value );
 
-					// set attribute.
-					$section->setAttribute( $attribute, $new_value );
+						// remove attribute.
+						$heading->removeAttribute( $attribute );
 
-					// remove attribute.
-					$heading->removeAttribute( $attribute );
-
-					// retain the ID as the structure changes when the gallery wrappers are injected,
-					// breaking the section > heading relationship.
-					if ( 'id' === $attribute ) {
-						$heading->setAttribute( 'data-' . $attribute, $new_value );
+						// retain the ID as the structure changes when the gallery wrappers are injected,
+						// breaking the section > heading relationship.
+						if ( 'id' === $attribute ) {
+							$heading->setAttribute( 'data-' . $attribute, $new_value );
+						}
 					}
 				}
 			}
