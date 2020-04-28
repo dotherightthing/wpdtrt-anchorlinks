@@ -284,11 +284,12 @@ class WPDTRT_AnchorlinksTest extends WP_UnitTestCase {
 
 		$this->assertEquals(
 			'h3',
-			$dom
+			trim( $dom
 				->getElementsByTagName( 'ol' )[0]
 				->parentNode
 				->firstChild
-				->nodeValue,
+				->nodeValue
+			),
 			'List heading element uses incorrect element'
 		);
 
@@ -373,12 +374,13 @@ class WPDTRT_AnchorlinksTest extends WP_UnitTestCase {
 	
 		$this->assertEquals(
 			'Heading 1',
-			$dom
+			trim( $dom
 				->getElementsByTagName( 'div' )[0]
 				->getElementsByTagName( 'ol' )[0]
 				->getElementsByTagName( 'li' )[0]
 				->getElementsByTagName( 'a' )[0]
-				->nodeValue,
+				->nodeValue
+			),
 			'Anchor list link has wrong text'
 		);
 	}
