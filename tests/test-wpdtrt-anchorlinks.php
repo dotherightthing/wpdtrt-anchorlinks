@@ -129,7 +129,7 @@ class WPDTRT_AnchorlinksTest extends WP_UnitTestCase {
 				$dom
 					->getElementsByTagName( 'h2' )
 			),
-			'Wrong number of headings'
+			'Content contains unexpected number of headings'
 		);
 
 		$this->assertEquals(
@@ -137,7 +137,7 @@ class WPDTRT_AnchorlinksTest extends WP_UnitTestCase {
 			$dom
 				->getElementsByTagName( 'div' )[0]
 				->getAttribute( 'class' ),
-			'Anchor has wrong classname'
+			'Anchor has unexpected classname'
 		);
 
 		$this->assertEquals(
@@ -145,7 +145,7 @@ class WPDTRT_AnchorlinksTest extends WP_UnitTestCase {
 			$dom
 				->getElementsByTagName( 'div' )[0]
 				->getAttribute( 'id' ),
-			'Anchor has wrong id'
+			'Anchor has unexpected id'
 		);
 
 		$this->assertEquals(
@@ -153,7 +153,7 @@ class WPDTRT_AnchorlinksTest extends WP_UnitTestCase {
 			$dom
 				->getElementsByTagName( 'div' )[1]
 				->getAttribute( 'id' ),
-			'Anchor has wrong id'
+			'Anchor has unexpected id'
 		);
 
 		$this->assertEquals(
@@ -172,7 +172,7 @@ class WPDTRT_AnchorlinksTest extends WP_UnitTestCase {
 				->getElementsByTagName( 'div' )[0]
 				->getElementsByTagName( 'a' )[0]
 				->getAttribute( 'class' ),
-			'Anchor link has wrong classname'
+			'Anchor link has unexpected classname'
 		);
 
 		$this->assertEquals(
@@ -181,7 +181,7 @@ class WPDTRT_AnchorlinksTest extends WP_UnitTestCase {
 				->getElementsByTagName( 'div' )[0]
 				->getElementsByTagName( 'a' )[0]
 				->getAttribute( 'href' ),
-			'Anchor link has wrong href'
+			'Anchor link has unexpected href'
 		);
 	}
 
@@ -194,20 +194,16 @@ class WPDTRT_AnchorlinksTest extends WP_UnitTestCase {
 	 * @todo wpdtrt_tourdates_shortcode_thumbnail
 	 * @todo Refactor wpdtrt_tourdates_shortcode_summary so that it is easier to test
 	 */
-	public function test_shortcode() {
+	public function test_anchor_list_shortcode() {
 		$this->go_to(
 			get_post_permalink( $this->post_id_1 )
 		);
 
 		$shortcode      = '[wpdtrt_anchorlinks_shortcode title_text="Jump menu" post_id="' . $this->post_id_1 . '"]';
 		$shortcode_html = trim( do_shortcode( $shortcode ) );
-		$shortcode_html = preg_replace( '~[\r\n]~', '', $shortcode_html ); // remove line breaks.
 
 		$dom = new DOMDocument();
 		$dom->loadHTML( mb_convert_encoding( $shortcode_html, 'HTML-ENTITIES', 'UTF-8' ) );
-		$dom->preserveWhiteSpace = false;
-
-		var_dump( $dom );
 
 		// Anchor list.
 
@@ -217,93 +213,80 @@ class WPDTRT_AnchorlinksTest extends WP_UnitTestCase {
 				$dom
 					->getElementsByTagName( 'ol' )
 			),
-			'Anchor list not generated'
+			'Expected 1 list element'
 		);
+
+		$anchorList = $dom->getElementsByTagName( 'ol' )[0];
 
 		// Anchor list class.
 
 		$this->assertEquals(
 			'wpdtrt-anchorlinks__list',
-			$dom
-				->getElementsByTagName( 'div' )[0]
-				->getElementsByTagName( 'ol' )[0]
+			$anchorList
 				->getAttribute( 'class' ),
-			'Anchor list has wrong classname'
+			'List has unexpected classname'
 		);
 
 		// Anchor list parent class.
 
 		$this->assertEquals(
 			'wpdtrt-anchorlinks',
-			$dom
-				->getElementsByTagName( 'ol' )[0]
+			$anchorList
 				->parentNode
 				->getAttribute( 'class' ),
-			'Anchor list wrapper has wrong classname'
+			'List wrapper has unexpected classname'
 		);
 
 		// Anchor list outermost parent class.
 
 		$this->assertEquals(
 			'wpdtrt-anchorlinks__site-sticky-target',
-			$dom
-				->getElementsByTagName( 'ol' )[0]
+			$anchorList
 				->parentNode
 				->parentNode
 				->parentNode
 				->parentNode
 				->parentNode
 				->getAttribute( 'class' ),
-			'Anchor outer wrapper has wrong classname'
+			'Outermost list wrapper has unexpected classname'
 		);
-
-		// Anchor list title.
-
-		$this->assertNotEquals(
-			null,
-			$dom
-				->getElementsByTagName( 'ol' )[0]
-				->parentNode
-				->firstChild,
-			'Heading should precede list'
-		);
-
-		// // Anchor list title class.
-
-		// $this->assertNotEquals(
-		// 	$dom
-		// 		->getElementsByTagName( 'ol' )[0]
-		// 		->parentNode
-		// 		->firstChild
-		// 		->getAttribute( 'class' ),
-		// 	'wpdtrt-anchorlinks__title',
-		// 	'List heading has incorrect classname'
-		// );
 
 		// Anchor list title element.
+		// firstChild / childNodes[0] is an empty string.
 
 		$this->assertEquals(
 			'h3',
-			trim( $dom
-				->getElementsByTagName( 'ol' )[0]
+			$anchorList
 				->parentNode
-				->firstChild
-				->nodeValue
-			),
-			'List heading element uses incorrect element'
+				->childNodes[1]
+				->tagName,
+			'List title uses unexpected element'
+		);
+
+		// Anchor list title class.
+		// firstChild / childNodes[0] is an empty string.
+
+		$this->assertEquals(
+			'wpdtrt-anchorlinks__title',
+			$anchorList
+				->parentNode
+				->childNodes[1]
+				->getAttribute( 'class' ),
+			'List title has unexpected classname'
 		);
 
 		// Anchor list title text.
+		// firstChild / childNodes[0] is an empty string.
 
 		$this->assertEquals(
 			'Jump menu',
-			trim( $dom
-				->getElementsByTagName( 'ol' )[0]
-				->parentNode
-				->firstChild
-				->textContent
+			trim(
+				$anchorList
+					->parentNode
+					->childNodes[1]
+					->textContent
 			),
-			'title_text is incorrect'
+			'List title has unexpected text'
 		);
 
 		// Anchor list item length.
@@ -311,24 +294,20 @@ class WPDTRT_AnchorlinksTest extends WP_UnitTestCase {
 		$this->assertEquals(
 			2,
 			count(
-				$dom
-					->getElementsByTagName( 'div' )[0]
-					->getElementsByTagName( 'ol' )[0]
+				$anchorList
 					->getElementsByTagName( 'li' )
 			),
-			'Anchor list contains wrong number of items'
+			'List contains unexpected number of items'
 		);
 
 		// Anchor list item class.
 
 		$this->assertEquals(
 			'wpdtrt-anchorlinks__list-item',
-			$dom
-				->getElementsByTagName( 'div' )[0]
-				->getElementsByTagName( 'ol' )[0]
+			$anchorList
 				->getElementsByTagName( 'li' )[0]
 				->getAttribute( 'class' ),
-			'Anchor list item has wrong classname'
+			'List item has unexpected classname'
 		);
 
 		// Anchor list link length.
@@ -336,52 +315,45 @@ class WPDTRT_AnchorlinksTest extends WP_UnitTestCase {
 		$this->assertEquals(
 			2,
 			count(
-				$dom
-					->getElementsByTagName( 'div' )[0]
-					->getElementsByTagName( 'ol' )[0]
+				$anchorList
 					->getElementsByTagName( 'a' )
 			),
-			'Anchor list contains wrong number of links'
+			'List contains unexpected number of links'
 		);
 
 		// Anchor list link class.
 
 		$this->assertEquals(
 			'wpdtrt-anchorlinks__list-link',
-			$dom
-				->getElementsByTagName( 'div' )[0]
-				->getElementsByTagName( 'ol' )[0]
+			$anchorList
 				->getElementsByTagName( 'li' )[0]
 				->getElementsByTagName( 'a' )[0]
 				->getAttribute( 'class' ),
-			'Anchor list link has wrong classname'
+			'List link has unexpected classname'
 		);
 
 		// Anchor list link href.
 
 		$this->assertEquals(
 			'#heading-1',
-			$dom
-				->getElementsByTagName( 'div' )[0]
-				->getElementsByTagName( 'ol' )[0]
+			$anchorList
 				->getElementsByTagName( 'li' )[0]
 				->getElementsByTagName( 'a' )[0]
 				->getAttribute( 'href' ),
-			'Anchor list link has wrong href'
+			'List link has unexpected href'
 		);
 
 		// Anchor list link text.
 	
 		$this->assertEquals(
 			'Heading 1',
-			trim( $dom
-				->getElementsByTagName( 'div' )[0]
-				->getElementsByTagName( 'ol' )[0]
-				->getElementsByTagName( 'li' )[0]
-				->getElementsByTagName( 'a' )[0]
-				->nodeValue
+			trim(
+				$anchorList
+					->getElementsByTagName( 'li' )[0]
+					->getElementsByTagName( 'a' )[0]
+					->nodeValue
 			),
-			'Anchor list link has wrong text'
+			'List link has unexpected text'
 		);
 	}
 }
