@@ -207,6 +207,8 @@ class WPDTRT_AnchorlinksTest extends WP_UnitTestCase {
 		$dom = new DOMDocument();
 		$dom->loadHTML( mb_convert_encoding( $shortcode_html, 'HTML-ENTITIES', 'UTF-8' ) );
 
+		// phpcs:disable WordPress.NamingConventions
+
 		// Anchor list.
 		$this->assertEquals(
 			1,
@@ -231,7 +233,7 @@ class WPDTRT_AnchorlinksTest extends WP_UnitTestCase {
 		$this->assertEquals(
 			'wpdtrt-anchorlinks',
 			$anchor_list
-				->parentNode // phpcs:ignore
+				->parentNode
 				->getAttribute( 'class' ),
 			'List wrapper has unexpected classname'
 		);
@@ -240,11 +242,11 @@ class WPDTRT_AnchorlinksTest extends WP_UnitTestCase {
 		$this->assertEquals(
 			'wpdtrt-anchorlinks__site-sticky-target',
 			$anchor_list
-				->parentNode // phpcs:ignore
-				->parentNode // phpcs:ignore
-				->parentNode // phpcs:ignore
-				->parentNode // phpcs:ignore
-				->parentNode // phpcs:ignore
+				->parentNode
+				->parentNode
+				->parentNode
+				->parentNode
+				->parentNode
 				->getAttribute( 'class' ),
 			'Outermost list wrapper has unexpected classname'
 		);
@@ -254,7 +256,7 @@ class WPDTRT_AnchorlinksTest extends WP_UnitTestCase {
 		$this->assertEquals(
 			'h3',
 			$anchor_list
-				->parentNode // phpcs:ignore
+				->parentNode
 				->childNodes[1]
 				->tagName,
 			'List title uses unexpected element'
@@ -265,7 +267,7 @@ class WPDTRT_AnchorlinksTest extends WP_UnitTestCase {
 		$this->assertEquals(
 			'wpdtrt-anchorlinks__title',
 			$anchor_list
-				->parentNode // phpcs:ignore
+				->parentNode
 				->childNodes[1]
 				->getAttribute( 'class' ),
 			'List title has unexpected classname'
@@ -277,7 +279,7 @@ class WPDTRT_AnchorlinksTest extends WP_UnitTestCase {
 			'Jump menu',
 			trim(
 				$anchor_list
-					->parentNode // phpcs:ignore
+					->parentNode
 					->childNodes[1]
 					->textContent
 			),
@@ -344,5 +346,7 @@ class WPDTRT_AnchorlinksTest extends WP_UnitTestCase {
 			),
 			'List link has unexpected text'
 		);
+
+		// phpcs:enable WordPress.NamingConventions
 	}
 }
