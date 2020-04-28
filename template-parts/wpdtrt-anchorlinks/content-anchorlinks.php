@@ -51,9 +51,11 @@ echo $before_title . $title . $after_title;
 		<div class="wpdtrt-anchorlinks__site-main">
 			<div class="wpdtrt-anchorlinks__section">
 				<div class="wpdtrt-anchorlinks">
+					<?php if ( null !== $title_text ): ?>
 					<h3 class="wpdtrt-anchorlinks__title">
 						<?php echo $title_text; ?>
 					</h3>
+					<?php endif; ?>
 					<?php
 						echo $anchor_list_html;
 					?>
