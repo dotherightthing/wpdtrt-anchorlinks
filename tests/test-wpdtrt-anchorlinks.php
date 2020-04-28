@@ -199,6 +199,9 @@ class WPDTRT_AnchorlinksTest extends WP_UnitTestCase {
 			get_post_permalink( $this->post_id_1 )
 		);
 
+		// shortcodes are not used in the content area,
+		// so we don't load a WordPress post here.
+
 		$shortcode      = '[wpdtrt_anchorlinks_shortcode title_text="Jump menu" post_id="' . $this->post_id_1 . '"]';
 		$shortcode_html = trim( do_shortcode( $shortcode ) );
 
