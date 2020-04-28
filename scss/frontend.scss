@@ -48,12 +48,12 @@
             color: var(--wpdtrt-anchorlinks-color-link-hover);
             text-decoration: underline;
         }
+    }
 
-        &.active {
-            color: var(--wpdtrt-anchorlinks-color-link-active);
-            font-weight: var(--wpdtrt-anchorlinks-font-weight-active);
-            border-color: var(--wpdtrt-anchorlinks-color-border-link-active);
-        }
+    &__list-link-active {
+        color: var(--wpdtrt-anchorlinks-color-link-active);
+        font-weight: var(--wpdtrt-anchorlinks-font-weight-active);
+        border-color: var(--wpdtrt-anchorlinks-color-border-link-active);
     }
 
     &__scroll-progress {

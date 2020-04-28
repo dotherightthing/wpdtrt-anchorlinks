@@ -24,15 +24,15 @@
 const wpdtrtAnchorlinksUi = {
 
     /**
-     * @function getNavigation
+     * @function getAnchorLinks
      * @summary Get list of anchor links
      * @memberof wpdtrtAnchorlinksUi
      * @protected
      *
      * @returns {external:jQuery} link list
      */
-    getNavigation: () => {
-        let $ = wpdtrtAnchorlinksUi.jQuery;
+    getAnchorLinks: () => {
+        const $ = wpdtrtAnchorlinksUi.jQuery;
 
         return $('.wpdtrt-anchorlinks__list-link');
     },
@@ -47,7 +47,7 @@ const wpdtrtAnchorlinksUi = {
      * @returns {external:jQuery} link element
      */
     getRelatedNavigation: (el) => {
-        let $ = wpdtrtAnchorlinksUi.jQuery;
+        const $ = wpdtrtAnchorlinksUi.jQuery;
 
         return $(`.wpdtrt-anchorlinks__list-link[href='#${$(el).attr('id')}']`);
     },
@@ -61,16 +61,22 @@ const wpdtrtAnchorlinksUi = {
      * @param {external:jQuery} $jumpMenu - .wpdtrt-anchorlinks
      */
     injectSummaryLink: ($jumpMenu) => {
+        const $ = wpdtrtAnchorlinksUi.jQuery;
+        const anchor = '#summary';
+        const $anchor = $(anchor);
         const $firstItem = $jumpMenu.find('.wpdtrt-anchorlinks__list-item').eq(0);
+        const highlightController = '[data-wpdtrt-anchorlinks-controls="highlighting"]';
         let summaryItem = '';
 
-        summaryItem += '<li class="wpdtrt-anchorlinks__list-item">';
-        summaryItem += '<a href="#summary" class="wpdtrt-anchorlinks__list-link">';
-        summaryItem += 'Introduction';
-        summaryItem += '</a>';
-        summaryItem += '</li>';
+        if ($anchor.length && $anchor.find(highlightController).length) {
+            summaryItem += '<li class="wpdtrt-anchorlinks__list-item">';
+            summaryItem += `<a href="${anchor}" class="wpdtrt-anchorlinks__list-link">`;
+            summaryItem += 'Introduction';
+            summaryItem += '</a>';
+            summaryItem += '</li>';
 
-        $firstItem.before(summaryItem);
+            $firstItem.before(summaryItem);
+        }
     },
 
     /**
@@ -80,12 +86,12 @@ const wpdtrtAnchorlinksUi = {
      * @protected
      */
     showScrollProgress: () => {
-        let $ = wpdtrtAnchorlinksUi.jQuery;
+        const $ = wpdtrtAnchorlinksUi.jQuery;
 
         const $title = $('.wpdtrt-anchorlinks__title');
         const $links = $('.wpdtrt-anchorlinks__list-link');
         const linksCount = $links.length;
-        const $linkActive = $('.wpdtrt-anchorlinks__list-link.active');
+        const $linkActive = $('.wpdtrt-anchorlinks__list-link-active');
         const linksActiveIndex = $links.index($linkActive) + 1;
         let pctThru = (linksActiveIndex / linksCount) * 100;
         const $scrollProgress = $('.wpdtrt-anchorlinks__scroll-progress');
@@ -113,8 +119,7 @@ const wpdtrtAnchorlinksUi = {
      * @param {object} observer - Intersection Observer
      */
     highlightAnchorLink: (changes, observer) => {
-        let $ = wpdtrtAnchorlinksUi.jQuery;
-        let $anchorLinks = wpdtrtAnchorlinksUi.getNavigation();
+        const $ = wpdtrtAnchorlinksUi.jQuery;
 
         changes.forEach(change => {
             let intersectingElement = change.target;
@@ -126,12 +131,39 @@ const wpdtrtAnchorlinksUi = {
                 let anchor = $anchor.get(0);
                 let $anchorLinkActive = wpdtrtAnchorlinksUi.getRelatedNavigation(anchor);
 
-                $anchorLinks.removeClass('active');
-                $anchorLinkActive.addClass('active');
+                wpdtrtAnchorlinksUi.unhighlightAnchorLinks();
+
+                $anchorLinkActive.addClass('wpdtrt-anchorlinks__list-link-active');
 
                 wpdtrtAnchorlinksUi.showScrollProgress();
             }
         });
+    },
+
+    /**
+     * @function clickedAnchorLink
+     * @summary Highlight the clicked anchor links.
+     * @memberof wpdtrtAnchorlinksUi
+     * @protected
+     *
+     * @param {external:jQuery} $clickedAnchorLink - Clicked link.
+     */
+    clickedAnchorLink: ($clickedAnchorLink) => {
+        setTimeout(() => {
+            wpdtrtAnchorlinksUi.unhighlightAnchorLinks();
+            $clickedAnchorLink.addClass('wpdtrt-anchorlinks__list-link-active');
+        }, 250);
+    },
+
+    /**
+     * @function unhighlightAnchorLinks
+     * @summary Unhighlight all anchor links.
+     * @memberof wpdtrtAnchorlinksUi
+     * @protected
+     */
+    unhighlightAnchorLinks: () => {
+        const $anchorLinks = wpdtrtAnchorlinksUi.getAnchorLinks();
+        $anchorLinks.removeClass('wpdtrt-anchorlinks__list-link-active');
     },
 
     /**
@@ -144,7 +176,7 @@ const wpdtrtAnchorlinksUi = {
      * @param {object} observer - Intersection Observer
      */
     pinAnchorLinksList: (changes, observer) => {
-        let $ = wpdtrtAnchorlinksUi.jQuery;
+        const $ = wpdtrtAnchorlinksUi.jQuery;
         let $stickyTarget = $('.wpdtrt-anchorlinks__site-sticky-target');
         let stickyClass = 'wpdtrt-anchorlinks__site-sticky';
 
@@ -171,7 +203,7 @@ const wpdtrtAnchorlinksUi = {
      * @param {object} observer - Intersection Observer
      */
     toggleAnchorLinksList: (changes, observer) => {
-        let $ = wpdtrtAnchorlinksUi.jQuery;
+        const $ = wpdtrtAnchorlinksUi.jQuery;
         let $fadeTarget = $('.wpdtrt-anchorlinks__site');
 
         changes.forEach(change => {
@@ -198,7 +230,7 @@ const wpdtrtAnchorlinksUi = {
      * @see {@link http://codepen.io/jakob-e/pen/mhCyx}
      */
     sticky_jump_menu: ($jumpMenu) => {
-        let $ = wpdtrtAnchorlinksUi.jQuery;
+        const $ = wpdtrtAnchorlinksUi.jQuery;
 
         if (!$jumpMenu.length) {
             return;
@@ -206,14 +238,15 @@ const wpdtrtAnchorlinksUi = {
 
         wpdtrtAnchorlinksUi.injectSummaryLink($jumpMenu);
 
-        const $anchorLinks = $('.wpdtrt-anchorlinks__anchor');
+        const $anchors = $('.wpdtrt-anchorlinks__anchor');
+        const $anchorLinks = wpdtrtAnchorlinksUi.getAnchorLinks();
 
         // theme elements
         const $highlightController = $('[data-wpdtrt-anchorlinks-controls="highlighting"]');
         const $pinController = $('[data-wpdtrt-anchorlinks-controls="pinning"]');
         const $fadeController = $('[data-wpdtrt-anchorlinks-controls="hiding"]');
 
-        if ($anchorLinks.length) {
+        if ($anchors.length) {
             if ('IntersectionObserver' in window) {
                 const highlightAnchorLinkObserver = new IntersectionObserver(wpdtrtAnchorlinksUi.highlightAnchorLink, {
                     root: null, // relative to document viewport
@@ -224,6 +257,14 @@ const wpdtrtAnchorlinksUi = {
                 $highlightController.each((i, item) => {
                     // add element to the set being watched by the IntersectionObserver
                     highlightAnchorLinkObserver.observe($(item).get(0));
+                });
+
+                // reset highlighted item on click
+                $anchorLinks.on('click', event => {
+                    const $clickedElement = $(event.target);
+                    const $targetElement = $clickedElement.closest('a');
+
+                    wpdtrtAnchorlinksUi.clickedAnchorLink($targetElement);
                 });
 
                 if ($pinController.length) {
@@ -256,7 +297,7 @@ const wpdtrtAnchorlinksUi = {
      * @public
      */
     init: () => { // called from footer config script block
-        let $ = wpdtrtAnchorlinksUi.jQuery;
+        const $ = wpdtrtAnchorlinksUi.jQuery;
 
         // https://web-design-weekly.com/snippets/scroll-to-position-with-jquery/
         $.fn.scrollView = function (offset, duration) { // eslint-disable-line func-names
