@@ -43,8 +43,8 @@
         padding: var(--wpdtrt-anchorlinks-padding-link);
         margin-bottom: var(--wpdtrt-anchorlinks-margin-link);
 
-        &:hover,
-        &:focus {
+        &:not(span):hover,
+        &:not(span):focus {
             color: var(--wpdtrt-anchorlinks-color-link-hover);
             text-decoration: underline;
         }
@@ -76,5 +76,21 @@
         padding: var(--wpdtrt-anchorlinks-padding-title);
         border-bottom: 1px solid var(--wpdtrt-anchorlinks-color-border-link);
         margin: var(--wpdtrt-anchorlinks-margin-title); // align with top of gallery viewer (assumes there is a gallery viewer..
+    }
+
+    &__title-sticky {
+        display: none;
+
+        #{$block}__site-sticky & {
+            display: block;
+        }
+    }
+
+    &__title-unsticky {
+        display: block;
+
+        #{$block}__site-sticky & {
+            display: none;
+        }
     }
 }
