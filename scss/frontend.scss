@@ -43,8 +43,8 @@
         padding: var(--wpdtrt-anchorlinks-padding-link);
         margin-bottom: var(--wpdtrt-anchorlinks-margin-link);
 
-        &:not(span):hover,
-        &:not(span):focus {
+        &:hover,
+        &:focus {
             color: var(--wpdtrt-anchorlinks-color-link-hover);
             text-decoration: underline;
         }

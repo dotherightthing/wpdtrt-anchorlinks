@@ -78,7 +78,7 @@ const wpdtrtAnchorlinksUi = {
         } else {
             anchorText = $title.find('.wpdtrt-anchorlinks__title-unsticky').text();
 
-            stickyTitle += '<span class="wpdtrt-anchorlinks__title-sticky wpdtrt-anchorlinks__list-link">';
+            stickyTitle += '<span class="wpdtrt-anchorlinks__title-sticky">';
             stickyTitle += $.trim(anchorText);
             stickyTitle += '</span>';
         }
