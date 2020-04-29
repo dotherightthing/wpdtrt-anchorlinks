@@ -103,7 +103,7 @@ const wpdtrtAnchorlinksUi = {
 
         $elements.each((i, item) => {
             let id = i + 1;
-            $elements.filter(`[data-wpdtrt-anchorlinks-list-addition="${id}"]`).clone().insertAfter($list);
+            $elements.filter(`[data-wpdtrt-anchorlinks-list-addition="${id}"]`).clone().appendTo($list.parent());
         });
     },
 
