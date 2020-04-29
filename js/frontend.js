@@ -87,6 +87,27 @@ const wpdtrtAnchorlinksUi = {
     },
 
     /**
+     * @function injectListAdditions
+     * @summary Append theme elements after the list, in the order specified.
+     * @memberof wpdtrtAnchorlinksUi
+     * @protected
+     *
+     * @example
+     * <div data-wpdtrt-anchorlinks-list-addition="1">Added first</div>
+     * <div data-wpdtrt-anchorlinks-list-addition="2">Added second</div>
+     */
+    injectListAdditions: () => {
+        const $ = wpdtrtAnchorlinksUi.jQuery;
+        const $elements = $('[data-wpdtrt-anchorlinks-list-addition]');
+        const $list = $('.wpdtrt-anchorlinks__list');
+
+        $elements.each((i, item) => {
+            let id = i + 1;
+            $elements.filter(`[data-wpdtrt-anchorlinks-list-addition="${id}"]`).clone().insertAfter($list);
+        });
+    },
+
+    /**
      * @function showScrollProgress
      * @summary Resize the indicator according to the scroll progress
      * @memberof wpdtrtAnchorlinksUi
@@ -314,6 +335,8 @@ const wpdtrtAnchorlinksUi = {
                 }, duration);
             });
         };
+
+        wpdtrtAnchorlinksUi.injectListAdditions();
 
         wpdtrtAnchorlinksUi.sticky_jump_menu($('.wpdtrt-anchorlinks'));
 

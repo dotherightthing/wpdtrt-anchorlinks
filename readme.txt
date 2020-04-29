@@ -76,6 +76,15 @@ Add the following data attribute to a the relevant child of each anchor:
     * the previous matching anchor link will be unhighlighted
     * the new matching anchor link will be highlighted
 
+= How to inject a theme element after the anchor list? =
+
+Add the following data attribute to the element:
+
+`data-wpdtrt-anchorlinks-list-addition="1"`
+
+* This element will be injected after the list
+* If there are multiple elements to inject, this element will be injected first, as it has an id of `1`
+
 == Screenshots ==
 
 1. The caption for ./images/screenshot-1.(png|jpg|jpeg|gif)
