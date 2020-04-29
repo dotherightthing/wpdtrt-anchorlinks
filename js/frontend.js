@@ -281,9 +281,9 @@ const wpdtrtAnchorlinksUi = {
             // ratio of the element which is visible in the viewport
             // (entering or leaving)
             if (change.intersectionRatio > 0.1) {
-                $fadeTarget.fadeOut(500);
+                $fadeTarget.fadeOut(300);
             } else if (change.intersectionRatio <= 0.1) {
-                $fadeTarget.fadeIn(500);
+                $fadeTarget.fadeIn(400);
             }
         });
     },
