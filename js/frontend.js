@@ -108,6 +108,46 @@ const wpdtrtAnchorlinksUi = {
     },
 
     /**
+     * @function setListMaxHeight
+     * @summary Calculate the height available to the anchor list.
+     * @memberof wpdtrtAnchorlinksUi
+     * @protected
+     *
+     * @param {number} maxHeight - max height
+     */
+    setListMaxHeight: (maxHeight) => {
+        const $ = wpdtrtAnchorlinksUi.jQuery;
+        const $list = $('.wpdtrt-anchorlinks__list');
+
+        if (typeof maxHeight !== 'undefined') {
+            $list.css({
+                'max-height': '',
+                'overflow-y': ''
+            });
+        } else {
+            const $container = $('.wpdtrt-anchorlinks');
+            const containerMargins = parseInt($container.css('margin-top'), 10) + parseInt($container.css('margin-bottom'), 10);
+            const $siblings = $('.wpdtrt-anchorlinks__list').siblings();
+            let siblingHeight = containerMargins;
+
+            $siblings.each((i, item) => {
+                if (i === 0) {
+                    // this is only correct for our purposes
+                    // if the element is pinned.
+                    siblingHeight += $(item)[0].getBoundingClientRect().top;
+                }
+
+                siblingHeight += $(item).outerHeight(true);
+            });
+
+            $list.css({
+                'max-height': `calc(100vh - ${siblingHeight}px)`,
+                'overflow-y': 'auto'
+            });
+        }
+    },
+
+    /**
      * @function showScrollProgress
      * @summary Resize the indicator according to the scroll progress
      * @memberof wpdtrtAnchorlinksUi
@@ -205,18 +245,19 @@ const wpdtrtAnchorlinksUi = {
      */
     pinAnchorLinksList: (changes, observer) => {
         const $ = wpdtrtAnchorlinksUi.jQuery;
-        let $stickyTarget = $('.wpdtrt-anchorlinks__site-sticky-target');
-        let stickyClass = 'wpdtrt-anchorlinks__site-sticky';
+        const $stickyTarget = $('.wpdtrt-anchorlinks__site-sticky-target');
+        const stickyClass = 'wpdtrt-anchorlinks__site-sticky';
+        const $list = $('.wpdtrt-anchorlinks__list');
 
         changes.forEach(change => {
-            let intersectingElement = change.target;
-
             // ratio of the element which is visible in the viewport
             // (entering or leaving)
             if (change.intersectionRatio > 0.1) {
                 $stickyTarget.removeClass(stickyClass);
+                wpdtrtAnchorlinksUi.setListMaxHeight(0);
             } else if (change.intersectionRatio <= 0.1) {
                 $stickyTarget.addClass(stickyClass);
+                wpdtrtAnchorlinksUi.setListMaxHeight();
             }
         });
     },
