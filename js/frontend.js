@@ -53,29 +53,28 @@ const wpdtrtAnchorlinksUi = {
     },
 
     /**
-     * @function injectSummaryLink
+     * @function setTitleToSummary
      * @summary Inject the summary section (outside of the page content) into the nav.
      * @memberof wpdtrtAnchorlinksUi
      * @protected
      *
      * @param {external:jQuery} $jumpMenu - .wpdtrt-anchorlinks
      */
-    injectSummaryLink: ($jumpMenu) => {
+    setTitleToSummary: ($jumpMenu) => {
         const $ = wpdtrtAnchorlinksUi.jQuery;
         const anchor = '#summary';
         const $anchor = $(anchor);
-        const $firstItem = $jumpMenu.find('.wpdtrt-anchorlinks__list-item').eq(0);
+        const anchorText = $anchor.find('h2').text();
+        const $title = $jumpMenu.find('.wpdtrt-anchorlinks__title').eq(0);
         const highlightController = '[data-wpdtrt-anchorlinks-controls="highlighting"]';
-        let summaryItem = '';
+        let stickyTitle = '';
 
         if ($anchor.length && $anchor.find(highlightController).length) {
-            summaryItem += '<li class="wpdtrt-anchorlinks__list-item">';
-            summaryItem += `<a href="${anchor}" class="wpdtrt-anchorlinks__list-link">`;
-            summaryItem += 'Introduction';
-            summaryItem += '</a>';
-            summaryItem += '</li>';
+            stickyTitle += `<a href="${anchor}" class="wpdtrt-anchorlinks__title-sticky wpdtrt-anchorlinks__list-link">`;
+            stickyTitle += $.trim(anchorText);
+            stickyTitle += '</a>';
 
-            $firstItem.before(summaryItem);
+            $title.prepend(stickyTitle);
         }
     },
 
@@ -236,7 +235,7 @@ const wpdtrtAnchorlinksUi = {
             return;
         }
 
-        wpdtrtAnchorlinksUi.injectSummaryLink($jumpMenu);
+        wpdtrtAnchorlinksUi.setTitleToSummary($jumpMenu);
 
         const $anchors = $('.wpdtrt-anchorlinks__anchor');
         const $anchorLinks = wpdtrtAnchorlinksUi.getAnchorLinks();

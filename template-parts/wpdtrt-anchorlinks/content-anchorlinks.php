@@ -53,7 +53,7 @@ echo $before_title . $title . $after_title;
 				<div class="wpdtrt-anchorlinks">
 					<?php if ( null !== $title_text ): ?>
 					<h3 class="wpdtrt-anchorlinks__title">
-						<?php echo $title_text; ?>
+						<span class="wpdtrt-anchorlinks__title-unsticky"><?php echo $title_text; ?></span>
 					</h3>
 					<?php endif; ?>
 					<?php
