@@ -82,7 +82,7 @@ Add the following data attribute to the element:
 
 `data-wpdtrt-anchorlinks-list-addition="1"`
 
-* This element will be injected after the list
+* This element will be removed from its current location and injected after the list
 * If there are multiple elements to inject, this element will be injected first, as it has an id of `1`
 
 == Screenshots ==
