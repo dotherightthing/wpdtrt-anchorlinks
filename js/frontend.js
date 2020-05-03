@@ -65,7 +65,7 @@ const wpdtrtAnchorlinksUi = {
         const anchor = '#summary';
         const $anchor = $(anchor);
         const $title = $jumpMenu.find('.wpdtrt-anchorlinks__title').eq(0);
-        const highlightController = '[data-wpdtrt-anchorlinks-controls="highlighting"]';
+        const { highlightController } = wpdtrtAnchorlinksUi.domElements;
         let anchorText;
         let stickyTitle = '';
 
@@ -135,7 +135,8 @@ const wpdtrtAnchorlinksUi = {
         } else {
             const $container = $('.wpdtrt-anchorlinks');
             const containerMargins = parseInt($container.css('margin-top'), 10) + parseInt($container.css('margin-bottom'), 10);
-            const $siblings = $('.wpdtrt-anchorlinks__list').siblings();
+            const { footerController } = wpdtrtAnchorlinksUi.domElements;
+            const $siblings = $('.wpdtrt-anchorlinks__list').siblings().add(footerController);
             let siblingHeight = containerMargins;
 
             $siblings.each((i, item) => {
@@ -317,11 +318,7 @@ const wpdtrtAnchorlinksUi = {
 
         const $anchors = $('.wpdtrt-anchorlinks__anchor');
         const $anchorLinks = wpdtrtAnchorlinksUi.getAnchorLinks();
-
-        // theme elements
-        const $highlightController = $('[data-wpdtrt-anchorlinks-controls="highlighting"]');
-        const $pinController = $('[data-wpdtrt-anchorlinks-controls="pinning"]');
-        const $fadeController = $('[data-wpdtrt-anchorlinks-controls="hiding"]');
+        const { highlightController, pinController } = wpdtrtAnchorlinksUi.domElements;
 
         if ($anchors.length) {
             if ('IntersectionObserver' in window) {
@@ -331,7 +328,7 @@ const wpdtrtAnchorlinksUi = {
                     threshold: 0.5 // visible amount of item shown in relation to root
                 });
 
-                $highlightController.each((i, item) => {
+                highlightController.each((i, item) => {
                     // add element to the set being watched by the IntersectionObserver
                     highlightAnchorLinkObserver.observe($(item).get(0));
                 });
@@ -344,24 +341,14 @@ const wpdtrtAnchorlinksUi = {
                     wpdtrtAnchorlinksUi.clickedAnchorLink($targetElement);
                 });
 
-                if ($pinController.length) {
+                if (pinController.length) {
                     const pinAnchorLinksListObserver = new IntersectionObserver(wpdtrtAnchorlinksUi.pinAnchorLinksList, {
                         root: null, // relative to document viewport
                         rootMargin: '0px', // margin around root, unitless values not allowed
                         threshold: 0.1 // visible amount of item shown in relation to root
                     });
 
-                    pinAnchorLinksListObserver.observe($pinController.get(0));
-                }
-
-                if ($fadeController.length) {
-                    const toggleAnchorLinksListObserver = new IntersectionObserver(wpdtrtAnchorlinksUi.toggleAnchorLinksList, {
-                        root: null, // relative to document viewport
-                        rootMargin: '0px', // margin around root, unitless values not allowed
-                        threshold: 0.1 // visible amount of item shown in relation to root
-                    });
-
-                    toggleAnchorLinksListObserver.observe($fadeController.get(0));
+                    pinAnchorLinksListObserver.observe(pinController.get(0));
                 }
             }
         }
@@ -376,6 +363,11 @@ const wpdtrtAnchorlinksUi = {
     init: () => { // called from footer config script block
         const $ = wpdtrtAnchorlinksUi.jQuery;
 
+        wpdtrtAnchorlinksUi.domElements = {
+            footerController: $('[data-wpdtrt-anchorlinks-controls="footer"]'),
+            highlightController: $('[data-wpdtrt-anchorlinks-controls="highlighting"]'),
+            pinController: $('[data-wpdtrt-anchorlinks-controls="pinning"]')
+        };
 
         wpdtrtAnchorlinksUi.injectListAdditions(false);
 

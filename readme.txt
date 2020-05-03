@@ -60,10 +60,9 @@ To control pinning, add the following data attribute to an element:
 
 Add the following data attribute to an element.
 
-`data-wpdtrt-anchorlinks-controls="hiding"`
+`data-wpdtrt-anchorlinks-controls="footer"`
 
-* When this element is scrolled into the viewport, the anchor links list will be hidden
-* When this element is scrolled out of the viewport, the anchor links list will be shown
+* This element's height is subtracted from the total height available to the anchor list container.
 
 = How do I control the dynamic highlighting of the anchor links? =
 
