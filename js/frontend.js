@@ -376,14 +376,6 @@ const wpdtrtAnchorlinksUi = {
     init: () => { // called from footer config script block
         const $ = wpdtrtAnchorlinksUi.jQuery;
 
-        // https://web-design-weekly.com/snippets/scroll-to-position-with-jquery/
-        // $.fn.scrollView = function (offset, duration) { // eslint-disable-line func-names
-        //     return this.each(function () { // eslint-disable-line func-names
-        //         $('html, body').animate({
-        //             scrollTop: $(this).offset().top - offset
-        //         }, duration);
-        //     });
-        // };
 
         wpdtrtAnchorlinksUi.injectListAdditions(false);
 
