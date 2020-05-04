@@ -92,13 +92,11 @@ const wpdtrtAnchorlinksUi = {
      * @memberof wpdtrtAnchorlinksUi
      * @protected
      *
-     * @param {boolean} clone - Whether to clone the injected element (to retain it at its original location)
-     *
      * @example
-     * <div data-wpdtrt-anchorlinks-list-addition="1">Added first</div>
-     * <div data-wpdtrt-anchorlinks-list-addition="2">Added second</div>
+     * <div data-wpdtrt-anchorlinks-list-addition="1" data-wpdtrt-anchorlinks-list-addition-clone="false">Added first</div>
+     * <div data-wpdtrt-anchorlinks-list-addition="2" data-wpdtrt-anchorlinks-list-addition-clone="true">Added second</div>
      */
-    injectListAdditions: (clone) => {
+    injectListAdditions: () => {
         const $ = wpdtrtAnchorlinksUi.jQuery;
         const $elements = $('[data-wpdtrt-anchorlinks-list-addition]');
         const $list = $('.wpdtrt-anchorlinks__list');
@@ -106,8 +104,9 @@ const wpdtrtAnchorlinksUi = {
         $elements.each((i, item) => {
             let id = i + 1;
             let $orderedAddition = $elements.filter(`[data-wpdtrt-anchorlinks-list-addition="${id}"]`);
+            let clone = $orderedAddition.attr('data-wpdtrt-anchorlinks-list-addition-clone');
 
-            if (clone === true) {
+            if (clone === 'true') {
                 $orderedAddition.clone().appendTo($list.parent());
             } else {
                 $orderedAddition.appendTo($list.parent());
@@ -369,7 +368,7 @@ const wpdtrtAnchorlinksUi = {
             pinController: $('[data-wpdtrt-anchorlinks-controls="pinning"]')
         };
 
-        wpdtrtAnchorlinksUi.injectListAdditions(false);
+        wpdtrtAnchorlinksUi.injectListAdditions();
 
         wpdtrtAnchorlinksUi.sticky_jump_menu($('.wpdtrt-anchorlinks'));
 

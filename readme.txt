@@ -84,6 +84,14 @@ Add the following data attribute to the element:
 * This element will be removed from its current location and injected after the list
 * If there are multiple elements to inject, this element will be injected first, as it has an id of `1`
 
+`data-wpdtrt-anchorlinks-list-addition-clone="true"`
+
+* The original element will be copied rather than moved
+
+`data-wpdtrt-anchorlinks-list-addition-clone="false"`
+
+* The original element will be moved rather than copied
+
 == Screenshots ==
 
 1. The caption for ./images/screenshot-1.(png|jpg|jpeg|gif)
