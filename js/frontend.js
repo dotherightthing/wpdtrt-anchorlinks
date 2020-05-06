@@ -99,7 +99,11 @@ const wpdtrtAnchorlinksUi = {
     injectListAdditions: () => {
         const $ = wpdtrtAnchorlinksUi.jQuery;
         const $elements = $('[data-wpdtrt-anchorlinks-list-addition]');
+        const $block = $('.wpdtrt-anchorlinks');
         const $list = $('.wpdtrt-anchorlinks__list');
+
+        $block.append('<div class="wpdtrt-anchorlinks__additions"></div>');
+        const $additions = $('.wpdtrt-anchorlinks__additions');
 
         $elements.each((i, item) => {
             let id = i + 1;
@@ -107,9 +111,9 @@ const wpdtrtAnchorlinksUi = {
             let clone = $orderedAddition.attr('data-wpdtrt-anchorlinks-list-addition-clone');
 
             if (clone === 'true') {
-                $orderedAddition.clone().appendTo($list.parent());
+                $orderedAddition.clone().appendTo($additions);
             } else {
-                $orderedAddition.appendTo($list.parent());
+                $orderedAddition.appendTo($additions);
             }
         });
     },

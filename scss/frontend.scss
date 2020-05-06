@@ -24,6 +24,10 @@
 .wpdtrt-anchorlinks {
     $block: &;
 
+    &__additions {
+        position: relative;
+    }
+
     &__anchor-link {
         margin-left: .25em;
     }
