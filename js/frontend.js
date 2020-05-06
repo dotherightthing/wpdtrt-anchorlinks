@@ -271,32 +271,6 @@ const wpdtrtAnchorlinksUi = {
     },
 
     /**
-     * @function toggleAnchorLinksList
-     * @summary Hide the anchor links list when the footer is in view.
-     * @memberof wpdtrtAnchorlinksUi
-     * @protected
-     *
-     * @param {object} changes - Observed changes
-     * @param {object} observer - Intersection Observer
-     */
-    toggleAnchorLinksList: (changes, observer) => {
-        const $ = wpdtrtAnchorlinksUi.jQuery;
-        let $fadeTarget = $('.wpdtrt-anchorlinks__site');
-
-        changes.forEach(change => {
-            let intersectingElement = change.target;
-
-            // ratio of the element which is visible in the viewport
-            // (entering or leaving)
-            if (change.intersectionRatio > 0.1) {
-                $fadeTarget.fadeOut(300);
-            } else if (change.intersectionRatio <= 0.1) {
-                $fadeTarget.fadeIn(400);
-            }
-        });
-    },
-
-    /**
      * @function sticky_jump_menu
      * @summary Inject wrappers required for fixed positioning, manage scroll link highlighting
      * @memberof wpdtrtAnchorlinksUi
