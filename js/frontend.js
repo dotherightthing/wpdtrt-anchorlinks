@@ -134,8 +134,7 @@ const wpdtrtAnchorlinksUi = {
         } else {
             const $container = $('.wpdtrt-anchorlinks');
             const containerMargins = parseInt($container.css('margin-top'), 10) + parseInt($container.css('margin-bottom'), 10);
-            const { footerController } = wpdtrtAnchorlinksUi.domElements;
-            const $siblings = $('.wpdtrt-anchorlinks__list').siblings().add(footerController);
+            const $siblings = $('.wpdtrt-anchorlinks__list').siblings();
             let siblingHeight = containerMargins;
 
             $siblings.each((i, item) => {
@@ -253,9 +252,8 @@ const wpdtrtAnchorlinksUi = {
      */
     pinAnchorLinksList: (changes, observer) => {
         const $ = wpdtrtAnchorlinksUi.jQuery;
-        const $stickyTarget = $('.wpdtrt-anchorlinks__site-sticky-target');
-        const stickyClass = 'wpdtrt-anchorlinks__site-sticky';
-        const $list = $('.wpdtrt-anchorlinks__list');
+        const $stickyTarget = $('.wpdtrt-anchorlinks');
+        const stickyClass = 'wpdtrt-anchorlinks--sticky';
 
         changes.forEach(change => {
             // ratio of the element which is visible in the viewport
@@ -314,6 +312,9 @@ const wpdtrtAnchorlinksUi = {
                     wpdtrtAnchorlinksUi.clickedAnchorLink($targetElement);
                 });
 
+                // the actual pinning is done with position:sticky
+                // but this gives us control over the max-height
+
                 if (pinController.length) {
                     const pinAnchorLinksListObserver = new IntersectionObserver(wpdtrtAnchorlinksUi.pinAnchorLinksList, {
                         root: null, // relative to document viewport
@@ -337,7 +338,6 @@ const wpdtrtAnchorlinksUi = {
         const $ = wpdtrtAnchorlinksUi.jQuery;
 
         wpdtrtAnchorlinksUi.domElements = {
-            footerController: $('[data-wpdtrt-anchorlinks-controls="footer"]'),
             highlightController: $('[data-wpdtrt-anchorlinks-controls="highlighting"]'),
             pinController: $('[data-wpdtrt-anchorlinks-controls="pinning"]')
         };

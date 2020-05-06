@@ -81,7 +81,7 @@
     &__title-sticky {
         display: none;
 
-        #{$block}__site-sticky & {
+        #{$block}--sticky & {
             display: block;
         }
     }
@@ -89,8 +89,21 @@
     &__title-unsticky {
         display: block;
 
-        #{$block}__site-sticky & {
+        #{$block}--sticky & {
             display: none;
+        }
+    }
+
+    @include media('>laptop') {
+        position: absolute;
+        right: 0;
+        width: 25%;
+        height: 0; // suppress space to the left of the element when it pins, in Safari
+
+        &--sticky {
+            position: sticky;
+            top: 0;
+            margin-left: auto;
         }
     }
 }
