@@ -89,7 +89,7 @@
         }
     }
 
-    @include media('>laptop') {
+    @include media('>=laptop') {
         position: sticky;
         top: var(--wpdtrt-anchorlinks-position-top);
         width: var(--wpdtrt-anchorlinks-width-laptop-and-up);
