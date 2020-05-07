@@ -137,22 +137,23 @@ const wpdtrtAnchorlinksUi = {
             });
         } else {
             const $container = $('.wpdtrt-anchorlinks');
-            const containerMargins = parseInt($container.css('margin-top'), 10) + parseInt($container.css('margin-bottom'), 10);
+            const containerTop = $container.get(0).getBoundingClientRect().top;
+            const containerBottom = parseInt($container.css('margin-bottom'), 10);
             const $siblings = $('.wpdtrt-anchorlinks__list').siblings();
-            let siblingHeight = containerMargins;
+            let blockHeight = containerTop + containerBottom;
 
             $siblings.each((i, item) => {
                 if (i === 0) {
                     // this is only correct for our purposes
                     // if the element is pinned.
-                    siblingHeight += $(item)[0].getBoundingClientRect().top;
+                    blockHeight += $(item).get(0).getBoundingClientRect().top;
                 }
 
-                siblingHeight += $(item).outerHeight(true);
+                blockHeight += $(item).outerHeight(true);
             });
 
             $list.css({
-                'max-height': `calc(100vh - ${siblingHeight}px)`,
+                'max-height': `calc(100vh - ${blockHeight}px)`,
                 'overflow-y': 'auto'
             });
         }
