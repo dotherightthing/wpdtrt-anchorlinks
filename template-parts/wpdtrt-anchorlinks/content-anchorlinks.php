@@ -46,10 +46,13 @@ echo $before_title . $title . $after_title;
 ?>
 
 <div class="wpdtrt-anchorlinks">
-	<?php if ( null !== $title_text ): ?>
+	<?php if ( null !== $title_text ) : ?>
 	<h3 class="wpdtrt-anchorlinks__title">
 		<span class="wpdtrt-anchorlinks__title-unsticky"><?php echo $title_text; ?></span>
 	</h3>
+	<div class="wpdtrt-anchorlinks__scroll-progress">
+		<div class="wpdtrt-anchorlinks__scroll-progress-bar"></div>
+	</div>
 	<?php endif; ?>
 	<?php
 		echo $anchor_list_html;

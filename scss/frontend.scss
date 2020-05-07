@@ -1,11 +1,6 @@
 //
 // Styles for the public front-end
 //
-// Jump links + stickyNavbar.js
-// Multiple injected wrappers ensure that
-// .wpdtrt-anchorlinks stays in the same horz location when sticky
-// Note: customisation applied at theme level
-//
 // @package WPDTRT_Anchorlinks
 // @version 0.0.1
 // @since 0.7.0
@@ -18,14 +13,22 @@
 
 // -------------------------------------------------------------------
 // Styles
-// .wpdtrt-anchorlinks__site-sticky is applied to .wpdtrt-anchorlinks__site
+// .wpdtrt-anchorlinks--sticky is applied to .wpdtrt-anchorlinks
 // -------------------------------------------------------------------
 
 .wpdtrt-anchorlinks {
     $block: &;
 
+    &__additions {
+        padding: var(--wpdtrt-anchorlinks-padding-additions);
+    }
+
     &__anchor-link {
-        margin-left: .25em;
+        margin-left: var(--wpdtrt-anchorlinks-margin-anchor-link);
+    }
+
+    &__list {
+        margin: var(--wpdtrt-anchorlinks-margin-list);
     }
 
     &__list,
@@ -38,7 +41,7 @@
     &__list-link {
         display: block;
         color: var(--wpdtrt-anchorlinks-color-link);
-        line-height: var(--wpdtrt-anchorlinks-line-height-link);
+        line-height: var(--wpdtrt-anchorlinks-height-link);
         text-decoration: none;
         padding: var(--wpdtrt-anchorlinks-padding-link);
         margin-bottom: var(--wpdtrt-anchorlinks-margin-link);
@@ -53,28 +56,20 @@
     &__list-link-active {
         color: var(--wpdtrt-anchorlinks-color-link-active);
         font-weight: var(--wpdtrt-anchorlinks-font-weight-active);
-        border-color: var(--wpdtrt-anchorlinks-color-border-link-active);
     }
 
     &__scroll-progress {
-        position: absolute;
-        top: 100%;
-        left: 0;
-        width: 0;
+        background-color: var(--wpdtrt-anchorlinks-color-progress-bg);
     }
 
-    &__site-sticky {
-        #{$block}__scroll-progress {
-            border-top: 1px solid var(--wpdtrt-anchorlinks-color-border-scroll-progress);
-        }
+    &__scroll-progress-bar {
+        width: 0;
+        border-top: var(--wpdtrt-anchorlinks-height-progress-bar) solid var(--wpdtrt-anchorlinks-color-progress-bar);
     }
 
     &__title {
-        position: relative;
         font-family: inherit;
         font-size: inherit;
-        padding: var(--wpdtrt-anchorlinks-padding-title);
-        border-bottom: 1px solid var(--wpdtrt-anchorlinks-color-border-link);
         margin: var(--wpdtrt-anchorlinks-margin-title); // align with top of gallery viewer (assumes there is a gallery viewer..
     }
 
@@ -96,10 +91,9 @@
 
     @include media('>laptop') {
         position: sticky;
-        top: 0;
-        right: 0;
-        width: 25%;
+        top: var(--wpdtrt-anchorlinks-position-top);
+        width: var(--wpdtrt-anchorlinks-width-laptop-and-up);
         height: 0; // suppress space to the left of the element when it pins, in Safari
-        margin-left: auto;
+        margin: var(--wpdtrt-anchorlinks-margin);
     }
 }

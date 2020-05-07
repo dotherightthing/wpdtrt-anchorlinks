@@ -22,21 +22,26 @@ $breakpoints: (
 );
 
 // -------------------------------------------------------------------
-// CSS Variables
+// CSS Variables used by default styles
 // -------------------------------------------------------------------
 
 :root {
+    --wpdtrt-anchorlinks-color-divider: hsla(0, 0%, 80%, 1);
     --wpdtrt-anchorlinks-color-link: hsla(0, 0%, 33%, 1);
     --wpdtrt-anchorlinks-color-link-active: hsla(0, 0%, 0%, 1);
-    --wpdtrt-anchorlinks-color-border-link: hsla(0, 0%, 80%, 1);
-    --wpdtrt-anchorlinks-color-border-link-active: hsla(0, 0%, 33%, 1);
-    --wpdtrt-anchorlinks-color-border-divider: hsla(0, 0%, 80%, 1);
-    --wpdtrt-anchorlinks-color-border-scroll-progress: hsla(0, 0%, 0%, 1);
     --wpdtrt-anchorlinks-color-link-hover: hsla(0, 0%, 0%, 1);
+    --wpdtrt-anchorlinks-color-progress-bar: hsla(0, 0%, 0%, 1);
+    --wpdtrt-anchorlinks-color-progress-bg: hsla(0, 0%, 80%, 1);
     --wpdtrt-anchorlinks-font-weight-active: bold;
-    --wpdtrt-anchorlinks-line-height-link: 1.4;
+    --wpdtrt-anchorlinks-height-link: 28px;
+    --wpdtrt-anchorlinks-height-progress-bar: 1px;
+    --wpdtrt-anchorlinks-padding-additions: 40px 0 0;
     --wpdtrt-anchorlinks-padding-link: .3em 0;
-    --wpdtrt-anchorlinks-padding-title: 0 0 1.5em;
+    --wpdtrt-anchorlinks-margin: 0 0 40px auto;
+    --wpdtrt-anchorlinks-margin-anchor-link: 0 0 0 .25em;
     --wpdtrt-anchorlinks-margin-link: 0 0 .125em;
-    --wpdtrt-anchorlinks-margin-title: .3em 0 3em;
+    --wpdtrt-anchorlinks-margin-list: 40px 0;
+    --wpdtrt-anchorlinks-margin-title: 0 0 40px;
+    --wpdtrt-anchorlinks-position-top: 0;
+    --wpdtrt-anchorlinks-width-laptop-and-up: 25%;
 }

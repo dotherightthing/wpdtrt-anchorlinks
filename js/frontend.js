@@ -100,7 +100,6 @@ const wpdtrtAnchorlinksUi = {
         const $ = wpdtrtAnchorlinksUi.jQuery;
         const $elements = $('[data-wpdtrt-anchorlinks-list-addition]');
         const $block = $('.wpdtrt-anchorlinks');
-        const $list = $('.wpdtrt-anchorlinks__list');
 
         $block.append('<div class="wpdtrt-anchorlinks__additions"></div>');
         const $additions = $('.wpdtrt-anchorlinks__additions');
@@ -160,17 +159,12 @@ const wpdtrtAnchorlinksUi = {
     showScrollProgress: () => {
         const $ = wpdtrtAnchorlinksUi.jQuery;
 
-        const $title = $('.wpdtrt-anchorlinks__title');
         const $links = $('.wpdtrt-anchorlinks__list-link');
-        const linksCount = $links.length;
         const $linkActive = $('.wpdtrt-anchorlinks__list-link-active');
         const linksActiveIndex = $links.index($linkActive) + 1;
+        const linksCount = $links.length;
+        const $scrollProgressBar = $('.wpdtrt-anchorlinks__scroll-progress-bar');
         let pctThru = (linksActiveIndex / linksCount) * 100;
-        const $scrollProgress = $('.wpdtrt-anchorlinks__scroll-progress');
-
-        if (!$scrollProgress.length) {
-            $title.append('<div class="wpdtrt-anchorlinks__scroll-progress"></div>');
-        }
 
         // if we're in a section, show how far through we are
         // else assume that we're all the way through
@@ -178,7 +172,7 @@ const wpdtrtAnchorlinksUi = {
             pctThru = 100;
         }
 
-        $('.wpdtrt-anchorlinks__scroll-progress').css('width', `${pctThru}%`);
+        $scrollProgressBar.css('width', `${pctThru}%`);
     },
 
     /**
