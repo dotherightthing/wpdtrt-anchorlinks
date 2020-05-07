@@ -136,24 +136,16 @@ const wpdtrtAnchorlinksUi = {
                 'overflow-y': ''
             });
         } else {
+            const $additions = $('.wpdtrt-anchorlinks__additions');
             const $container = $('.wpdtrt-anchorlinks');
-            const containerTop = $container.get(0).getBoundingClientRect().top;
+            const additionsHeight = $additions.outerHeight(true);
             const containerBottom = parseInt($container.css('margin-bottom'), 10);
-            const $siblings = $('.wpdtrt-anchorlinks__list').siblings();
-            let blockHeight = containerTop + containerBottom;
-
-            $siblings.each((i, item) => {
-                if (i === 0) {
-                    // this is only correct for our purposes
-                    // if the element is pinned.
-                    blockHeight += $(item).get(0).getBoundingClientRect().top;
-                }
-
-                blockHeight += $(item).outerHeight(true);
-            });
+            const listTop = $list.get(0).getBoundingClientRect().top;
+            const listBottom = parseInt($list.css('margin-bottom'), 10);
+            let nonListHeight = listTop + additionsHeight + listBottom + containerBottom;
 
             $list.css({
-                'max-height': `calc(100vh - ${blockHeight}px)`,
+                'max-height': `calc(100vh - ${nonListHeight}px)`,
                 'overflow-y': 'auto'
             });
         }
