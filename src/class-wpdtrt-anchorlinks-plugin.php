@@ -81,7 +81,7 @@ class WPDTRT_Anchorlinks_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplat
 	}
 
 	/**
-	 * Method: get_anchor_list_html
+	 * Method: get_anchors
 	 *
 	 * Parameters:
 	 *   $post_id - Page ID
@@ -89,7 +89,7 @@ class WPDTRT_Anchorlinks_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplat
 	 * Returns:
 	 *   $anchors
 	 */
-	public function get_anchor_list_html( int $post_id ) {
+	public function get_anchors( int $post_id ) {
 		$post    = get_post( $post_id );
 		$content = apply_filters( 'the_content', $post->post_content );
 
@@ -110,6 +110,21 @@ class WPDTRT_Anchorlinks_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplat
 			}
 		}
 		// phpcs:enable WordPress.NamingConventions
+
+		return $anchors;
+	}
+
+	/**
+	 * Method: get_anchor_list_html
+	 *
+	 * Parameters:
+	 *   $anchors - Anchors
+	 *
+	 * Returns:
+	 *   $anchors
+	 */
+	public function get_anchor_list_html( array $anchors ) {
+		$dom = new DOMDocument();
 
 		if ( count( $anchors ) > 0 ) {
 			$anchor_list = $dom->createElement( 'ol' );

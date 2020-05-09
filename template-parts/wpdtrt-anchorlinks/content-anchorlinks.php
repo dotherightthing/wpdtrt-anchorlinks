@@ -38,12 +38,14 @@ if ( isset( $post ) && is_object( $post ) ) {
 }
 
 // Logic.
-$anchor_list_html = $plugin->get_anchor_list_html( (int) $post_id );
+$anchors = $plugin->get_anchors( (int) $post_id );
 
 // WordPress widget options (not output with shortcode).
 echo $before_widget;
 echo $before_title . $title . $after_title;
-?>
+
+if ( count( $anchors ) > 0 ) :
+	?>
 
 <div class="wpdtrt-anchorlinks">
 	<?php if ( null !== $title_text ) : ?>
@@ -55,11 +57,13 @@ echo $before_title . $title . $after_title;
 	</div>
 	<?php endif; ?>
 	<?php
-		echo $anchor_list_html;
+		echo $plugin->get_anchor_list_html( (array) $anchors );
 	?>
 </div>
 
-<?php
+	<?php
+endif;
+
 // output widget customisations (not output with shortcode).
 echo $after_widget;
 ?>
