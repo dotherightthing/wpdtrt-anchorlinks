@@ -312,8 +312,6 @@ class WPDTRT_Anchorlinks_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplat
 
 				$empty_sections[] = $section;
 
-				// var_dump( $section ); // doesn't include .section > p
-
 			} elseif ( 1 === $section->firstChild->nodeType ) { // Node is a DOMElement (dom.constants).
 				if ( 'h2' === $section->firstChild->tagName ) {
 					// move attributes from heading to section.
@@ -342,8 +340,6 @@ class WPDTRT_Anchorlinks_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplat
 						}
 					}
 				}
-
-				// elseif = 'p' etc.
 			}
 		}
 
