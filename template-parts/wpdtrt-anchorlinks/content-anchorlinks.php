@@ -57,7 +57,7 @@ if ( count( $anchors ) > 0 ) :
 	</div>
 	<?php endif; ?>
 	<?php
-		echo $plugin->get_anchor_list_html( (array) $anchors );
+		echo $plugin->render_anchor_list_html( (array) $anchors );
 	?>
 </div>
 

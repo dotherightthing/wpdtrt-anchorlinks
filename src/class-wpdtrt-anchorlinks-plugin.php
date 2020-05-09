@@ -52,35 +52,6 @@ class WPDTRT_Anchorlinks_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplat
 	 */
 
 	/**
-	 * Method: get_html
-	 *
-	 * This is better than getting child nodes because WP shortcodes aren't HTML elements.
-	 *
-	 * Parameters:
-	 *   $n - DOM node
-	 *   $include_target_tag - whether to include the element tag in the output
-	 *
-	 * Returns:
-	 *   $html - HTML
-	 *
-	 * See:
-	 * <https://stackoverflow.com/a/53740544/6850747>
-	 */
-	public function get_html( DOMNode $n, $include_target_tag = false ) : string {
-		$dom = new DOMDocument();
-		$dom->appendChild( $dom->importNode( $n, true ) ); // $deep.
-		$html = trim( $dom->saveHTML() );
-
-		if ( $include_target_tag ) {
-			return $html;
-		}
-
-		$html = preg_replace( '@^<' . $n->nodeName . '[^>]*>|</'. $n->nodeName . '>$@', '', $html ); // phpcs:ignore
-
-		return $html;
-	}
-
-	/**
 	 * Method: get_anchors
 	 *
 	 * Uses the data-anchorlinks-id attributes injected by $this->filter_content_sections().
@@ -117,7 +88,11 @@ class WPDTRT_Anchorlinks_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplat
 	}
 
 	/**
-	 * Method: get_anchor_list_html
+	 * ===== Renderers =====
+	 */
+
+	/**
+	 * Method: render_anchor_list_html
 	 *
 	 * Parameters:
 	 *   $anchors - Anchors
@@ -125,7 +100,7 @@ class WPDTRT_Anchorlinks_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplat
 	 * Returns:
 	 *   $anchors
 	 */
-	public function get_anchor_list_html( array $anchors ) {
+	public function render_anchor_list_html( array $anchors ) {
 		$dom = new DOMDocument();
 
 		if ( count( $anchors ) > 0 ) {
@@ -145,15 +120,77 @@ class WPDTRT_Anchorlinks_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplat
 				$anchor_list->appendChild( $anchor_list_item );
 			}
 
-			$anchor_list_html = $this->get_html( $anchor_list, true );
+			$anchor_list_html = $this->render_html( $anchor_list, true );
 		}
 
 		return $anchor_list_html;
 	}
 
 	/**
-	 * ===== Renderers =====
+	 * Method: render_heading_in_section
+	 *
+	 * Wrap a section around each heading and its siblings.
+	 * Replacement for wpdtrt-contentsections.
+	 * Headings are identified by the class
+	 * added by $this->filter_content_anchors()
+	 *
+	 * Parameters:
+	 *   $content - Content
+	 *
+	 * Returns:
+	 *   $content - Content
+	 *
+	 * See:
+	 * <https://www.php.net/manual/en/dom.constants.php>
 	 */
+	public function render_heading_in_section( string $content ) : string {
+		$heading_start = '<h2 class="wpdtrt-anchorlinks__anchor"';
+
+		// DOMDocument doesn't support HTML5 tags like <section>.
+		$section_start = '<div class="wpdtrt-anchorlinks__section">';
+		$section_end   = '</div>';
+
+		// wrap a section around each heading and its siblings.
+		$content = $section_start . str_replace(
+			$heading_start,
+			$section_end . $section_start . $heading_start,
+			$content
+		) . $section_end;
+
+		// Fix DOMDocument::loadHTML(): htmlParseStartTag: misplaced <body> tag in Entity, line: 1.
+		$content = str_replace( array( '<body>', '</body>' ), '', $content );
+
+		return $content;
+	}
+
+	/**
+	 * Method: render_html
+	 *
+	 * This is better than getting child nodes because WP shortcodes aren't HTML elements.
+	 *
+	 * Parameters:
+	 *   $n - DOM node
+	 *   $include_target_tag - whether to include the element tag in the output
+	 *
+	 * Returns:
+	 *   $html - HTML
+	 *
+	 * See:
+	 * <https://stackoverflow.com/a/53740544/6850747>
+	 */
+	public function render_html( DOMNode $n, $include_target_tag = false ) : string {
+		$dom = new DOMDocument();
+		$dom->appendChild( $dom->importNode( $n, true ) ); // $deep.
+		$html = trim( $dom->saveHTML() );
+
+		if ( $include_target_tag ) {
+			return $html;
+		}
+
+		$html = preg_replace( '@^<' . $n->nodeName . '[^>]*>|</'. $n->nodeName . '>$@', '', $html ); // phpcs:ignore
+
+		return $html;
+	}
 
 	/**
 	 * Add project-specific frontend scripts
@@ -226,6 +263,7 @@ class WPDTRT_Anchorlinks_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplat
 			$heading_link = $dom->createElement( 'a' );
 			$heading_link->setAttribute( 'class', 'wpdtrt-anchorlinks__anchor-link' );
 
+			// class is also used by $this->render_heading_in_section().
 			$heading->setAttribute( 'class', 'wpdtrt-anchorlinks__anchor' );
 			$heading_id = sanitize_title( $heading->nodeValue ); // phpcs:ignore
 			$heading->setAttribute( 'id', $heading_id );
@@ -257,21 +295,7 @@ class WPDTRT_Anchorlinks_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplat
 	 * <https://www.php.net/manual/en/dom.constants.php>
 	 */
 	public function filter_content_sections( string $content ) : string {
-		$heading_start = '<h2 class="wpdtrt-anchorlinks__anchor"';
-
-		// DOMDocument doesn't support HTML5 tags like <section>.
-		$section_start = '<div class="wpdtrt-anchorlinks__section">';
-		$section_end   = '</div>';
-
-		// wrap a section around each heading and its siblings.
-		$content = $section_start . str_replace(
-			$heading_start,
-			$section_end . $section_start . $heading_start,
-			$content
-		) . $section_end;
-
-		// Fix DOMDocument::loadHTML(): htmlParseStartTag: misplaced <body> tag in Entity, line: 1.
-		$content = str_replace( array( '<body>', '</body>' ), '', $content );
+		$content = $this->render_heading_in_section( $content );
 
 		$dom = new DOMDocument();
 		$dom->loadHTML( mb_convert_encoding( $content, 'HTML-ENTITIES', 'UTF-8' ) );
@@ -287,6 +311,8 @@ class WPDTRT_Anchorlinks_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplat
 			if ( null === $section->firstChild ) {
 
 				$empty_sections[] = $section;
+
+				// var_dump( $section ); // doesn't include .section > p
 
 			} elseif ( 1 === $section->firstChild->nodeType ) { // Node is a DOMElement (dom.constants).
 				if ( 'h2' === $section->firstChild->tagName ) {
@@ -316,11 +342,14 @@ class WPDTRT_Anchorlinks_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplat
 						}
 					}
 				}
+
+				// elseif = 'p' etc.
 			}
 		}
 
 		foreach ( $empty_sections as $empty_section ) {
 			// remove empty section resulting from string replacement.
+			// this excludes sections which contain p but no h2.
 			$empty_section->parentNode->removeChild( $empty_section );
 		}
 
