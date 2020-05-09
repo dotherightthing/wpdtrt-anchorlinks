@@ -83,6 +83,8 @@ class WPDTRT_Anchorlinks_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplat
 	/**
 	 * Method: get_anchors
 	 *
+	 * Uses the data-anchorlinks-id attributes injected by $this->filter_content_sections().
+	 *
 	 * Parameters:
 	 *   $post_id - Page ID
 	 *
@@ -102,10 +104,10 @@ class WPDTRT_Anchorlinks_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplat
 
 		// phpcs:disable WordPress.NamingConventions
 		foreach ( $headings as $heading ) {
-			if ( null !== $heading->getAttribute( 'data-id' ) ) {
+			if ( null !== $heading->getAttribute( 'data-anchorlinks-id' ) ) {
 				$anchors[] = array(
 					str_replace( '&', '&amp;', $heading->nodeValue ), // phpcs:ignore
-					$heading->getAttribute( 'data-id' ),
+					$heading->getAttribute( 'data-anchorlinks-id' ),
 				);
 			}
 		}
@@ -306,10 +308,11 @@ class WPDTRT_Anchorlinks_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplat
 						// remove attribute.
 						$heading->removeAttribute( $attribute );
 
-						// retain the ID as the structure changes when the gallery wrappers are injected,
+						// retain the ID via a data-anchorlinks-id attribute
+						// as the structure changes when the gallery wrappers are injected,
 						// breaking the section > heading relationship.
 						if ( 'id' === $attribute ) {
-							$heading->setAttribute( 'data-' . $attribute, $new_value );
+							$heading->setAttribute( 'data-anchorlinks-' . $attribute, $new_value );
 						}
 					}
 				}
