@@ -238,19 +238,6 @@ class WPDTRT_AnchorlinksTest extends WP_UnitTestCase {
 			'List wrapper has unexpected classname'
 		);
 
-		// Anchor list outermost parent class.
-		$this->assertEquals(
-			'wpdtrt-anchorlinks__site-sticky-target',
-			$anchor_list
-				->parentNode
-				->parentNode
-				->parentNode
-				->parentNode
-				->parentNode
-				->getAttribute( 'class' ),
-			'Outermost list wrapper has unexpected classname'
-		);
-
 		// Anchor list title element.
 		// firstChild / childNodes[0] is an empty string.
 		$this->assertEquals(
