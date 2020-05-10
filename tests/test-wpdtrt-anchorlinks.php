@@ -117,9 +117,9 @@ class WPDTRT_AnchorlinksTest extends WP_UnitTestCase {
 	 */
 
 	/**
-	 * Method: test_content_filter
+	 * Method: test_content_filters
 	 */
-	public function test_content_filter() {
+	public function test_content_filters() {
 		$this->go_to(
 			get_post_permalink( $this->post_id_1 )
 		);
@@ -193,9 +193,9 @@ class WPDTRT_AnchorlinksTest extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Method: test_content_filter_no_anchors
+	 * Method: test_content_filters_no_anchors
 	 */
-	public function test_content_filter_no_anchors() {
+	public function test_content_filters_no_anchors() {
 		$this->go_to(
 			get_post_permalink( $this->post_id_2 )
 		);

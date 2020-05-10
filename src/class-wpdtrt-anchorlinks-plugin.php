@@ -43,7 +43,6 @@ class WPDTRT_Anchorlinks_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplat
 		parent::wp_setup();
 
 		// add actions and filters here.
-		add_filter( 'the_content', array( $this, 'filter_content_anchors' ), 10 );
 		add_filter( 'the_content', array( $this, 'filter_content_sections' ), 10 );
 	}
 
@@ -127,12 +126,57 @@ class WPDTRT_Anchorlinks_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplat
 	}
 
 	/**
-	 * Method: render_heading_in_section
+	 * Method: render_headings_as_anchors
+	 *
+	 * Add an anchor to each heading.
+	 * Replacement for Better Anchor Links.
+	 *
+	 * Parameters:
+	 *   $content - Content
+	 *
+	 * Returns:
+	 *   $content - Content
+	 *
+	 * See:
+	 * <https://developer.wordpress.org/reference/functions/sanitize_title/>
+	 */
+	public function render_headings_as_anchors( string $content ) : string {
+		$dom = new DOMDocument();
+		$dom->loadHTML( mb_convert_encoding( $content, 'HTML-ENTITIES', 'UTF-8' ) );
+
+		$headings = $dom->getElementsByTagName( 'h2' );
+
+		foreach ( $headings as $heading ) {
+			$heading_span = $dom->createElement( 'span', '#' );
+			$heading_span->setAttribute( 'aria-label', 'Anchor' );
+			$heading_span->setAttribute( 'class', 'wpdtrt-anchorlinks__anchor-icon' );
+
+			$heading_link = $dom->createElement( 'a' );
+			$heading_link->setAttribute( 'class', 'wpdtrt-anchorlinks__anchor-link' );
+
+			// class is also used by $this->render_headings_in_sections().
+			$heading->setAttribute( 'class', 'wpdtrt-anchorlinks__anchor' );
+			$heading_id = sanitize_title( $heading->nodeValue ); // phpcs:ignore
+			$heading->setAttribute( 'id', $heading_id );
+			$heading->setAttribute( 'tabindex', '-1' );
+
+			$heading_link->setAttribute( 'href', '#' . $heading_id );
+			$heading_link->appendChild( $heading_span );
+			$heading->appendChild( $heading_link );
+		}
+
+		$body = $dom->getElementsByTagName( 'body' )->item( 0 );
+
+		return $dom->saveHTML( $body );
+	}
+
+	/**
+	 * Method: render_headings_in_sections
 	 *
 	 * Wrap a section around each heading and its siblings.
 	 * Replacement for wpdtrt-contentsections.
 	 * Headings are identified by the class
-	 * added by $this->filter_content_anchors()
+	 * added by $this->render_headings_as_anchors()
 	 *
 	 * Parameters:
 	 *   $content - Content
@@ -143,7 +187,7 @@ class WPDTRT_Anchorlinks_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplat
 	 * See:
 	 * <https://www.php.net/manual/en/dom.constants.php>
 	 */
-	public function render_heading_in_section( string $content ) : string {
+	public function render_headings_in_sections( string $content ) : string {
 		$heading_start = '<h2 class="wpdtrt-anchorlinks__anchor"';
 
 		// DOMDocument doesn't support HTML5 tags like <section>.
@@ -235,51 +279,6 @@ class WPDTRT_Anchorlinks_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplat
 	 */
 
 	/**
-	 * Method: filter_content_anchors
-	 *
-	 * Add an anchor to each heading.
-	 * Replacement for Better Anchor Links.
-	 *
-	 * Parameters:
-	 *   $content - Content
-	 *
-	 * Returns:
-	 *   $content - Content
-	 *
-	 * See:
-	 * <https://developer.wordpress.org/reference/functions/sanitize_title/>
-	 */
-	public function filter_content_anchors( string $content ) : string {
-		$dom = new DOMDocument();
-		$dom->loadHTML( mb_convert_encoding( $content, 'HTML-ENTITIES', 'UTF-8' ) );
-
-		$headings = $dom->getElementsByTagName( 'h2' );
-
-		foreach ( $headings as $heading ) {
-			$heading_span = $dom->createElement( 'span', '#' );
-			$heading_span->setAttribute( 'aria-label', 'Anchor' );
-			$heading_span->setAttribute( 'class', 'wpdtrt-anchorlinks__anchor-icon' );
-
-			$heading_link = $dom->createElement( 'a' );
-			$heading_link->setAttribute( 'class', 'wpdtrt-anchorlinks__anchor-link' );
-
-			// class is also used by $this->render_heading_in_section().
-			$heading->setAttribute( 'class', 'wpdtrt-anchorlinks__anchor' );
-			$heading_id = sanitize_title( $heading->nodeValue ); // phpcs:ignore
-			$heading->setAttribute( 'id', $heading_id );
-			$heading->setAttribute( 'tabindex', '-1' );
-
-			$heading_link->setAttribute( 'href', '#' . $heading_id );
-			$heading_link->appendChild( $heading_span );
-			$heading->appendChild( $heading_link );
-		}
-
-		$body = $dom->getElementsByTagName( 'body' )->item( 0 );
-
-		return $dom->saveHTML( $body );
-	}
-
-	/**
 	 * Method: filter_content_sections
 	 *
 	 * Wrap a section around each heading and its siblings.
@@ -295,7 +294,8 @@ class WPDTRT_Anchorlinks_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplat
 	 * <https://www.php.net/manual/en/dom.constants.php>
 	 */
 	public function filter_content_sections( string $content ) : string {
-		$content = $this->render_heading_in_section( $content );
+		$content = $this->render_headings_as_anchors( $content );
+		$content = $this->render_headings_in_sections( $content );
 
 		$dom = new DOMDocument();
 		$dom->loadHTML( mb_convert_encoding( $content, 'HTML-ENTITIES', 'UTF-8' ) );
