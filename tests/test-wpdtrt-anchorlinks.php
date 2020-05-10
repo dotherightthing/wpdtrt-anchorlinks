@@ -178,6 +178,31 @@ class WPDTRT_AnchorlinksTest extends WP_UnitTestCase {
 	}
 
 	/**
+	 * Method: test_render_headings_in_sections
+	 */
+	public function test_render_headings_in_sections() {
+		$this->go_to(
+			get_post_permalink( $this->post_id_1 )
+		);
+
+		// https://stackoverflow.com/a/22270259/6850747.
+		$content = get_post_field( 'post_content', $this->post_id_1 );
+
+		global $wpdtrt_anchorlinks_plugin;
+
+		$content = $wpdtrt_anchorlinks_plugin->render_headings_as_anchors( $content );
+		$content = $wpdtrt_anchorlinks_plugin->render_headings_in_sections( $content );
+
+		$content = str_replace( array( '<body>', '</body>' ), '', $content );
+
+		$this->assertEqualHtml(
+			'<div class="wpdtrt-anchorlinks__section"></div><div class="wpdtrt-anchorlinks__section"><h2 class="wpdtrt-anchorlinks__anchor" id="heading-1" tabindex="-1">Heading 1<a class="wpdtrt-anchorlinks__anchor-link" href="#heading-1"><span aria-label="Anchor" class="wpdtrt-anchorlinks__anchor-icon">#</span></a></h2><p>Text</p></div><div class="wpdtrt-anchorlinks__section"><h2 class="wpdtrt-anchorlinks__anchor" id="heading-2" tabindex="-1">Heading 2<a class="wpdtrt-anchorlinks__anchor-link" href="#heading-2"><span aria-label="Anchor" class="wpdtrt-anchorlinks__anchor-icon">#</span></a></h2><p>More text</p></div>',
+			$content,
+			'Content unexpected'
+		);
+	}
+
+	/**
 	 * Method: test_filter_content_sections
 	 */
 	public function test_filter_content_sections() {
