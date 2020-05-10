@@ -61,6 +61,12 @@ class WPDTRT_AnchorlinksTest extends WP_UnitTestCase {
 			'post_date'    => '2020-04-22 13:00:00',
 			'post_content' => '<h2>Heading 1</h2><p>Text</p><h2>Heading 2</h2><p>More text</p>',
 		));
+
+		$this->post_id_2 = $this->create_post( array(
+			'post_title'   => 'DTRT Anchor Links test',
+			'post_date'    => '2020-05-10 12:13:00',
+			'post_content' => '<p>Text</p><p>More text</p>',
+		));
 	}
 
 	/**
@@ -74,6 +80,7 @@ class WPDTRT_AnchorlinksTest extends WP_UnitTestCase {
 		parent::tearDown();
 
 		wp_delete_post( $this->post_id_1, true );
+		wp_delete_post( $this->post_id_2, true );
 	}
 
 	/**
@@ -110,9 +117,9 @@ class WPDTRT_AnchorlinksTest extends WP_UnitTestCase {
 	 */
 
 	/**
-	 * Method: test_injected_anchor
+	 * Method: test_content_filter
 	 */
-	public function test_injected_anchor() {
+	public function test_content_filter() {
 		$this->go_to(
 			get_post_permalink( $this->post_id_1 )
 		);
@@ -186,7 +193,39 @@ class WPDTRT_AnchorlinksTest extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Test shortcodes
+	 * Method: test_content_filter_no_anchors
+	 */
+	public function test_content_filter_no_anchors() {
+		$this->go_to(
+			get_post_permalink( $this->post_id_2 )
+		);
+
+		// https://stackoverflow.com/a/22270259/6850747.
+		$content = apply_filters( 'the_content', get_post_field( 'post_content', $this->post_id_2 ) );
+
+		$dom = new DOMDocument();
+		$dom->loadHTML( mb_convert_encoding( $content, 'HTML-ENTITIES', 'UTF-8' ) );
+
+		$this->assertEquals(
+			0,
+			count(
+				$dom
+					->getElementsByTagName( 'h2' )
+			),
+			'Content contains unexpected number of headings'
+		);
+
+		$this->assertEquals(
+			'wpdtrt-anchorlinks__section',
+			$dom
+				->getElementsByTagName( 'div' )[0]
+				->getAttribute( 'class' ),
+			'Section has unexpected classname'
+		);
+	}
+
+	/**
+	 * Test shortcode output
 	 * trim() removes line break added by WordPress
 	 *
 	 * @see https://stackoverflow.com/a/3760828/6850747
@@ -194,7 +233,7 @@ class WPDTRT_AnchorlinksTest extends WP_UnitTestCase {
 	 * @todo wpdtrt_tourdates_shortcode_thumbnail
 	 * @todo Refactor wpdtrt_tourdates_shortcode_summary so that it is easier to test
 	 */
-	public function test_anchor_list_shortcode() {
+	public function test_shortcode_output() {
 		$this->go_to(
 			get_post_permalink( $this->post_id_1 )
 		);
@@ -335,5 +374,27 @@ class WPDTRT_AnchorlinksTest extends WP_UnitTestCase {
 		);
 
 		// phpcs:enable WordPress.NamingConventions
+	}
+
+	/**
+	 * Test shortcode output when there are no anchors
+	 * trim() removes line break added by WordPress
+	 */
+	public function test_shortcode_output_no_anchors() {
+		$this->go_to(
+			get_post_permalink( $this->post_id_2 )
+		);
+
+		// shortcodes are not used in the content area,
+		// so we don't load a WordPress post here.
+		$shortcode      = '[wpdtrt_anchorlinks_shortcode title_text="Jump menu" post_id="' . $this->post_id_2 . '"]';
+		$shortcode_html = trim( do_shortcode( $shortcode ) );
+
+		// Anchor list.
+		$this->assertEquals(
+			0,
+			strlen( $shortcode_html ),
+			'Expected no output'
+		);
 	}
 }
