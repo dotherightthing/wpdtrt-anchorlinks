@@ -115,6 +115,10 @@ class WPDTRT_AnchorlinksTest extends WP_UnitTestCase {
 	/**
 	 * ===== Tests =====
 	 */
+
+	/**
+	 * Method: test_get_anchors
+	 */
 	public function test_get_anchors() {
 		$this->go_to(
 			get_post_permalink( $this->post_id_1 )
@@ -146,6 +150,30 @@ class WPDTRT_AnchorlinksTest extends WP_UnitTestCase {
 			'heading-1',
 			$anchors[0][1],
 			'Unexpected string'
+		);
+	}
+
+	/**
+	 * Method: test_render_headings_as_anchors
+	 */
+	public function test_render_headings_as_anchors() {
+		$this->go_to(
+			get_post_permalink( $this->post_id_1 )
+		);
+
+		// https://stackoverflow.com/a/22270259/6850747.
+		$content = get_post_field( 'post_content', $this->post_id_1 );
+
+		global $wpdtrt_anchorlinks_plugin;
+
+		$content = $wpdtrt_anchorlinks_plugin->render_headings_as_anchors( $content );
+
+		$content = str_replace( array( '<body>', '</body>' ), '', $content );
+
+		$this->assertEqualHtml(
+			'<h2 class="wpdtrt-anchorlinks__anchor" id="heading-1" tabindex="-1">Heading 1<a class="wpdtrt-anchorlinks__anchor-link" href="#heading-1"><span aria-label="Anchor" class="wpdtrt-anchorlinks__anchor-icon">#</span></a></h2><p>Text</p><h2 class="wpdtrt-anchorlinks__anchor" id="heading-2" tabindex="-1">Heading 2<a class="wpdtrt-anchorlinks__anchor-link" href="#heading-2"><span aria-label="Anchor" class="wpdtrt-anchorlinks__anchor-icon">#</span></a></h2><p>More text</p>',
+			$content,
+			'Content unexpected'
 		);
 	}
 
