@@ -203,6 +203,57 @@ class WPDTRT_AnchorlinksTest extends WP_UnitTestCase {
 	}
 
 	/**
+	 * Method: test_filter_content_sections_copy_attributes
+	 */
+	public function test_filter_content_sections_copy_attributes() {
+		$this->go_to(
+			get_post_permalink( $this->post_id_1 )
+		);
+
+		global $wpdtrt_anchorlinks_plugin;
+
+		// https://stackoverflow.com/a/22270259/6850747.
+		$content = get_post_field( 'post_content', $this->post_id_1 );
+		$content = $wpdtrt_anchorlinks_plugin->render_headings_as_anchors( $content );
+		$content = $wpdtrt_anchorlinks_plugin->render_headings_in_sections( $content );
+
+		$dom = new DOMDocument();
+		$dom->loadHTML( mb_convert_encoding( $content, 'HTML-ENTITIES', 'UTF-8' ) );
+
+		$sections = $dom->getElementsByTagName( 'div' );
+
+		$this->assertEquals(
+			3,
+			count( $sections ),
+			'Expected 3 sections'
+		);
+
+		$this->assertEquals(
+			false,
+			is_object( $sections[0]->firstChild ),
+			'Expected first section to be empty due to regex'
+		);
+
+		$this->assertEquals(
+			true,
+			is_object( $sections[1]->firstChild ),
+			'Expected second section to contain child'
+		);
+
+		$this->assertEquals(
+			1,
+			$sections[1]->firstChild->nodeType,
+			'Expected second section child to be DOM element'
+		);
+
+		$this->assertEquals(
+			'h2',
+			$sections[1]->firstChild->tagName,
+			'Expected second section child to be an H2'
+		);
+	}
+
+	/**
 	 * Method: test_filter_content_sections
 	 */
 	public function test_filter_content_sections() {
@@ -223,20 +274,6 @@ class WPDTRT_AnchorlinksTest extends WP_UnitTestCase {
 					->getElementsByTagName( 'h2' )
 			),
 			'Content contains unexpected number of headings'
-		);
-
-		$sections = $dom->getElementsByTagName( 'div' );
-
-		$this->assertEquals(
-			true,
-			is_object( $sections[0]->firstChild ),
-			'Expected section to contain child'
-		);
-
-		$this->assertEquals(
-			true,
-			is_object( $sections[1]->firstChild ),
-			'Expected section to contain child'
 		);
 
 		$this->assertEquals(
