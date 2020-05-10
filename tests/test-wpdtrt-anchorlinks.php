@@ -225,6 +225,20 @@ class WPDTRT_AnchorlinksTest extends WP_UnitTestCase {
 			'Content contains unexpected number of headings'
 		);
 
+		$sections = $dom->getElementsByTagName( 'div' );
+
+		$this->assertEquals(
+			true,
+			is_object( $sections[0]->firstChild ),
+			'Expected section to contain child'
+		);
+
+		$this->assertEquals(
+			true,
+			is_object( $sections[1]->firstChild ),
+			'Expected section to contain child'
+		);
+
 		$this->assertEquals(
 			'wpdtrt-anchorlinks__section wpdtrt-anchorlinks__anchor',
 			$dom
