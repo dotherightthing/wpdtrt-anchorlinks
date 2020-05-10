@@ -115,11 +115,44 @@ class WPDTRT_AnchorlinksTest extends WP_UnitTestCase {
 	/**
 	 * ===== Tests =====
 	 */
+	public function test_get_anchors() {
+		$this->go_to(
+			get_post_permalink( $this->post_id_1 )
+		);
+
+		global $wpdtrt_anchorlinks_plugin;
+
+		$anchors = $wpdtrt_anchorlinks_plugin->get_anchors( $this->post_id_1 );
+
+		$this->assertEquals(
+			true,
+			is_array( $anchors ),
+			'Array expected'
+		);
+
+		$this->assertEquals(
+			2,
+			count( $anchors ),
+			'Number of anchor arrays'
+		);
+
+		$this->assertEquals(
+			'Heading 1#',
+			$anchors[0][0],
+			'Unexpected string'
+		);
+
+		$this->assertEquals(
+			'heading-1',
+			$anchors[0][1],
+			'Unexpected string'
+		);
+	}
 
 	/**
-	 * Method: test_content_filters
+	 * Method: test_filter_content_sections
 	 */
-	public function test_content_filters() {
+	public function test_filter_content_sections() {
 		$this->go_to(
 			get_post_permalink( $this->post_id_1 )
 		);
@@ -193,9 +226,9 @@ class WPDTRT_AnchorlinksTest extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Method: test_content_filters_no_anchors
+	 * Method: test_filter_content_sections_no_anchors
 	 */
-	public function test_content_filters_no_anchors() {
+	public function test_filter_content_sections_no_anchors() {
 		$this->go_to(
 			get_post_permalink( $this->post_id_2 )
 		);
