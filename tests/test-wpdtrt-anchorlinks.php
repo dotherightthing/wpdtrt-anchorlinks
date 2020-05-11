@@ -216,6 +216,7 @@ class WPDTRT_AnchorlinksTest extends WP_UnitTestCase {
 		$content = get_post_field( 'post_content', $this->post_id_1 );
 		$content = $wpdtrt_anchorlinks_plugin->render_headings_as_anchors( $content );
 		$content = $wpdtrt_anchorlinks_plugin->render_headings_in_sections( $content );
+		$content = str_replace( array( "\n", "\r" ), '', $content );
 
 		$dom = new DOMDocument();
 		$dom->loadHTML( mb_convert_encoding( $content, 'HTML-ENTITIES', 'UTF-8' ) );
@@ -272,6 +273,7 @@ class WPDTRT_AnchorlinksTest extends WP_UnitTestCase {
 
 		// https://stackoverflow.com/a/22270259/6850747.
 		$content = apply_filters( 'the_content', get_post_field( 'post_content', $this->post_id_1 ) );
+		$content = str_replace( array( "\n", "\r" ), '', $content );
 
 		$dom = new DOMDocument();
 		$dom->loadHTML( mb_convert_encoding( $content, 'HTML-ENTITIES', 'UTF-8' ) );
@@ -283,6 +285,12 @@ class WPDTRT_AnchorlinksTest extends WP_UnitTestCase {
 					->getElementsByTagName( 'h2' )
 			),
 			'Content contains unexpected number of headings'
+		);
+
+		$this->assertEquals(
+			'<div class="wpdtrt-anchorlinks__section wpdtrt-anchorlinks__anchor" id="heading-1" tabindex="-1"><h2 data-anchorlinks-id="heading-1">Heading 1<a class="wpdtrt-anchorlinks__anchor-link" href="#heading-1"><span aria-label="Anchor" class="wpdtrt-anchorlinks__anchor-icon">#</span></a></h2><p>Text</p></div>',
+			$dom->saveHTML( $dom->getElementsByTagName( 'div' )[0] ),
+			'Expected first div to be a section containing a heading and text'
 		);
 
 		$this->assertEquals(
@@ -348,6 +356,7 @@ class WPDTRT_AnchorlinksTest extends WP_UnitTestCase {
 
 		// https://stackoverflow.com/a/22270259/6850747.
 		$content = apply_filters( 'the_content', get_post_field( 'post_content', $this->post_id_2 ) );
+		$content = str_replace( array( "\n", "\r" ), '', $content );
 
 		$dom = new DOMDocument();
 		$dom->loadHTML( mb_convert_encoding( $content, 'HTML-ENTITIES', 'UTF-8' ) );
@@ -388,6 +397,7 @@ class WPDTRT_AnchorlinksTest extends WP_UnitTestCase {
 		// so we don't load a WordPress post here.
 		$shortcode      = '[wpdtrt_anchorlinks_shortcode title_text="Jump menu" post_id="' . $this->post_id_1 . '"]';
 		$shortcode_html = trim( do_shortcode( $shortcode ) );
+		$shortcode_html = str_replace( array( "\n", "\r" ), '', $shortcode_html );
 
 		$dom = new DOMDocument();
 		$dom->loadHTML( mb_convert_encoding( $shortcode_html, 'HTML-ENTITIES', 'UTF-8' ) );
