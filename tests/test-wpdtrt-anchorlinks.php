@@ -144,13 +144,13 @@ class WPDTRT_AnchorlinksTest extends WP_UnitTestCase {
 		// Heading 1#\n.
 		$this->assertEquals(
 			'Heading 1#',
-			$anchors[0][0],
+			trim( $anchors[0][0] ),
 			'Unexpected string'
 		);
 
 		$this->assertEquals(
 			'heading-1',
-			$anchors[0][1],
+			trim( $anchors[0][1] ),
 			'Unexpected string'
 		);
 	}
@@ -174,7 +174,7 @@ class WPDTRT_AnchorlinksTest extends WP_UnitTestCase {
 
 		$this->assertEqualHtml(
 			'<h2 class="wpdtrt-anchorlinks__anchor" id="heading-1" tabindex="-1">Heading 1<a class="wpdtrt-anchorlinks__anchor-link" href="#heading-1"><span aria-label="Anchor" class="wpdtrt-anchorlinks__anchor-icon">#</span></a></h2><p>Text</p><h2 class="wpdtrt-anchorlinks__anchor" id="heading-2" tabindex="-1">Heading 2<a class="wpdtrt-anchorlinks__anchor-link" href="#heading-2"><span aria-label="Anchor" class="wpdtrt-anchorlinks__anchor-icon">#</span></a></h2><p>More text</p>',
-			$content,
+			trim( $content ),
 			'Content unexpected'
 		);
 	}
@@ -199,7 +199,7 @@ class WPDTRT_AnchorlinksTest extends WP_UnitTestCase {
 
 		$this->assertEqualHtml(
 			'<div class="wpdtrt-anchorlinks__section"></div><div class="wpdtrt-anchorlinks__section"><h2 class="wpdtrt-anchorlinks__anchor" id="heading-1" tabindex="-1">Heading 1<a class="wpdtrt-anchorlinks__anchor-link" href="#heading-1"><span aria-label="Anchor" class="wpdtrt-anchorlinks__anchor-icon">#</span></a></h2><p>Text</p></div><div class="wpdtrt-anchorlinks__section"><h2 class="wpdtrt-anchorlinks__anchor" id="heading-2" tabindex="-1">Heading 2<a class="wpdtrt-anchorlinks__anchor-link" href="#heading-2"><span aria-label="Anchor" class="wpdtrt-anchorlinks__anchor-icon">#</span></a></h2><p>More text</p></div>',
-			$content,
+			trim( $content ),
 			'Content unexpected'
 		);
 	}
@@ -241,7 +241,7 @@ class WPDTRT_AnchorlinksTest extends WP_UnitTestCase {
 		// </div>\n.
 		$this->assertEquals(
 			'<div class="wpdtrt-anchorlinks__section"></div>',
-			$dom->saveHTML( $sections[0] ),
+			trim( $dom->saveHTML( $sections[0] ) ),
 			'Expected first section to be empty due to regex'
 		);
 
@@ -303,7 +303,7 @@ class WPDTRT_AnchorlinksTest extends WP_UnitTestCase {
 		// Test fails on CI due to newlines.
 		$this->assertEquals(
 			'<div class="wpdtrt-anchorlinks__section wpdtrt-anchorlinks__anchor" id="heading-1" tabindex="-1"><h2 data-anchorlinks-id="heading-1">Heading 1<a class="wpdtrt-anchorlinks__anchor-link" href="#heading-1"><span aria-label="Anchor" class="wpdtrt-anchorlinks__anchor-icon">#</span></a></h2><p>Text</p></div>',
-			$dom->saveHTML( $dom->getElementsByTagName( 'div' )[0] ),
+			trim( $dom->saveHTML( $dom->getElementsByTagName( 'div' )[0] ) ),
 			'Expected first div to be a section containing a heading and text'
 		);
 
@@ -483,7 +483,7 @@ class WPDTRT_AnchorlinksTest extends WP_UnitTestCase {
 		// firstChild / childNodes[0] is an empty string.
 		$this->assertEquals(
 			'Jump menu',
-			trim(
+			 trim(
 				$anchor_list
 					->parentNode
 					->childNodes[1]
