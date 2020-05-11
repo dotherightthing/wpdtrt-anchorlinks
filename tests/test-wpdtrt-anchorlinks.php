@@ -298,7 +298,8 @@ class WPDTRT_AnchorlinksTest extends WP_UnitTestCase {
 
 		// Test fails on CI:
 		// '<div class="wpdtrt-anchorlinks__section"></div>'.
-		// when should empty section be removed?
+		// empty section should be removed by filter_content_sections
+		// but perhaps a \n is preventing it from being empty?
 		$this->assertEquals(
 			'<div class="wpdtrt-anchorlinks__section wpdtrt-anchorlinks__anchor" id="heading-1" tabindex="-1"><h2 data-anchorlinks-id="heading-1">Heading 1<a class="wpdtrt-anchorlinks__anchor-link" href="#heading-1"><span aria-label="Anchor" class="wpdtrt-anchorlinks__anchor-icon">#</span></a></h2><p>Text</p></div>',
 			trim( $dom->saveHTML( $dom->getElementsByTagName( 'div' )[0] ) ),

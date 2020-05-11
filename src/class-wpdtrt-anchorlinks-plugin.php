@@ -64,6 +64,7 @@ class WPDTRT_Anchorlinks_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplat
 	public function get_anchors( int $post_id ) {
 		$post    = get_post( $post_id );
 		$content = apply_filters( 'the_content', $post->post_content );
+		$content = $this->helper_clean_html( $content );
 
 		$dom = new DOMDocument();
 		$dom->loadHTML( mb_convert_encoding( $content, 'HTML-ENTITIES', 'UTF-8' ) );
@@ -188,6 +189,8 @@ class WPDTRT_Anchorlinks_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplat
 	 * <https://www.php.net/manual/en/dom.constants.php>
 	 */
 	public function render_headings_in_sections( string $content ) : string {
+		$content = $this->helper_clean_html( $content );
+
 		$heading_start = '<h2 class="wpdtrt-anchorlinks__anchor"';
 
 		// DOMDocument doesn't support HTML5 tags like <section>.
@@ -296,6 +299,7 @@ class WPDTRT_Anchorlinks_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplat
 	public function filter_content_sections( string $content ) : string {
 		$content = $this->render_headings_as_anchors( $content );
 		$content = $this->render_headings_in_sections( $content );
+		$content = $this->helper_clean_html( $content );
 
 		$dom = new DOMDocument();
 		$dom->loadHTML( mb_convert_encoding( $content, 'HTML-ENTITIES', 'UTF-8' ) );
@@ -307,7 +311,6 @@ class WPDTRT_Anchorlinks_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplat
 
 		// phpcs:disable WordPress.NamingConventions
 		foreach ( $sections as $section ) {
-
 			if ( null === $section->firstChild ) {
 
 				$empty_sections[] = $section;
@@ -359,4 +362,22 @@ class WPDTRT_Anchorlinks_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplat
 	/**
 	 * ===== Helpers =====
 	 */
+
+	/**
+	 * Method: helper_clean_html
+	 *
+	 * Clean HTML to avoid DOMDocument errors in testing.
+	 *
+	 * Parameters:
+	 *   $content - Content
+	 *
+	 * Returns:
+	 *   $content - Content
+	 */
+	public function helper_clean_html( string $content ) : string {
+		$content = str_replace( array( "\r\n", "\n", "\r" ), '', $content );
+		$content = trim( $content );
+
+		return $content;
+	}
 }
