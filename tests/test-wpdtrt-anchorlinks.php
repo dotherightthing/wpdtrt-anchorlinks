@@ -219,6 +219,7 @@ class WPDTRT_AnchorlinksTest extends WP_UnitTestCase {
 
 		$dom = new DOMDocument();
 		$dom->loadHTML( mb_convert_encoding( $content, 'HTML-ENTITIES', 'UTF-8' ) );
+		$dom->preserveWhiteSpace = false; // phpcs:disable
 
 		$sections = $dom->getElementsByTagName( 'div' );
 
@@ -228,6 +229,8 @@ class WPDTRT_AnchorlinksTest extends WP_UnitTestCase {
 			'Expected 3 sections'
 		);
 
+		// <div class="wpdtrt-anchorlinks__section">\n
+		// </div>\n
 		$this->assertEquals(
 			'<div class="wpdtrt-anchorlinks__section"></div>',
 			$dom->saveHTML( $sections[0] ),
