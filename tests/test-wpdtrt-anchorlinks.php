@@ -141,7 +141,7 @@ class WPDTRT_AnchorlinksTest extends WP_UnitTestCase {
 		);
 
 		$this->assertEquals(
-			'Heading 1#',
+			'Heading 1#', // Heading 1#\n.
 			$anchors[0][0],
 			'Unexpected string'
 		);
@@ -226,6 +226,12 @@ class WPDTRT_AnchorlinksTest extends WP_UnitTestCase {
 			3,
 			count( $sections ),
 			'Expected 3 sections'
+		);
+
+		$this->assertEquals(
+			'<div class="wpdtrt-anchorlinks__section"></div>',
+			$dom->saveHTML( $sections[0] ),
+			'Expected first section to be empty due to regex'
 		);
 
 		$this->assertEquals(
