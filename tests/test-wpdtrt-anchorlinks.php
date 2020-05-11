@@ -140,8 +140,7 @@ class WPDTRT_AnchorlinksTest extends WP_UnitTestCase {
 			'Number of anchor arrays'
 		);
 
-		// Test fails on CI due to newlines
-		// Heading 1#\n.
+		// trim() removes trailing \n on CI.
 		$this->assertEquals(
 			'Heading 1#',
 			trim( $anchors[0][0] ),
@@ -236,16 +235,13 @@ class WPDTRT_AnchorlinksTest extends WP_UnitTestCase {
 			'Expected 3 sections'
 		);
 
-		// Test fails on CI due to newlines
-		// <div class="wpdtrt-anchorlinks__section">\n
-		// </div>\n.
+		// trim() removes 2x trailing \n on CI.
 		$this->assertEquals(
 			'<div class="wpdtrt-anchorlinks__section"></div>',
 			trim( $dom->saveHTML( $sections[0] ) ),
 			'Expected first section to be empty due to regex'
 		);
 
-		// Test fails on CI due to newlines.
 		$this->assertEquals(
 			false,
 			is_object( $sections[0]->firstChild ),
@@ -300,7 +296,9 @@ class WPDTRT_AnchorlinksTest extends WP_UnitTestCase {
 			'Content contains unexpected number of headings'
 		);
 
-		// Test fails on CI due to newlines.
+		// Test fails on CI:
+		// '<div class="wpdtrt-anchorlinks__section"></div>'.
+		// when should empty section be removed?
 		$this->assertEquals(
 			'<div class="wpdtrt-anchorlinks__section wpdtrt-anchorlinks__anchor" id="heading-1" tabindex="-1"><h2 data-anchorlinks-id="heading-1">Heading 1<a class="wpdtrt-anchorlinks__anchor-link" href="#heading-1"><span aria-label="Anchor" class="wpdtrt-anchorlinks__anchor-icon">#</span></a></h2><p>Text</p></div>',
 			trim( $dom->saveHTML( $dom->getElementsByTagName( 'div' )[0] ) ),
