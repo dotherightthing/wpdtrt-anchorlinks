@@ -57,7 +57,7 @@ data-wpdtrt-anchorlinks-controls="pinning"
 * When this element is scrolled out of the viewport, the anchor links list will be pinned
 * When this element is scrolled into the viewport, the anchor links list will be unpinned
 
-### Control the scroll height of the anchor links
+### Control the scroll height of the anchor links list
 
 Add the following data attribute to an element.
 
