@@ -87,6 +87,9 @@ jobs:
       with:
         name: changelog
 
+    - name: Check that artifacts were downloaded as expected
+      run: ls -R
+
     - name: Zip release folder
       if: steps.check-tag.outputs.match == 'true'
       uses: montudor/action-zip@v0.1.0
