@@ -77,13 +77,13 @@ jobs:
         fi
     - name: Download release folder from Build
       if: steps.check-tag.outputs.match == 'true'
-      uses: actions/download-artifact@v1
+      uses: actions/download-artifact@v2
       with:
         name: release
 
     - name: Download changelog from Build
       if: steps.check-tag.outputs.match == 'true'
-      uses: actions/download-artifact@v1
+      uses: actions/download-artifact@v2
       with:
         name: changelog
 
