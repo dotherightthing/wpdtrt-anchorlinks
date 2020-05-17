@@ -24,84 +24,20 @@ Anchor links plugin.
 
 == Frequently Asked Questions ==
 
-= How do I use the widget? =
-
-One or more widgets can be displayed within one or more sidebars:
-
-1. Locate the widget: Appearance > Widgets > *DTRT Anchor Links Widget*
-2. Drag and drop the widget into one of your sidebars
-3. Add a *Title*
-4. Specify options
-
-= How do I display the list of anchor links? =
-
-Within the editor: 
-
-`[wpdtrt_anchorlinks_shortcode title_text="Jump links"]`
-
-In a PHP template, as a template tag:
-
-`<?php echo do_shortcode( '[wpdtrt_anchorlinks_shortcode title_text="Jump links"]' ); ?>`
-
-= How do I control the dynamic pinning of the anchor links? =
-
-Pinning toggles a class of `.wpdtrt-anchorlinks__site-sticky` on the `.wpdtrt-anchorlinks__site-sticky-target`.
-
-This attached styling keeps the navigation in view, while the rest of the page content is scrolled.
-
-To control pinning, add the following data attribute to an element:
-
-`data-wpdtrt-anchorlinks-controls="pinning"`
-
-* When this element is scrolled out of the viewport, the anchor links list will be pinned
-* When this element is scrolled into the viewport, the anchor links list will be unpinned
-
-= How do I control the dynamic hiding and showing of the anchor links? =
-
-Add the following data attribute to an element.
-
-`data-wpdtrt-anchorlinks-controls="footer"`
-
-* This element's height is subtracted from the total height available to the anchor list container.
-
-= How do I control the dynamic highlighting of the anchor links? =
-
-Add the following data attribute to a the relevant child of each anchor:
-
-`data-wpdtrt-anchorlinks-controls="highlighting"`
-
-* When this element is scrolled into the viewport, the matching anchor link will be highlighted.
-* When another element is scrolled into the viewport,
-    * the previous matching anchor link will be unhighlighted
-    * the new matching anchor link will be highlighted
-
-= How to inject a theme element after the anchor list? =
-
-Add the following data attribute to the element:
-
-`data-wpdtrt-anchorlinks-list-addition="1"`
-
-* This element will be removed from its current location and injected after the list
-* If there are multiple elements to inject, this element will be injected first, as it has an id of `1`
-
-`data-wpdtrt-anchorlinks-list-addition-clone="true"`
-
-* The original element will be copied rather than moved
-
-`data-wpdtrt-anchorlinks-list-addition-clone="false"`
-
-* The original element will be moved rather than copied
+See README.md#wordpress-usage
 
 == Screenshots ==
 
-1. The caption for ./images/screenshot-1.(png|jpg|jpeg|gif)
+1. Sticky positioning even when JavaScript is disabled ./images/screenshots/noscript-sticky.png
+1. Dynamic date context, highlighting, additional content injection ./images/screenshots/dynamic-date-highlighting-additional-content-injection.png
 
 == Changelog ==
 
 = 0.2.5 =
 * Remove better-anchor-links dependency
 * Remove wpdtrt-contentsections dependency
-* Replace gulp with wpdtrt-npm-scripts
+* Replace http://imakewebthings.com/waypoints/ with position:sticky and Intersection Observers
+* Replace gulp build scripts with wpdtrt-npm-scripts
 
 = 0.2.4 =
 * Update wpdtrt-plugin-boilerplate to 1.5.4 to fix 'slug' error
