@@ -86,5 +86,6 @@ jobs:
       uses: yakuhzi/action-release@v1
       with:
         file: release.zip
+        changelog: changelog.txt
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

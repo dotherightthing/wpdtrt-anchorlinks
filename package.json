@@ -28,7 +28,6 @@
     "sticky",
     "scrollto"
   ],
-  "dependencies": {},
   "config": {
     "wpdtrt_npm_scripts": "./node_modules/wpdtrt-npm-scripts"
   },
@@ -49,6 +48,7 @@
   "homepage": "https://github.com/dotherightthing/wpdtrt-anchorlinks",
   "srcDir": "/Volumes/DanBackup/Websites/wpdtrt-anchorlinks",
   "devDependencies": {
-    "wpdtrt-npm-scripts": "github:dotherightthing/wpdtrt-npm-scripts"
-  }
+    "wpdtrt-npm-scripts": "github:dotherightthing/wpdtrt-npm-scripts#semver:0.3.*"
+  },
+  "dependencies": {}
 }
