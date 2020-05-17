@@ -6,7 +6,7 @@ Tags: anchor links, content links, menu, navigation, sticky, scrollto
 Requires at least: 5.3.3
 Tested up to: 5.3.3
 Requires PHP: 7.2.15
-Stable tag: 0.2.5
+Stable tag: 0.3.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -33,7 +33,7 @@ See [WordPress Usage](README.md#wordpress-usage).
 
 == Changelog ==
 
-= 0.2.5 =
+= 0.3.0 =
 * Remove better-anchor-links dependency
 * Remove wpdtrt-contentsections dependency
 * Replace http://imakewebthings.com/waypoints/ with position:sticky and Intersection Observers
