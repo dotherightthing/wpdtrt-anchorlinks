@@ -24,7 +24,7 @@ Anchor links plugin.
 
 == Frequently Asked Questions ==
 
-See README.md#wordpress-usage
+See [WordPress Usage](README.md#wordpress-usage).
 
 == Screenshots ==
 
