@@ -1,1 +1,2 @@
-* [5332d5e] Update wpdtrt-npm-scripts to fix expected path to CHANGELOG.md
+* [8e5ead0] Bump version
+* [70e68fc] Update wpdtrt-npm-scripts to add debugging information to build
