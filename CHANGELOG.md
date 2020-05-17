@@ -1,2 +1,1 @@
-* [8e5ead0] Bump version
-* [70e68fc] Update wpdtrt-npm-scripts to add debugging information to build
+* [5464410] Update wpdtrt-npm-scripts to fix folder targeting for release job, bump version
