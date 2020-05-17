@@ -49,13 +49,6 @@ jobs:
     - name: Copy built files to release folder
       run: npm run release --if-present
 
-    - name: "Generate changelog"
-      id: generate-changelog
-      uses: heinrichreimer/action-github-changelog-generator@v2.1
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        onlyLastTag: "true"
-
     # https://help.github.com/en/actions/configuring-and-managing-workflows/persisting-workflow-data-using-artifacts
     - name: Archive release folder
       uses: actions/upload-artifact@v1
@@ -105,6 +98,6 @@ jobs:
       uses: yakuhzi/action-release@v1
       with:
         file: release.zip
-        changelog: ./CHANGELOG.md
+        changelog: CHANGELOG.md
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
