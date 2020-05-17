@@ -29,6 +29,7 @@
     "scrollto"
   ],
   "config": {
+    "wpdtrt_base_url_local": "http://dontbelievethehype.dan",
     "wpdtrt_npm_scripts": "./node_modules/wpdtrt-npm-scripts"
   },
   "scripts": {
