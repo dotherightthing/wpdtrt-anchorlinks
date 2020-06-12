@@ -455,7 +455,7 @@ class WPDTRT_AnchorlinksTest extends WP_UnitTestCase {
 		// Anchor list title element.
 		// firstChild / childNodes[0] is an empty string.
 		$this->assertEquals(
-			'h3',
+			'h2',
 			$anchor_list
 				->parentNode
 				->childNodes[1]
