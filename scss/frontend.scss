@@ -70,6 +70,7 @@
     &__title {
         font-family: inherit;
         font-size: inherit;
+        line-height: normal;
         margin: var(--wpdtrt-anchorlinks-margin-title); // align with top of gallery viewer (assumes there is a gallery viewer..
     }
 
