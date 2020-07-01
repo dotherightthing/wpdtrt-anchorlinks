@@ -54,18 +54,8 @@ To control dynamic content, add the following data attribute to an element:
 data-wpdtrt-anchorlinks-controls="pinning"
 ```
 
-* When this element is scrolled out of the viewport, the anchor links list will be pinned
-* When this element is scrolled into the viewport, the anchor links list will be unpinned
-
-### Control the scroll height of the anchor links list
-
-Add the following data attribute to an element.
-
-```html
-data-wpdtrt-anchorlinks-controls="footer"
-```
-
-* This element's height is subtracted from the total height available to the pinned anchor list container.
+* When this element is scrolled out of the viewport, the 'pinned' layout state will be enhanced
+* When this element is scrolled into the viewport, 'the 'pinned' layout state will be unenhanced
 
 ### Control the dynamic highlighting of the anchor links
 
@@ -97,5 +87,11 @@ data-wpdtrt-anchorlinks-list-addition-clone="true"
 data-wpdtrt-anchorlinks-list-addition="2"
 ```
 
-* This element will stay at its current location and a copy will be injected after the list
+* This element will stay at its current location and a copy (clone) will be injected after the list
 * If there are multiple elements to inject, this element will be injected second, as it has an id of `2`
+
+### Styling
+
+Core CSS properties may be overwritten by changing the variable values in your local stylesheet.
+
+See `scss/_variables.scss`.
