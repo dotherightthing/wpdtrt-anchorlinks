@@ -92,6 +92,6 @@ data-wpdtrt-anchorlinks-list-addition="2"
 
 ### Styling
 
-Core CSS properties may be overwritten by changing the variable values in your local stylesheet.
+Core CSS properties may be overwritten by changing the variable values in your theme stylesheet.
 
 See `scss/_variables.scss`.
