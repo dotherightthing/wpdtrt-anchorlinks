@@ -16,15 +16,15 @@
         "email": "support@dotherightthing.co.nz",
         "issues": "https://github.com/dotherightthing/wpdtrt-anchorlinks/issues"
     },
+    "require": {
+        "dotherightthing/wpdtrt-plugin-boilerplate": "^1.7.3"
+    },
     "require-dev": {
         "wp-coding-standards/wpcs": "^0.14.1",
         "dealerdirect/phpcodesniffer-composer-installer": "^0.4.4",
         "phpunit/phpunit": "^7.5.14",
         "psy/psysh" : "~0.6",
         "wp-cli/wp-cli": "^2.3"
-    },
-    "require": {
-        "dotherightthing/wpdtrt-plugin-boilerplate": "^1.5.4"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
