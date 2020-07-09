@@ -96,5 +96,9 @@
         width: var(--wpdtrt-anchorlinks-width-laptop-and-up);
         height: 0; // suppress space to the left of the element when it pins, in Safari
         margin: var(--wpdtrt-anchorlinks-margin);
+
+        &--sticky {
+            margin: var(--wpdtrt-anchorlinks-margin-sticky);
+        }
     }
 }
