@@ -1,4 +1,6 @@
-* [111822a] Update docs
-* [f295602] Update heading level in tests
-* [859746d] Fix heading level
-* [ac1ece8] Fix gap between anchor link and heading text
+* [98882a3] Update wpdtrt-plugin-boilerplate to 1.7.5 to fix CSS output order
+* [d07017a] Apply separate margin variable when anchor links list is pinned (dotherightthing/wpdtrt-dbth#171)
+* [c6e32d2] Update wpdtrt-plugin-boilerplate from 1.7.0 to 1.7.3 to fix import of CSS variables file
+* [cb5797a] Update wpdtrt-npm-scripts to fix release
+* [71c36f2] Update wpdtrt-npm-scripts to fix release
+* [ea9f84f] Use CSS variables, compile CSS variables to separate file

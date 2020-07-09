@@ -6,7 +6,7 @@ Tags: anchor links, content links, menu, navigation, sticky, scrollto
 Requires at least: 5.3.3
 Tested up to: 5.3.3
 Requires PHP: 7.2.15
-Stable tag: 0.3.8
+Stable tag: 0.3.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -32,6 +32,12 @@ See [WordPress Usage](README.md#wordpress-usage).
 1. Dynamic date context, highlighting, additional content injection ./images/screenshots/dynamic-date-highlighting-additional-content-injection.png
 
 == Changelog ==
+
+= 0.3.9 =
+* Apply separate margin variable when anchor links list is pinned
+* Use CSS variables, compile CSS variables to separate file
+* Update wpdtrt-npm-scripts to fix release
+* Update wpdtrt-plugin-boilerplate to 1.7.5 to support CSS variables
 
 = 0.3.8 =
 * Update docs
