@@ -72,13 +72,13 @@ const wpdtrtAnchorlinksUi = {
         if ($anchor.length && $anchor.find(highlightController).length) {
             anchorText = $anchor.find('h2').text();
 
-            stickyTitle += `<a href="${anchor}" class="wpdtrt-anchorlinks__title-sticky wpdtrt-anchorlinks__list-link">`;
+            stickyTitle += `<a href="${anchor}" class="wpdtrt-anchorlinks__title-sticky wpdtrt-anchorlinks__list-link" aria-hidden="true">`;
             stickyTitle += $.trim(anchorText);
             stickyTitle += '</a>';
         } else {
             anchorText = $title.find('.wpdtrt-anchorlinks__title-unsticky').text();
 
-            stickyTitle += '<span class="wpdtrt-anchorlinks__title-sticky">';
+            stickyTitle += '<span class="wpdtrt-anchorlinks__title-sticky" aria-hidden="true">';
             stickyTitle += $.trim(anchorText);
             stickyTitle += '</span>';
         }
@@ -245,15 +245,21 @@ const wpdtrtAnchorlinksUi = {
         const $ = wpdtrtAnchorlinksUi.jQuery;
         const $stickyTarget = $('.wpdtrt-anchorlinks');
         const stickyClass = 'wpdtrt-anchorlinks--sticky';
+        const $stickyTitle = $('.wpdtrt-anchorlinks__title-sticky');
+        const $unstickyTitle = $('.wpdtrt-anchorlinks__title-unsticky');
 
         changes.forEach(change => {
             // ratio of the element which is visible in the viewport
             // (entering or leaving)
             if (change.intersectionRatio > 0.1) {
                 $stickyTarget.removeClass(stickyClass);
+                $stickyTitle.attr('aria-hidden', true);
+                $unstickyTitle.removeAttr('aria-hidden');
                 wpdtrtAnchorlinksUi.setListMaxHeight(0);
             } else if (change.intersectionRatio <= 0.1) {
                 $stickyTarget.addClass(stickyClass);
+                $stickyTitle.removeAttr('aria-hidden');
+                $unstickyTitle.attr('aria-hidden', true);
                 wpdtrtAnchorlinksUi.setListMaxHeight();
             }
         });

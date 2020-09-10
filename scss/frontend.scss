@@ -74,22 +74,6 @@
         margin: var(--wpdtrt-anchorlinks-margin-title); // align with top of gallery viewer (assumes there is a gallery viewer..
     }
 
-    &__title-sticky {
-        display: none;
-
-        #{$block}--sticky & {
-            display: block;
-        }
-    }
-
-    &__title-unsticky {
-        display: block;
-
-        #{$block}--sticky & {
-            display: none;
-        }
-    }
-
     @include media('>=laptop') {
         position: sticky;
         top: var(--wpdtrt-anchorlinks-position-top);
