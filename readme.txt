@@ -6,7 +6,7 @@ Tags: anchor links, content links, menu, navigation, sticky, scrollto
 Requires at least: 5.3.3
 Tested up to: 5.3.3
 Requires PHP: 7.2.15
-Stable tag: 0.3.9
+Stable tag: 0.4.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -32,6 +32,9 @@ See [WordPress Usage](README.md#wordpress-usage).
 1. Dynamic date context, highlighting, additional content injection ./images/screenshots/dynamic-date-highlighting-additional-content-injection.png
 
 == Changelog ==
+
+= 0.4.0 =
+* Use ARIA rather than CSS to control un/sticky title visibility to prevent both strings being output (fixes #17)
 
 = 0.3.9 =
 * Apply separate margin variable when anchor links list is pinned
