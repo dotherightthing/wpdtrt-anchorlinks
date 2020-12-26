@@ -50,7 +50,7 @@ if ( count( $anchors ) > 0 ) :
 <div class="wpdtrt-anchorlinks">
 	<?php if ( null !== $title_text ) : ?>
 	<h2 class="wpdtrt-anchorlinks__title">
-		<span class="wpdtrt-anchorlinks__title-unsticky"><?php echo $title_text; ?></span>
+		<span class="wpdtrt-anchorlinks__title-fixed"><?php echo $title_text; ?></span>
 	</h2>
 	<div class="wpdtrt-anchorlinks__scroll-progress">
 		<div class="wpdtrt-anchorlinks__scroll-progress-bar"></div>

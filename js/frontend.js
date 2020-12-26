@@ -64,26 +64,49 @@ const wpdtrtAnchorlinksUi = {
         const $ = wpdtrtAnchorlinksUi.jQuery;
         const anchor = '#summary';
         const $anchor = $(anchor);
-        const $title = $jumpMenu.find('.wpdtrt-anchorlinks__title').eq(0);
+        const $title = $jumpMenu.find('.wpdtrt-anchorlinks__title-fixed').eq(0);
         const { highlightController } = wpdtrtAnchorlinksUi.domElements;
-        let anchorText;
+        let anchorTextAbbreviated;
         let stickyTitle = '';
 
         if ($anchor.length && $anchor.find(highlightController).length) {
-            anchorText = $anchor.find('h2').text();
+            anchorTextAbbreviated = $anchor.find('h2').attr('data-abbreviation');
 
-            stickyTitle += `<a href="${anchor}" class="wpdtrt-anchorlinks__title-sticky wpdtrt-anchorlinks__list-link" aria-hidden="true">`;
-            stickyTitle += $.trim(anchorText);
-            stickyTitle += '</a>';
-        } else {
-            anchorText = $title.find('.wpdtrt-anchorlinks__title-unsticky').text();
+            if (anchorTextAbbreviated) {
+                const abbreviations = [
+                    [ 'Mon', 'Monday' ],
+                    [ 'Tue', 'Tuesday' ],
+                    [ 'Wed', 'Wednesday' ],
+                    [ 'Thu', 'Thursday' ],
+                    [ 'Fri', 'Friday' ],
+                    [ 'Sat', 'Saturday' ],
+                    [ 'Sun', 'Sunday' ],
+                    [ 'Jan', 'January' ],
+                    [ 'Feb', 'February' ],
+                    [ 'Mar', 'March' ],
+                    [ 'Apr', 'April' ],
+                    [ 'May', 'May' ],
+                    [ 'Jun', 'June' ],
+                    [ 'Jul', 'July' ],
+                    [ 'Aug', 'August' ],
+                    [ 'Sep', 'September' ],
+                    [ 'Oct', 'October' ],
+                    [ 'Nov', 'November' ],
+                    [ 'Dec', 'December' ]
+                ];
 
-            stickyTitle += '<span class="wpdtrt-anchorlinks__title-sticky" aria-hidden="true">';
-            stickyTitle += $.trim(anchorText);
-            stickyTitle += '</span>';
+                abbreviations.forEach(abbreviation => {
+                    anchorTextAbbreviated = anchorTextAbbreviated
+                        .replace(abbreviation[0], `<abbr title="${abbreviation[1]}">${abbreviation[0]}</abbr>`);
+                });
+
+                stickyTitle += `<a href="${anchor}" class="wpdtrt-anchorlinks__title-sticky wpdtrt-anchorlinks__list-link" aria-hidden="true">`;
+                stickyTitle += $.trim(anchorTextAbbreviated);
+                stickyTitle += '</a>';
+            }
+
+            $title.append(stickyTitle);
         }
-
-        $title.prepend(stickyTitle);
     },
 
     /**
