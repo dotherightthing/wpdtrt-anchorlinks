@@ -157,7 +157,7 @@ class WPDTRT_Anchorlinks_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplat
 
 			// class is also used by $this->render_headings_in_sections().
 			$heading->setAttribute( 'class', 'wpdtrt-anchorlinks__anchor' );
-			$heading_id = sanitize_title( $heading->nodeValue ); // phpcs:ignore
+			$heading_id = 'section-' . sanitize_title( $heading->nodeValue ); // phpcs:ignore
 			$heading->setAttribute( 'id', $heading_id );
 			$heading->setAttribute( 'tabindex', '-1' );
 
