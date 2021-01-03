@@ -185,7 +185,7 @@ const wpdtrtAnchorlinksUi = {
             // ratio of the element which is visible in the viewport
             // (entering or leaving)
             if (change.intersectionRatio > 0.5) {
-                let $anchor = $(intersectingElement).parents('.wpdtrt-anchorlinks__anchor').eq(0);
+                let $anchor = $(intersectingElement);
                 let anchor = $anchor.get(0);
                 let $anchorLinkActive = wpdtrtAnchorlinksUi.getRelatedNavigation(anchor);
 
