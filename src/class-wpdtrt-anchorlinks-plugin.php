@@ -120,9 +120,18 @@ class WPDTRT_Anchorlinks_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplat
 
 			foreach ( $anchors as $anchor ) {
 				$anchor_list_item_text = str_replace( '#', '', $anchor[0] );
-				$anchor_list_item_link = $dom->createElement( 'a', $anchor_list_item_text );
+
+				$anchor_list_item_link_liner_icon = $dom->createElement( 'span' );
+				$anchor_list_item_link_liner_icon->setAttribute( 'class', 'wpdtrt-anchorlinks__list-link-icon' );
+
+				$anchor_list_item_link_liner = $dom->createElement( 'span', $anchor_list_item_text );
+				$anchor_list_item_link_liner->setAttribute( 'class', 'wpdtrt-anchorlinks__list-link-liner' );
+
+				$anchor_list_item_link = $dom->createElement( 'a' );
 				$anchor_list_item_link->setAttribute( 'href', '#' . $anchor[1] );
 				$anchor_list_item_link->setAttribute( 'class', 'wpdtrt-anchorlinks__list-link' );
+				$anchor_list_item_link->appendChild( $anchor_list_item_link_liner );
+				$anchor_list_item_link->appendChild( $anchor_list_item_link_liner_icon );
 
 				$anchor_list_item = $dom->createElement( 'li' );
 				$anchor_list_item->setAttribute( 'class', 'wpdtrt-anchorlinks__list-item' );

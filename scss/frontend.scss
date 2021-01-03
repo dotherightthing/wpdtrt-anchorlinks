@@ -49,7 +49,29 @@
         &:hover,
         &:focus {
             color: var(--wpdtrt-anchorlinks-color-link-hover);
-            text-decoration: underline;
+
+            #{$block}__list-link-liner {
+                border-bottom: 1px solid var(--wpdtrt-anchorlinks-color-link-border-hover);
+            }
+
+            #{$block}__list-link-icon {
+                color: var(--wpdtrt-anchorlinks-color-link-icon-hover);
+            }
+        }
+    }
+
+    &__list-link-liner {
+        padding: var(--wpdtrt-anchorlinks-padding-link-liner);
+        border-bottom: 1px dotted var(--wpdtrt-anchorlinks-color-link-border);
+    }
+
+    &__list-link-icon {
+        color: var(--wpdtrt-anchorlinks-color-link-icon);
+        font-weight: normal;
+
+        &::before { // match .icon
+            content: '#';
+            margin-left: 6px;
         }
     }
 
@@ -73,6 +95,10 @@
         font-size: inherit;
         line-height: normal;
         margin: var(--wpdtrt-anchorlinks-margin-title); // align with top of expected adjacent gallery viewer
+
+        #{$block}__list-link-liner {
+            border-bottom: 0; // as adjacent to progress indicator underline
+        }
     }
 
     &__title-sticky {
