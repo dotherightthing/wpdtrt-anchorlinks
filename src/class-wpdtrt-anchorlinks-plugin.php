@@ -43,7 +43,18 @@ class WPDTRT_Anchorlinks_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplat
 		parent::wp_setup();
 
 		// add actions and filters here.
-		add_filter( 'the_content', array( $this, 'filter_content_sections' ), 10 );
+		/**
+		 * Prevent additional <p></p> element from being injected after h2.
+		 *
+		 * @see wp-includes/default-filters.php
+		 * @see https://github.com/ferocknew/homefile/blob/4fd3686b88e2a0b579da3978941983f8538223a1/blog/blog/wp-content/themes/suffusion/post-formats/content-chat.php#L24-L36
+		 */
+		if ( has_filter( 'the_content', 'wpautop' ) ) {
+			remove_filter( 'the_content', 'wpautop' );
+			add_filter( 'the_content', 'wpautop', 9 );
+		}
+
+		add_filter( 'the_content', array( $this, 'filter_content_sections' ), 9 );
 	}
 
 	/**
