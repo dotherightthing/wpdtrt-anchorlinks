@@ -211,6 +211,13 @@ function wpdtrt_anchorlinks_plugin_init() {
 			'tip'     => __( 'e.g. Outline', 'wpdtrt-anchorlinks' ),
 			'default' => __( 'Outline', 'wpdtrt-anchorlinks' ),
 		),
+		'additional_html' => array(
+			'type'    => 'text',
+			'size'    => 30,
+			'label'   => __( 'Additional HTML', 'wpdtrt-anchorlinks' ),
+			'tip'     => __( 'Added in .wpdtrt-anchorlinks__additions', 'wpdtrt-anchorlinks' ),
+			'default' => __( '', 'wpdtrt-anchorlinks' ),
+		)
 	);
 
 	/**
@@ -297,6 +304,7 @@ function wpdtrt_anchorlinks_shortcode_init() {
 			'selected_instance_options' => array(
 				'post_id',
 				'title_text',
+				'additional_html',
 			),
 		)
 	);

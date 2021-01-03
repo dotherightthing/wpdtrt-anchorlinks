@@ -18,8 +18,9 @@ $after_title   = null; // register_sidebar.
 $after_widget  = null; // register_sidebar.
 
 // shortcode options.
-$post_id    = null; // $post->ID stand-in for unit tests
-$title_text = null;
+$post_id         = null; // $post->ID stand-in for unit tests
+$title_text      = null;
+$additional_html = null;
 
 // access to plugin.
 $plugin = null;
@@ -30,6 +31,10 @@ $options = get_query_var( 'options' );
 // Overwrite variables from array values
 // @link http://kb.network.dan/php/wordpress/extract/.
 extract( $options, EXTR_IF_EXISTS );
+
+// if ( null !== $additional_html ) {
+// 	$additional_html = esc_html( $additional_html );
+// }.
 
 global $post;
 
@@ -58,6 +63,10 @@ if ( count( $anchors ) > 0 ) :
 	<?php endif; ?>
 	<?php
 		echo $plugin->render_anchor_list_html( (array) $anchors );
+
+	if ( null !== $additional_html ) {
+		echo "<div class='wpdtrt-anchorlinks__additions'>{$additional_html}</div>";
+	}
 	?>
 </div>
 

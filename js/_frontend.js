@@ -69,7 +69,7 @@ const wpdtrtAnchorlinksUi = {
         let anchorTextAbbreviated;
         let stickyTitle = '';
 
-        if ($anchor.length && $anchor.find(highlightController).length) {
+        if ($anchor.length && $anchor.is(highlightController)) {
             anchorTextAbbreviated = $anchor.find('h2').attr('data-abbreviation');
 
             if (anchorTextAbbreviated) {
@@ -107,37 +107,6 @@ const wpdtrtAnchorlinksUi = {
 
             $title.append(stickyTitle);
         }
-    },
-
-    /**
-     * @function injectListAdditions
-     * @summary Append theme elements after the list, in the order specified.
-     * @memberof wpdtrtAnchorlinksUi
-     * @protected
-     *
-     * @example
-     * <div data-wpdtrt-anchorlinks-list-addition="1" data-wpdtrt-anchorlinks-list-addition-clone="false">Added first</div>
-     * <div data-wpdtrt-anchorlinks-list-addition="2" data-wpdtrt-anchorlinks-list-addition-clone="true">Added second</div>
-     */
-    injectListAdditions: () => {
-        const $ = wpdtrtAnchorlinksUi.jQuery;
-        const $elements = $('[data-wpdtrt-anchorlinks-list-addition]');
-        const $block = $('.wpdtrt-anchorlinks');
-
-        $block.append('<div class="wpdtrt-anchorlinks__additions"></div>');
-        const $additions = $('.wpdtrt-anchorlinks__additions');
-
-        $elements.each((i, item) => {
-            let id = i + 1;
-            let $orderedAddition = $elements.filter(`[data-wpdtrt-anchorlinks-list-addition="${id}"]`);
-            let clone = $orderedAddition.attr('data-wpdtrt-anchorlinks-list-addition-clone');
-
-            if (clone === 'true') {
-                $orderedAddition.clone().appendTo($additions);
-            } else {
-                $orderedAddition.appendTo($additions);
-            }
-        });
     },
 
     /**
@@ -361,8 +330,6 @@ const wpdtrtAnchorlinksUi = {
             highlightController: $('[data-wpdtrt-anchorlinks-controls="highlighting"]'),
             pinController: $('[data-wpdtrt-anchorlinks-controls="pinning"]')
         };
-
-        wpdtrtAnchorlinksUi.injectListAdditions();
 
         wpdtrtAnchorlinksUi.sticky_jump_menu($('.wpdtrt-anchorlinks'));
 
