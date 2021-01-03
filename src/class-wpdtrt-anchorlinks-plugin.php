@@ -322,38 +322,35 @@ class WPDTRT_Anchorlinks_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplat
 
 		// phpcs:disable WordPress.NamingConventions
 		foreach ( $sections as $section ) {
-			if ( null === $section->firstChild ) {
+			$headings = $section->getElementsByTagName( 'h2' );
 
-				$empty_sections[] = $section;
+			if ( $headings->length > 0 ) {
+				$attributes = array( 'class', 'id', 'tabindex' );
+				$heading    = $headings[0];
 
-			} elseif ( 1 === $section->firstChild->nodeType ) { // Node is a DOMElement (dom.constants).
-				if ( 'h2' === $section->firstChild->tagName ) {
-					// move attributes from heading to section.
-					$heading    = $section->firstChild;
-					$attributes = array( 'class', 'id', 'tabindex' );
+				foreach ( $attributes as $attribute ) {
+					$old_value = $section->getAttribute( $attribute );
+					$new_value = $heading->getAttribute( $attribute );
 
-					foreach ( $attributes as $attribute ) {
-						$old_value = $section->getAttribute( $attribute );
-						$new_value = $heading->getAttribute( $attribute );
+					if ( $old_value ) {
+						$new_value = ( $old_value . ' ' . $new_value );
+					}
 
-						if ( $old_value ) {
-							$new_value = ( $old_value . ' ' . $new_value );
-						}
+					// set attribute.
+					$section->setAttribute( $attribute, $new_value );
 
-						// set attribute.
-						$section->setAttribute( $attribute, $new_value );
+					// remove attribute.
+					$heading->removeAttribute( $attribute );
 
-						// remove attribute.
-						$heading->removeAttribute( $attribute );
-
-						// retain the ID via a data-anchorlinks-id attribute
-						// as the structure changes when the gallery wrappers are injected,
-						// breaking the section > heading relationship.
-						if ( 'id' === $attribute ) {
-							$heading->setAttribute( 'data-anchorlinks-' . $attribute, $new_value );
-						}
+					// retain the ID via a data-anchorlinks-id attribute
+					// as the structure changes when the gallery wrappers are injected,
+					// breaking the section > heading relationship.
+					if ( 'id' === $attribute ) {
+						$heading->setAttribute( 'data-anchorlinks-id', $new_value );
 					}
 				}
+			} else {
+				$empty_sections[] = $section;
 			}
 		}
 
