@@ -53,6 +53,27 @@ const wpdtrtAnchorlinksUi = {
     },
 
     /**
+     * @function initPolyfills
+     * @memberof wpdtrtAnchorlinksUi
+     * @protected
+     */
+    initPolyfill: () => {
+        /* eslint-disable */
+
+        // Polyfill for forEach
+        if (window.NodeList && !NodeList.prototype.forEach) {
+            NodeList.prototype.forEach = Array.prototype.forEach;
+        }
+
+        // Polyfill for forEach
+        if (window.HTMLCollection && !HTMLCollection.prototype.forEach) {
+            HTMLCollection.prototype.forEach = Array.prototype.forEach;
+        }
+
+        /* eslint-enable */
+    },
+
+    /**
      * @function setTitleToSummary
      * @summary Inject the summary section (outside of the page content) into the nav.
      * @memberof wpdtrtAnchorlinksUi
@@ -271,6 +292,8 @@ const wpdtrtAnchorlinksUi = {
      */
     sticky_jump_menu: ($jumpMenu) => {
         const $ = wpdtrtAnchorlinksUi.jQuery;
+
+        wpdtrtAnchorlinksUi.initPolyfill();
 
         if (!$jumpMenu.length) {
             return;
