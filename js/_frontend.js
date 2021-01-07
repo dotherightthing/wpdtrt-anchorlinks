@@ -199,7 +199,7 @@ const wpdtrtAnchorlinksUi = {
      * @param {object} changes - Observed changes
      * @param {object} observer - Intersection Observer
      */
-    highlightAnchorLink: (changes, observer) => {
+    highlightAnchorLink: (changes, observer) => { // eslint-disable-line no-unused-vars
         const $ = wpdtrtAnchorlinksUi.jQuery;
 
         changes.forEach(change => {
@@ -256,7 +256,7 @@ const wpdtrtAnchorlinksUi = {
      * @param {object} changes - Observed changes
      * @param {object} observer - Intersection Observer
      */
-    pinAnchorLinksList: (changes, observer) => {
+    pinAnchorLinksList: (changes, observer) => { // eslint-disable-line no-unused-vars
         const $ = wpdtrtAnchorlinksUi.jQuery;
         const $stickyTarget = $('.wpdtrt-anchorlinks');
         const stickyClass = 'wpdtrt-anchorlinks--sticky';
@@ -330,11 +330,12 @@ const wpdtrtAnchorlinksUi = {
                 // but this gives us control over the max-height
 
                 if (pinController.length) {
-                    const pinAnchorLinksListObserver = new IntersectionObserver(wpdtrtAnchorlinksUi.pinAnchorLinksList, {
-                        root: null, // relative to document viewport
-                        rootMargin: '0px', // margin around root, unitless values not allowed
-                        threshold: 0.1 // visible amount of item shown in relation to root
-                    });
+                    const pinAnchorLinksListObserver = new IntersectionObserver(wpdtrtAnchorlinksUi.pinAnchorLinksList,
+                        {
+                            root: null, // relative to document viewport
+                            rootMargin: '0px', // margin around root, unitless values not allowed
+                            threshold: 0.1 // visible amount of item shown in relation to root
+                        });
 
                     pinAnchorLinksListObserver.observe(pinController.get(0));
                 }
@@ -363,7 +364,7 @@ const wpdtrtAnchorlinksUi = {
 };
 
 jQuery(document).ready(($) => {
-    const config = wpdtrt_anchorlinks_config; // eslint-disable-line camelcase
+    const config = wpdtrt_anchorlinks_config; // eslint-disable-line camelcase, no-unused-vars
     wpdtrtAnchorlinksUi.jQuery = $;
     wpdtrtAnchorlinksUi.init();
 });
