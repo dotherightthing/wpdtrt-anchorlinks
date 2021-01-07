@@ -6,7 +6,7 @@ Tags: anchor links, content links, menu, navigation, sticky, scrollto
 Requires at least: 5.3.3
 Tested up to: 5.3.3
 Requires PHP: 7.2.15
-Stable tag: 0.4.0
+Stable tag: 0.4.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -32,6 +32,17 @@ See [WordPress Usage](README.md#wordpress-usage).
 1. Dynamic date context, highlighting, additional content injection ./images/screenshots/dynamic-date-highlighting-additional-content-injection.png
 
 == Changelog ==
+
+= 0.4.1 =
+* [90b8f03] Update dependencies, incl wpdtrt-plugin-boilerplate from 1.7.6 to 1.7.7 to use Composer v1
+* [95422e9] Add polyfills for IE11
+* [5acf5b2] Add icons and underlines to anchor list links
+* [cc14509] Update wpdtrt-plugin-boilerplate from 1.7.5 to 1.7.6 to fix saving of admin field values
+* [59e4206] Update section element in anchor link highlighting script (fixes #20)
+* [35b4ef5] Pass wpdtrt-anchorlinks__additions in as a shortcode attribute
+* [7a51600] Prevent additional <p></p> element from being injected after h2
+* [058da3f] Prepend anchor IDs with a string to prevent them from starting with a number
+* [110a172] Append date to nav header (fixes #19)
 
 = 0.4.0 =
 * Use ARIA rather than CSS to control un/sticky title visibility to prevent both strings being output (fixes #17)
