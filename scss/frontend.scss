@@ -116,4 +116,8 @@
             margin: var(--wpdtrt-anchorlinks-margin-sticky);
         }
     }
+
+    @media print {
+        display: none !important; /* stylelint-disable-line declaration-no-important */
+    }
 }
