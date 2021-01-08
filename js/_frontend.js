@@ -216,6 +216,8 @@ const wpdtrtAnchorlinksUi = {
 
                 $anchorLinkActive.addClass('wpdtrt-anchorlinks__list-link-active');
 
+                $anchorLinkActive.get(0).scrollIntoView();
+
                 wpdtrtAnchorlinksUi.showScrollProgress();
             }
         });
