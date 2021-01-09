@@ -6,7 +6,7 @@ Tags: anchor links, content links, menu, navigation, sticky, scrollto
 Requires at least: 5.3.3
 Tested up to: 5.3.3
 Requires PHP: 7.2.15
-Stable tag: 0.4.1
+Stable tag: 0.4.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -32,6 +32,11 @@ See [WordPress Usage](README.md#wordpress-usage).
 1. Dynamic date context, highlighting, additional content injection ./images/screenshots/dynamic-date-highlighting-additional-content-injection.png
 
 == Changelog ==
+
+= 0.4.2 =
+* [0315bec] Fix JQMIGRATE: jQuery.trim is deprecated; use String.prototype.trim
+* [5a63a1c] Revert "Ensure that highlighted anchor link is always in view (fixes #23)"
+* [5eaad3e] Ensure that highlighted anchor link is always in view (fixes #23)
 
 = 0.4.1 =
 * [90b8f03] Update dependencies, incl wpdtrt-plugin-boilerplate from 1.7.6 to 1.7.7 to use Composer v1
