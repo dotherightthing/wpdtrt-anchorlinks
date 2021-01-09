@@ -123,7 +123,7 @@ const wpdtrtAnchorlinksUi = {
 
                 stickyTitle += `<a href="${anchor}" class="wpdtrt-anchorlinks__title-sticky wpdtrt-anchorlinks__list-link" aria-hidden="true">`;
                 stickyTitle += '<span class="wpdtrt-anchorlinks__list-link-liner">';
-                stickyTitle += $.trim(anchorTextAbbreviated);
+                stickyTitle += anchorTextAbbreviated.trim();
                 stickyTitle += '</span>';
                 stickyTitle += '</a>';
             }
