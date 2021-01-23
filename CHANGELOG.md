@@ -1,3 +1,4 @@
-* [0315bec] Fix JQMIGRATE: jQuery.trim is deprecated; use String.prototype.trim
-* [5a63a1c] Revert "Ensure that highlighted anchor link is always in view (fixes #23)"
-* [5eaad3e] Ensure that highlighted anchor link is always in view (fixes #23)
+* [7fe633e] Fix Undefined index: sidebar-
+* [624cc5c] Add ability to inject anchor into a heading which is not within the_content
+* [27ba136] Add ability to inject additional items into anchor list, sourced from widgets in sidebars appearing before or after the_content
+* [c37fc2d] Housekeeping
