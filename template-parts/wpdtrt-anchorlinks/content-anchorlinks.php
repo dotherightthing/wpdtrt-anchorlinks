@@ -18,9 +18,11 @@ $after_title   = null; // register_sidebar.
 $after_widget  = null; // register_sidebar.
 
 // shortcode options.
-$post_id         = null; // $post->ID stand-in for unit tests
-$title_text      = null;
-$additional_html = null;
+$post_id                         = null; // $post->ID stand-in for unit tests
+$title_text                      = null;
+$additional_html                 = null;
+$additional_from_sidebar_id_1    = null;
+$additional_from_sidebar_order_1 = null;
 
 // access to plugin.
 $plugin = null;
@@ -40,6 +42,35 @@ if ( isset( $post ) && is_object( $post ) ) {
 
 // Logic.
 $anchors = $plugin->get_anchors( (int) $post_id );
+
+if ( ( null !== $additional_from_sidebar_id_1 ) && ( null !== $additional_from_sidebar_order_1 ) ) {
+	global $wp_registered_widgets;
+	$new_anchors = array();
+
+	$all_sidebars_widgets = get_option( 'sidebars_widgets' );
+	$sidebars_widgets     = $all_sidebars_widgets[ 'sidebar-' . $additional_from_sidebar_id_1 ];
+
+	foreach ( $sidebars_widgets as $sidebars_widget ) {
+		if ( isset( $wp_registered_widgets[ $sidebars_widget ]['name'] ) ) {
+			$name = $wp_registered_widgets[ $sidebars_widget ]['name'];
+
+			array_push( $new_anchors, array(
+				$name . '#',
+				'section-' . sanitize_title( $name ),
+			) );
+		}
+	}
+
+	$new_anchors = array_reverse( $new_anchors );
+
+	foreach ( $new_anchors as $new_anchor ) {
+		if ( intval( $additional_from_sidebar_order_1 ) < 0 ) {
+			array_unshift( $anchors, $new_anchor );
+		} else {
+			array_push( $anchors, $new_anchor );
+		}
+	}
+}
 
 // WordPress widget options (not output with shortcode).
 echo $before_widget;

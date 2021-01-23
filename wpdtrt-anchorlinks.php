@@ -197,27 +197,39 @@ function wpdtrt_anchorlinks_plugin_init() {
 	 * @see https://github.com/dotherightthing/wpdtrt-plugin-boilerplate/wiki/Options:-Adding-shortcode-or-widget-options Options: Adding shortcode or widget options
 	 */
 	$instance_options = array(
-		'post_id'    => array(
+		'post_id'                         => array(
 			'type'    => 'number',
 			'size'    => 3,
 			'label'   => __( 'Post ID', 'wpdtrt-anchorlinks' ),
 			'tip'     => __( 'Used in unit tests', 'wpdtrt-anchorlinks' ),
 			'default' => 1,
 		),
-		'title_text' => array(
+		'title_text'                      => array(
 			'type'    => 'text',
 			'size'    => 30,
 			'label'   => __( 'Anchor list title text', 'wpdtrt-anchorlinks' ),
 			'tip'     => __( 'e.g. Outline', 'wpdtrt-anchorlinks' ),
 			'default' => __( 'Outline', 'wpdtrt-anchorlinks' ),
 		),
-		'additional_html' => array(
-			'type'    => 'text',
-			'size'    => 30,
-			'label'   => __( 'Additional HTML', 'wpdtrt-anchorlinks' ),
-			'tip'     => __( 'Added in .wpdtrt-anchorlinks__additions', 'wpdtrt-anchorlinks' ),
-			'default' => __( '', 'wpdtrt-anchorlinks' ),
-		)
+		'additional_html'                 => array(
+			'type'  => 'text',
+			'size'  => 30,
+			'label' => __( 'Additional HTML', 'wpdtrt-anchorlinks' ),
+			'tip'   => __( 'Output in .wpdtrt-anchorlinks__additions', 'wpdtrt-anchorlinks' ),
+		),
+		'additional_from_sidebar_id_1'    => array(
+			'type'  => 'text',
+			'size'  => 100,
+			'label' => __( 'Sidebar 1 ID', 'wpdtrt-anchorlinks' ),
+			'tip'   => __( 'ID of a sidebar outside of the_content, which contains widgets with titles', 'wpdtrt-anchorlinks' ),
+		),
+		'additional_from_sidebar_order_1' => array(
+			'type'    => 'number',
+			'size'    => 3,
+			'label'   => __( 'Sidebar 1 order', 'wpdtrt-anchorlinks' ),
+			'tip'     => __( 'DOM order of sidebar relative to the_content (0)', 'wpdtrt-anchorlinks' ),
+			'default' => -1,
+		),
 	);
 
 	/**
@@ -305,6 +317,8 @@ function wpdtrt_anchorlinks_shortcode_init() {
 				'post_id',
 				'title_text',
 				'additional_html',
+				'additional_from_sidebar_id_1',
+				'additional_from_sidebar_order_1',
 			),
 		)
 	);
