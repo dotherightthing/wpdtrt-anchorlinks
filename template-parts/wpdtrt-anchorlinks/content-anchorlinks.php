@@ -32,10 +32,6 @@ $options = get_query_var( 'options' );
 // @link http://kb.network.dan/php/wordpress/extract/.
 extract( $options, EXTR_IF_EXISTS );
 
-// if ( null !== $additional_html ) {
-// 	$additional_html = esc_html( $additional_html );
-// }.
-
 global $post;
 
 if ( isset( $post ) && is_object( $post ) ) {
