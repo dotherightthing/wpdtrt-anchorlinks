@@ -137,6 +137,7 @@ register_activation_hook( dirname( __FILE__ ), 'wpdtrt_anchorlinks_helper_activa
 
 add_action( 'init', 'wpdtrt_anchorlinks_plugin_init', 0 );
 add_action( 'init', 'wpdtrt_anchorlinks_shortcode_init', 100 );
+add_action( 'init', 'wpdtrt_anchorlinks_shortcode_heading_init', 100 );
 
 register_deactivation_hook( dirname( __FILE__ ), 'wpdtrt_anchorlinks_helper_deactivate' );
 
@@ -230,6 +231,11 @@ function wpdtrt_anchorlinks_plugin_init() {
 			'tip'     => __( 'DOM order of sidebar relative to the_content (0)', 'wpdtrt-anchorlinks' ),
 			'default' => -1,
 		),
+		'extra_header_class'              => array(
+			'type'  => 'string',
+			'size'  => 100,
+			'label' => __( 'Extra header class', 'wpdtrt-anchorlinks' ),
+		),
 	);
 
 	/**
@@ -319,6 +325,25 @@ function wpdtrt_anchorlinks_shortcode_init() {
 				'additional_html',
 				'additional_from_sidebar_id_1',
 				'additional_from_sidebar_order_1',
+			),
+		)
+	);
+}
+
+/**
+ * Register Shortcode
+ */
+function wpdtrt_anchorlinks_shortcode_heading_init() {
+
+	global $wpdtrt_anchorlinks_plugin;
+
+	$wpdtrt_anchorlinks_shortcode_heading = new WPDTRT_Anchorlinks_Shortcode(
+		array(
+			'name'                      => 'wpdtrt_anchorlinks_shortcode_heading',
+			'plugin'                    => $wpdtrt_anchorlinks_plugin,
+			'template'                  => 'heading',
+			'selected_instance_options' => array(
+				'extra_header_class',
 			),
 		)
 	);
