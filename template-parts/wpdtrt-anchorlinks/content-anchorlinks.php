@@ -34,6 +34,10 @@ $options = get_query_var( 'options' );
 // @link http://kb.network.dan/php/wordpress/extract/.
 extract( $options, EXTR_IF_EXISTS );
 
+if ( isset( $additional_from_sidebar_id_1 ) && ( '' === $additional_from_sidebar_id_1 ) ) {
+	$additional_from_sidebar_id_1 = null;
+}
+
 global $post;
 
 if ( isset( $post ) && is_object( $post ) ) {
