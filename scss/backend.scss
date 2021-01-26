@@ -6,8 +6,27 @@
 // @since       0.7.0
 //
 
-@import 'vendor/dotherightthing/wpdtrt-plugin-boilerplate/scss/variables';
-@import 'vendor/dotherightthing/wpdtrt-plugin-boilerplate/scss/extends';
-@import 'vendor/dotherightthing/wpdtrt-plugin-boilerplate/scss/backend';
+// -------------------------------------------------------------------
+// Variables
+// -------------------------------------------------------------------
+
+@import '../node_modules/wpdtrt-scss/scss/variables/scss';
 @import 'variables/scss';
-@import 'extends';
+
+// -------------------------------------------------------------------
+// Mixins
+// -------------------------------------------------------------------
+
+@import '../node_modules/wpdtrt-scss/scss/mixins';
+
+// -------------------------------------------------------------------
+// Extends
+// -------------------------------------------------------------------
+
+@import '../node_modules/wpdtrt-scss/scss/extends';
+
+// -------------------------------------------------------------------
+// Styles
+// -------------------------------------------------------------------
+
+@import '../node_modules/wpdtrt-scss/scss/_backend';

@@ -6,15 +6,31 @@
 // @since 0.7.0
 //
 
-@import 'vendor/dotherightthing/wpdtrt-plugin-boilerplate/scss/variables';
-@import 'vendor/dotherightthing/wpdtrt-plugin-boilerplate/scss/extends';
+// -------------------------------------------------------------------
+// Variables
+// -------------------------------------------------------------------
+
+@import '../node_modules/wpdtrt-scss/scss/variables/scss';
 @import 'variables/scss';
-@import 'extends';
+
+// -------------------------------------------------------------------
+// Mixins
+// -------------------------------------------------------------------
+
+@import '../node_modules/wpdtrt-scss/scss/mixins';
+
+// -------------------------------------------------------------------
+// Extends
+// -------------------------------------------------------------------
+
+@import '../node_modules/wpdtrt-scss/scss/extends';
 
 // -------------------------------------------------------------------
 // Styles
 // .wpdtrt-anchorlinks--sticky is applied to .wpdtrt-anchorlinks
 // -------------------------------------------------------------------
+
+@import '../node_modules/wpdtrt-scss/scss/_frontend';
 
 .wpdtrt-anchorlinks {
     $block: &;

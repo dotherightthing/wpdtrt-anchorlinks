@@ -51,5 +51,7 @@
   "devDependencies": {
     "wpdtrt-npm-scripts": "github:dotherightthing/wpdtrt-npm-scripts#semver:0.3.*"
   },
-  "dependencies": {}
+  "dependencies": {
+    "wpdtrt-scss": "github:dotherightthing/wpdtrt-scss#semver:0.1.*"
+  }
 }
