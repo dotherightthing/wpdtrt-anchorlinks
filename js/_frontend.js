@@ -330,14 +330,17 @@ const wpdtrtAnchorlinksUi = {
                 // but this gives us control over the max-height
 
                 if (pinController.length) {
-                    const pinAnchorLinksListObserver = new IntersectionObserver(wpdtrtAnchorlinksUi.pinAnchorLinksList,
-                        {
-                            root: null, // relative to document viewport
-                            rootMargin: '0px', // margin around root, unitless values not allowed
-                            threshold: 0.1 // visible amount of item shown in relation to root
-                        });
+                    pinController.each((i, item) => {
+                        /* eslint-disable-next-line max-len */
+                        const pinAnchorLinksListObserver = new IntersectionObserver(wpdtrtAnchorlinksUi.pinAnchorLinksList,
+                            {
+                                root: null, // relative to document viewport
+                                rootMargin: '0px', // margin around root, unitless values not allowed
+                                threshold: 0.1 // visible amount of item shown in relation to root
+                            });
 
-                    pinAnchorLinksListObserver.observe(pinController.get(0));
+                        pinAnchorLinksListObserver.observe($(item).get(0));
+                    });
                 }
             }
         }
