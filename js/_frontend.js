@@ -249,7 +249,7 @@ const wpdtrtAnchorlinksUi = {
 
     /**
      * @function pinAnchorLinksList
-     * @summary Pin the anchor link list when it is scrolled out of view.
+     * @summary Pin the anchor link list when an element is scrolled out of view.
      * @memberof wpdtrtAnchorlinksUi
      * @protected
      *
