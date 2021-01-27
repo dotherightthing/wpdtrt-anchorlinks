@@ -1,4 +1,6 @@
-* [7fe633e] Fix Undefined index: sidebar-
-* [624cc5c] Add ability to inject anchor into a heading which is not within the_content
-* [27ba136] Add ability to inject additional items into anchor list, sourced from widgets in sidebars appearing before or after the_content
-* [c37fc2d] Housekeeping
+* [0c20dda] Update wpdtrt-plugin-boilerplate from 1.7.7 to 1.7.12
+* [591d392] Move styles to wpdtrt-scss
+* [b0395fd] Support multiple pinning controllers
+* [ecc6849] Docs
+* [108b040] Move styles to wpdtrt-scss
+* [1884709] Ignore files sources from wpdtrt-npm-scripts
