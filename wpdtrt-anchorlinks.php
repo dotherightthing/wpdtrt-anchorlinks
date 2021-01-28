@@ -243,8 +243,8 @@ function wpdtrt_anchorlinks_plugin_init() {
 	 */
 	$ui_messages = array(
 		'demo_data_description'       => __( 'This demo was generated from the following data', 'wpdtrt-anchorlinks' ),
-		'demo_data_displayed_length'  => __( 'results displayed', 'wpdtrt-anchorlinks' ),
-		'demo_data_length'            => __( 'results', 'wpdtrt-anchorlinks' ),
+		'demo_data_displayed_length'  => __( '# results displayed', 'wpdtrt-anchorlinks' ),
+		'demo_data_length'            => __( '# results', 'wpdtrt-anchorlinks' ),
 		'demo_data_title'             => __( 'Demo data', 'wpdtrt-anchorlinks' ),
 		'demo_date_last_updated'      => __( 'Data last updated', 'wpdtrt-anchorlinks' ),
 		'demo_sample_title'           => __( 'Demo sample', 'wpdtrt-anchorlinks' ),
