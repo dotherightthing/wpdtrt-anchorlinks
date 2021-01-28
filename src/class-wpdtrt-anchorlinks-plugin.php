@@ -262,39 +262,18 @@ class WPDTRT_Anchorlinks_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplat
 	/**
 	 * Add project-specific frontend scripts
 	 *
-	 * @version     0.0.1
-	 * @since       0.7.1
+	 * Use this function to:
+	 * - load scripts in addition to js/frontend-es5.js (via wp_enqueue_script)
+	 * - add keys to wpdtrt_anchorlinks_config (via wp_localize_script)
+	 *
+	 * Don't use function this to:
+	 * - add ES6 scripts requiring transpiling (load them using frontend.txt instead)
 	 *
 	 * @see wpdtrt-plugin-boilerplate/src/Plugin.php
 	 */
-	public function render_js_frontend() {
-		$attach_to_footer = true;
-
-		// init
-		// from Plugin.php + extra dependencies.
-		wp_enqueue_script( $this->get_prefix(),
-			$this->get_url() . 'js/frontend-es5.js',
-			array(
-				// load these registered dependencies first:.
-				'jquery',
-			),
-			$this->get_version(),
-			$attach_to_footer
-		);
-
-		// from Plugin.php.
-		wp_localize_script( $this->get_prefix(),
-			$this->get_prefix() . '_config',
-			array(
-				// since 2.8 ajaxurl is always defined in the admin header and points to admin-ajax.php
-				// but we need to explicitly expose it to frontend pages.
-				'ajaxurl' => admin_url( 'admin-ajax.php' ), // wpdtrt_foobar_config.ajaxurl.
-				'options' => $this->get_options(), // wpdtrt_foobar_config.options.
-			)
-		);
-
-		// Replace rather than extend, in order to specify dependencies:
-		// parent::render_js_frontend();.
+	public function render_js_frontend() { // phpcs:ignore
+		// If editing this function, remove this line to replace the parent function.
+		parent::render_js_frontend();
 	}
 
 	/**
