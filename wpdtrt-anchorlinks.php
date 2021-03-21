@@ -288,22 +288,6 @@ function wpdtrt_anchorlinks_plugin_init() {
 }
 
 /**
- * ===== Rewrite config =====
- */
-
-/**
- * Register Rewrite
- */
-function wpdtrt_anchorlinks_rewrite_init() {
-
-	global $wpdtrt_anchorlinks_plugin;
-
-	$wpdtrt_anchorlinks_rewrite = new WPDTRT_Anchorlinks_Rewrite(
-		array()
-	);
-}
-
-/**
  * ===== Shortcode config =====
  */
 
@@ -347,25 +331,4 @@ function wpdtrt_anchorlinks_shortcode_heading_init() {
 			),
 		)
 	);
-}
-
-/**
- * ===== Taxonomy config =====
- */
-
-/**
- * Register Taxonomy
- *
- * @return object Taxonomy/
- */
-function wpdtrt_anchorlinks_taxonomy_init() {
-
-	global $wpdtrt_anchorlinks_plugin;
-
-	$wpdtrt_anchorlinks_taxonomy = new WPDTRT_Anchorlinks_Taxonomy(
-		array()
-	);
-
-	// return a reference for unit testing.
-	return $wpdtrt_anchorlinks_taxonomy;
 }
