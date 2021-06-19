@@ -3,6 +3,8 @@
  * File: template-parts/wpdtrt-anchorlinks/content-heading.php
  *
  * Template to display plugin output in shortcodes and widgets.
+ * This template is for auxiliary content outside the_content
+ * which is not processed by filter_content_sections().
  *
  * Since:
  *   0.8.13 - DTRT WordPress Plugin Boilerplate Generator
@@ -40,36 +42,17 @@ if ( isset( $context ) ) {
 	$id      = '';
 }
 
-$header_class = 'wpdtrt-anchorlinks__header';
-
-if ( null !== $extra_header_class ) {
-	$header_class = $header_class . ' ' . $extra_header_class;
+if ( null === $extra_header_class ) {
+	$extra_header_class = '';
 }
 
-$heading_attrs   = "data-anchorlinks-id='section-{$id}' class='wpdtrt-anchorlinks__anchor' tabindex='-1'";
-$heading_anchor  = "<a class='wpdtrt-anchorlinks__anchor-link' href='#section-{$id}'>";
-$heading_anchor .= "<span aria-label='Anchor' class='wpdtrt-anchorlinks__anchor-icon'>#</span>";
-$heading_anchor .= '</a>';
-
-foreach ( [ 'h2', 'h3', 'h4' ] as $hx ) {
-	$content = str_replace( "<{$hx}>", "<{$hx} {$heading_attrs}>", $content );
-}
-
-$content = str_replace( '</', "{$heading_anchor}</", $content );
+$content = $plugin->render_headings_as_anchors( $content, $extra_header_class );
 
 // WordPress widget options (not output with shortcode).
 echo $before_widget;
 echo $before_title . $title . $after_title;
 
-// This template is for auxiliary content outside the_content.
-// It mirrors the output of render_headings_as_anchors()
-// which is applied to headings within the_content.
-?>
+echo $content;
 
-<div class="<?php echo $header_class; ?>">
-	<?php echo $content; ?>
-</div>
-
-<?php
 // output widget customisations (not output with shortcode).
 echo $after_widget;

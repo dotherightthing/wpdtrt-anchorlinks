@@ -64,7 +64,7 @@ class WPDTRT_Anchorlinks_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplat
 	/**
 	 * Method: get_anchors
 	 *
-	 * Uses the data-anchorlinks-id attributes injected by $this->filter_content_sections().
+	 * Uses the id attributes injected by $this->render_headings_as_anchors().
 	 *
 	 * Parameters:
 	 *   $post_id - Page ID
@@ -73,27 +73,33 @@ class WPDTRT_Anchorlinks_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplat
 	 *   $anchors
 	 */
 	public function get_anchors( int $post_id ) {
-		$post    = get_post( $post_id );
-		$content = apply_filters( 'the_content', $post->post_content );
-		$content = $this->helper_clean_html( $content );
+		$anchors        = array();
+		$plugin_options = $this->get_plugin_options();
 
-		$dom = new DOMDocument();
-		$dom->loadHTML( mb_convert_encoding( $content, 'HTML-ENTITIES', 'UTF-8' ) );
+		if ( key_exists( 'value', $plugin_options['heading_level'] ) && ( 'null' !== $plugin_options['heading_level']['value'] ) ) {
+			$heading_level = $plugin_options['heading_level']['value'];
 
-		$headings         = $dom->getElementsByTagName( 'h2' );
-		$anchors          = array();
-		$anchor_list_html = '';
+			$post    = get_post( $post_id );
+			$content = apply_filters( 'the_content', $post->post_content );
+			$content = $this->helper_clean_html( $content );
 
-		// phpcs:disable WordPress.NamingConventions
-		foreach ( $headings as $heading ) {
-			if ( null !== $heading->getAttribute( 'data-anchorlinks-id' ) ) {
-				$anchors[] = array(
-					str_replace( '&', '&amp;', $heading->nodeValue ), // phpcs:ignore
-					$heading->getAttribute( 'data-anchorlinks-id' ),
-				);
+			$dom = new DOMDocument();
+			$dom->loadHTML( mb_convert_encoding( $content, 'HTML-ENTITIES', 'UTF-8' ) );
+
+			$headings         = $dom->getElementsByTagName( $heading_level );
+			$anchor_list_html = '';
+
+			// phpcs:disable WordPress.NamingConventions
+			foreach ( $headings as $heading ) {
+				if ( null !== $heading->getAttribute( 'id' ) ) {
+					$anchors[] = array(
+						str_replace( '&', '&amp;', $heading->nodeValue ), // phpcs:ignore
+						$heading->getAttribute( 'id' ),
+					);
+				}
 			}
+			// phpcs:enable WordPress.NamingConventions
 		}
-		// phpcs:enable WordPress.NamingConventions
 
 		return $anchors;
 	}
@@ -123,6 +129,7 @@ class WPDTRT_Anchorlinks_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplat
 
 				$anchor_list_item_link_liner_icon = $dom->createElement( 'span' );
 				$anchor_list_item_link_liner_icon->setAttribute( 'class', 'wpdtrt-anchorlinks__list-link-icon' );
+				$anchor_list_item_link_liner_icon->setAttribute( 'aria-hidden', 'true' );
 
 				$anchor_list_item_link_liner = $dom->createElement( 'span', $anchor_list_item_text );
 				$anchor_list_item_link_liner->setAttribute( 'class', 'wpdtrt-anchorlinks__list-link-liner' );
@@ -130,8 +137,8 @@ class WPDTRT_Anchorlinks_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplat
 				$anchor_list_item_link = $dom->createElement( 'a' );
 				$anchor_list_item_link->setAttribute( 'href', '#' . $anchor[1] );
 				$anchor_list_item_link->setAttribute( 'class', 'wpdtrt-anchorlinks__list-link' );
-				$anchor_list_item_link->appendChild( $anchor_list_item_link_liner );
 				$anchor_list_item_link->appendChild( $anchor_list_item_link_liner_icon );
+				$anchor_list_item_link->appendChild( $anchor_list_item_link_liner );
 
 				$anchor_list_item = $dom->createElement( 'li' );
 				$anchor_list_item->setAttribute( 'class', 'wpdtrt-anchorlinks__list-item' );
@@ -149,7 +156,7 @@ class WPDTRT_Anchorlinks_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplat
 	/**
 	 * Method: render_headings_as_anchors
 	 *
-	 * Add an anchor to each heading.
+	 * Wrap each heading in an anchor with supporting structure.
 	 * Replacement for Better Anchor Links.
 	 *
 	 * Parameters:
@@ -161,40 +168,64 @@ class WPDTRT_Anchorlinks_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplat
 	 * See:
 	 * <https://developer.wordpress.org/reference/functions/sanitize_title/>
 	 */
-	public function render_headings_as_anchors( string $content ) : string {
-		$dom = new DOMDocument();
-		$dom->loadHTML( mb_convert_encoding( $content, 'HTML-ENTITIES', 'UTF-8' ) );
+	public function render_headings_as_anchors( string $content, string $extra_header_class ) : string {
+		$plugin_options = $this->get_plugin_options();
 
-		$headings = $dom->getElementsByTagName( 'h2' );
+		if ( key_exists( 'value', $plugin_options['heading_level'] ) && ( 'null' !== $plugin_options['heading_level']['value'] ) ) {
+			$heading_level = $plugin_options['heading_level']['value'];
 
-		foreach ( $headings as $heading ) {
-			$heading_span = $dom->createElement( 'span', '#' );
-			$heading_span->setAttribute( 'aria-label', 'Anchor' );
-			$heading_span->setAttribute( 'class', 'wpdtrt-anchorlinks__anchor-icon' );
+			$dom = new DOMDocument();
+			$dom->loadHTML( mb_convert_encoding( $content, 'HTML-ENTITIES', 'UTF-8' ) );
 
-			$heading_link = $dom->createElement( 'a' );
-			$heading_link->setAttribute( 'class', 'wpdtrt-anchorlinks__anchor-link' );
+			$headings = $dom->getElementsByTagName( $heading_level ); // TODO create $heading_level option.
 
-			// class is also used by $this->render_headings_in_sections().
-			$heading->setAttribute( 'class', 'wpdtrt-anchorlinks__anchor' );
-			$heading_id = 'section-' . sanitize_title( $heading->nodeValue ); // phpcs:ignore
-			$heading->setAttribute( 'id', $heading_id );
-			$heading->setAttribute( 'tabindex', '-1' );
+			foreach ( $headings as $heading ) {
+				$heading_id   = sanitize_title( $heading->nodeValue ); // phpcs:ignore
+				$heading_text = $heading->nodeValue; // phpcs:ignore
 
-			$heading_link->setAttribute( 'href', '#' . $heading_id );
-			$heading_link->appendChild( $heading_span );
-			$heading->appendChild( $heading_link );
+				// delete old text.
+				$heading->removeChild( $heading->firstChild ); // phpcs:ignore
+
+				// class is also used by $this->render_headings_in_sections().
+				if ( '' !== $extra_header_class ) {
+					$heading->setAttribute( 'class', 'wpdtrt-anchorlinks__anchor ' . $extra_header_class );
+				} else {
+					$heading->setAttribute( 'class', 'wpdtrt-anchorlinks__anchor' );
+				}
+
+				$heading->setAttribute( 'id', $heading_id );
+
+				$heading_link = $dom->createElement( 'a' );
+				$heading_link->setAttribute( 'class', 'wpdtrt-anchorlinks__anchor-link' );
+				$heading_link->setAttribute( 'href', '#' . $heading_id );
+
+				$heading_icon = $dom->createElement( 'span' );
+				$heading_icon->setAttribute( 'class', 'wpdtrt-anchorlinks__anchor-link-icon' );
+
+				// prevent Safari from including heading_icon pseudo element in Rotor's links list.
+				$heading_icon->setAttribute( 'aria-hidden', 'true' );
+
+				$heading_span = $dom->createElement( 'span', $heading_text );
+				$heading_span->setAttribute( 'class', 'wpdtrt-anchorlinks__anchor-link-liner' );
+
+				$heading_link->appendChild( $heading_icon );
+				$heading_link->appendChild( $heading_span );
+				$heading->appendChild( $heading_link );
+			}
+
+			$body = $dom->getElementsByTagName( 'body' )->item( 0 );
+
+			$content = $dom->saveHTML( $body );
 		}
 
-		$body = $dom->getElementsByTagName( 'body' )->item( 0 );
-
-		return $dom->saveHTML( $body );
+		return $content;
 	}
 
 	/**
 	 * Method: render_headings_in_sections
 	 *
-	 * Wrap a section around each heading and its siblings.
+	 * Wrap a section around each heading and its siblings
+	 * to prove structure for JS to highlight relevant anchor link within each section.
 	 * Replacement for wpdtrt-contentsections.
 	 * Headings are identified by the class
 	 * added by $this->render_headings_as_anchors()
@@ -209,23 +240,64 @@ class WPDTRT_Anchorlinks_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplat
 	 * <https://www.php.net/manual/en/dom.constants.php>
 	 */
 	public function render_headings_in_sections( string $content ) : string {
-		$content = $this->helper_clean_html( $content );
+		$plugin_options = $this->get_plugin_options();
 
-		$heading_start = '<h2 class="wpdtrt-anchorlinks__anchor"';
+		if ( key_exists( 'value', $plugin_options['heading_level'] ) && ( 'null' !== $plugin_options['heading_level']['value'] ) ) {
+			$heading_level = $plugin_options['heading_level']['value'];
 
-		// DOMDocument doesn't support HTML5 tags like <section>.
-		$section_start = '<div class="wpdtrt-anchorlinks__section">';
-		$section_end   = '</div>';
+			$content = $this->helper_clean_html( $content );
 
-		// wrap a section around each heading and its siblings.
-		$content = $section_start . str_replace(
-			$heading_start,
-			$section_end . $section_start . $heading_start,
-			$content
-		) . $section_end;
+			$heading_start = '<' . $heading_level . ' class="wpdtrt-anchorlinks__anchor"';
 
-		// Fix DOMDocument::loadHTML(): htmlParseStartTag: misplaced <body> tag in Entity, line: 1.
-		$content = str_replace( array( '<body>', '</body>' ), '', $content );
+			// DOMDocument doesn't support HTML5 tags like <section>.
+			$section_start = '<div class="wpdtrt-anchorlinks__section" data-anchorlinks-controls="highlighting">';
+			$section_end   = '</div>';
+
+			// wrap a section around each heading and its siblings.
+			$content = $section_start . str_replace(
+				$heading_start,
+				$section_end . $section_start . $heading_start,
+				$content
+			) . $section_end;
+
+			// Fix DOMDocument::loadHTML(): htmlParseStartTag: misplaced <body> tag in Entity, line: 1.
+			$content = str_replace( array( '<body>', '</body>' ), '', $content );
+
+			$dom = new DOMDocument();
+			$dom->loadHTML( mb_convert_encoding( $content, 'HTML-ENTITIES', 'UTF-8' ) );
+
+			// DOMDocument doesn't support HTML5 tags like <section>.
+			$sections = $dom->getElementsByTagName( 'div' );
+
+			// remove sections after the loop, else DOMDocument gets confused.
+			$empty_sections = array();
+
+			// phpcs:disable WordPress.NamingConventions
+			foreach ( $sections as $section ) {
+				$headings = $section->getElementsByTagName( $heading_level );
+
+				if ( $headings->length > 0 ) {
+					// ID is added by $this->render_headings_as_anchors().
+					$heading_id = $headings[0]->getAttribute( 'id' );
+
+					if ( $heading_id ) {
+						$section->setAttribute( 'data-anchorlinks-id', $heading_id );
+					}
+				} else {
+					$empty_sections[] = $section;
+				}
+			}
+
+			foreach ( $empty_sections as $empty_section ) {
+				// remove empty section resulting from string replacement.
+				// this includes sections which contain a p but no h2.
+				$empty_section->parentNode->removeChild( $empty_section );
+			}
+
+			$body = $dom->getElementsByTagName( 'body' )->item( 0 );
+
+			$content = $dom->saveHTML( $body );
+		}
 
 		return $content;
 	}
@@ -283,8 +355,7 @@ class WPDTRT_Anchorlinks_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplat
 	/**
 	 * Method: filter_content_sections
 	 *
-	 * Wrap a section around each heading and its siblings.
-	 * Replacement for wpdtrt-contentsections.
+	 * Transform content HTML.
 	 *
 	 * Parameters:
 	 *   $content - Content
@@ -296,63 +367,12 @@ class WPDTRT_Anchorlinks_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplat
 	 * <https://www.php.net/manual/en/dom.constants.php>
 	 */
 	public function filter_content_sections( string $content ) : string {
-		$content = $this->render_headings_as_anchors( $content );
+
+		$content = $this->render_headings_as_anchors( $content, '' );
 		$content = $this->render_headings_in_sections( $content );
 		$content = $this->helper_clean_html( $content );
 
-		$dom = new DOMDocument();
-		$dom->loadHTML( mb_convert_encoding( $content, 'HTML-ENTITIES', 'UTF-8' ) );
-
-		$sections = $dom->getElementsByTagName( 'div' );
-
-		// remove sections after the loop, else DOMDocument gets confused.
-		$empty_sections = array();
-
-		// phpcs:disable WordPress.NamingConventions
-		foreach ( $sections as $section ) {
-			$headings = $section->getElementsByTagName( 'h2' );
-
-			if ( $headings->length > 0 ) {
-				$attributes = array( 'class', 'id', 'tabindex' );
-				$heading    = $headings[0];
-
-				foreach ( $attributes as $attribute ) {
-					$old_value = $section->getAttribute( $attribute );
-					$new_value = $heading->getAttribute( $attribute );
-
-					if ( $old_value ) {
-						$new_value = ( $old_value . ' ' . $new_value );
-					}
-
-					// set attribute.
-					$section->setAttribute( $attribute, $new_value );
-
-					// remove attribute.
-					$heading->removeAttribute( $attribute );
-
-					// retain the ID via a data-anchorlinks-id attribute
-					// as the structure changes when the gallery wrappers are injected,
-					// breaking the section > heading relationship.
-					if ( 'id' === $attribute ) {
-						$heading->setAttribute( 'data-anchorlinks-id', $new_value );
-					}
-				}
-			} else {
-				$empty_sections[] = $section;
-			}
-		}
-
-		foreach ( $empty_sections as $empty_section ) {
-			// remove empty section resulting from string replacement.
-			// this excludes sections which contain p but no h2.
-			$empty_section->parentNode->removeChild( $empty_section );
-		}
-
-		// phpcs:enable WordPress.NamingConventions
-
-		$body = $dom->getElementsByTagName( 'body' )->item( 0 );
-
-		return $dom->saveHTML( $body );
+		return $content;
 	}
 
 	/**

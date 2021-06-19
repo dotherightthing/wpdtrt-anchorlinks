@@ -56,6 +56,12 @@ class WPDTRT_AnchorlinksTest extends WP_UnitTestCase {
 		// Make the factory objects available.
 		parent::setUp();
 
+		global $wpdtrt_anchorlinks_plugin;
+
+		$plugin_options                           = $wpdtrt_anchorlinks_plugin->get_plugin_options();
+		$plugin_options['heading_level']['value'] = 'h2';
+		$wpdtrt_anchorlinks_plugin->set_plugin_options( $plugin_options );
+
 		$this->post_id_1 = $this->create_post( array(
 			'post_title'   => 'DTRT Anchor Links test',
 			'post_date'    => '2020-04-22 13:00:00',
@@ -142,7 +148,7 @@ class WPDTRT_AnchorlinksTest extends WP_UnitTestCase {
 
 		// trim() removes trailing \n on CI.
 		$this->assertEquals(
-			'Heading 1#',
+			'Heading 1',
 			trim( $anchors[0][0] ),
 			'Unexpected string'
 		);
@@ -167,12 +173,12 @@ class WPDTRT_AnchorlinksTest extends WP_UnitTestCase {
 
 		global $wpdtrt_anchorlinks_plugin;
 
-		$content = $wpdtrt_anchorlinks_plugin->render_headings_as_anchors( $content );
+		$content = $wpdtrt_anchorlinks_plugin->render_headings_as_anchors( $content, '' );
 
 		$content = str_replace( array( '<body>', '</body>' ), '', $content );
 
 		$this->assertEqualHtml(
-			'<h2 class="wpdtrt-anchorlinks__anchor" id="heading-1" tabindex="-1">Heading 1<a class="wpdtrt-anchorlinks__anchor-link" href="#heading-1"><span aria-label="Anchor" class="wpdtrt-anchorlinks__anchor-icon">#</span></a></h2><p>Text</p><h2 class="wpdtrt-anchorlinks__anchor" id="heading-2" tabindex="-1">Heading 2<a class="wpdtrt-anchorlinks__anchor-link" href="#heading-2"><span aria-label="Anchor" class="wpdtrt-anchorlinks__anchor-icon">#</span></a></h2><p>More text</p>',
+			'<h2 class="wpdtrt-anchorlinks__anchor" id="heading-1"><a class="wpdtrt-anchorlinks__anchor-link" href="#heading-1"><span class="wpdtrt-anchorlinks__anchor-link-icon" aria-hidden="true"></span><span class="wpdtrt-anchorlinks__anchor-link-liner">Heading 1</span></a></h2><p>Text</p><h2 class="wpdtrt-anchorlinks__anchor" id="heading-2"><a class="wpdtrt-anchorlinks__anchor-link" href="#heading-2"><span class="wpdtrt-anchorlinks__anchor-link-icon" aria-hidden="true"></span><span class="wpdtrt-anchorlinks__anchor-link-liner">Heading 2</span></a></h2><p>More text</p>',
 			trim( $content ),
 			'Content unexpected'
 		);
@@ -191,13 +197,13 @@ class WPDTRT_AnchorlinksTest extends WP_UnitTestCase {
 
 		global $wpdtrt_anchorlinks_plugin;
 
-		$content = $wpdtrt_anchorlinks_plugin->render_headings_as_anchors( $content );
+		$content = $wpdtrt_anchorlinks_plugin->render_headings_as_anchors( $content, '' );
 		$content = $wpdtrt_anchorlinks_plugin->render_headings_in_sections( $content );
 
 		$content = str_replace( array( '<body>', '</body>' ), '', $content );
 
 		$this->assertEqualHtml(
-			'<div class="wpdtrt-anchorlinks__section"></div><div class="wpdtrt-anchorlinks__section"><h2 class="wpdtrt-anchorlinks__anchor" id="heading-1" tabindex="-1">Heading 1<a class="wpdtrt-anchorlinks__anchor-link" href="#heading-1"><span aria-label="Anchor" class="wpdtrt-anchorlinks__anchor-icon">#</span></a></h2><p>Text</p></div><div class="wpdtrt-anchorlinks__section"><h2 class="wpdtrt-anchorlinks__anchor" id="heading-2" tabindex="-1">Heading 2<a class="wpdtrt-anchorlinks__anchor-link" href="#heading-2"><span aria-label="Anchor" class="wpdtrt-anchorlinks__anchor-icon">#</span></a></h2><p>More text</p></div>',
+			'<div class="wpdtrt-anchorlinks__section" data-anchorlinks-controls="highlighting" data-anchorlinks-id="heading-1"><h2 class="wpdtrt-anchorlinks__anchor" id="heading-1"><a class="wpdtrt-anchorlinks__anchor-link" href="#heading-1"><span class="wpdtrt-anchorlinks__anchor-link-icon" aria-hidden="true"></span><span class="wpdtrt-anchorlinks__anchor-link-liner">Heading 1</span></a></h2><p>Text</p></div><div class="wpdtrt-anchorlinks__section" data-anchorlinks-controls="highlighting" data-anchorlinks-id="heading-2"><h2 class="wpdtrt-anchorlinks__anchor" id="heading-2"><a class="wpdtrt-anchorlinks__anchor-link" href="#heading-2"><span class="wpdtrt-anchorlinks__anchor-link-icon" aria-hidden="true"></span><span class="wpdtrt-anchorlinks__anchor-link-liner">Heading 2</span></a></h2><p>More text</p></div>',
 			trim( $content ),
 			'Content unexpected'
 		);
@@ -215,7 +221,7 @@ class WPDTRT_AnchorlinksTest extends WP_UnitTestCase {
 
 		// https://stackoverflow.com/a/22270259/6850747.
 		$content = get_post_field( 'post_content', $this->post_id_1 );
-		$content = $wpdtrt_anchorlinks_plugin->render_headings_as_anchors( $content );
+		$content = $wpdtrt_anchorlinks_plugin->render_headings_as_anchors( $content, '' );
 		$content = $wpdtrt_anchorlinks_plugin->render_headings_in_sections( $content );
 
 		// Processes \r\n's first so they aren't converted twice.
@@ -229,22 +235,27 @@ class WPDTRT_AnchorlinksTest extends WP_UnitTestCase {
 		$sections = $dom->getElementsByTagName( 'div' );
 
 		$this->assertEquals(
-			3,
+			2,
 			count( $sections ),
-			'Expected 3 sections'
-		);
-
-		// trim() removes 2x trailing \n on CI.
-		$this->assertEquals(
-			'<div class="wpdtrt-anchorlinks__section"></div>',
-			trim( $dom->saveHTML( $sections[0] ) ),
-			'Expected first section to be empty due to regex'
+			'Expected 2 sections'
 		);
 
 		$this->assertEquals(
-			false,
+			true,
 			is_object( $sections[0]->firstChild ),
-			'Expected first section to be empty due to regex'
+			'Expected first section to contain child'
+		);
+
+		$this->assertEquals(
+			1,
+			$sections[0]->firstChild->nodeType,
+			'Expected first section child to be DOM element'
+		);
+
+		$this->assertEquals(
+			'h2',
+			$sections[0]->firstChild->tagName,
+			'Expected first section child to be an H2'
 		);
 
 		$this->assertEquals(
@@ -298,14 +309,14 @@ class WPDTRT_AnchorlinksTest extends WP_UnitTestCase {
 		// Test fails on CI:
 		// due to new lines.
 		$this->assertEquals(
-			'<div class="wpdtrt-anchorlinks__section wpdtrt-anchorlinks__anchor" id="heading-1" tabindex="-1"><h2 data-anchorlinks-id="heading-1">Heading 1<a class="wpdtrt-anchorlinks__anchor-link" href="#heading-1"><span aria-label="Anchor" class="wpdtrt-anchorlinks__anchor-icon">#</span></a></h2><p>Text</p></div>',
+			'<div class="wpdtrt-anchorlinks__section" id="heading-1"><h2 id="heading-1" class="wpdtrt-anchorlinks__anchor"><a class="wpdtrt-anchorlinks__anchor-link" href="#heading-1"><span class="wpdtrt-anchorlinks__anchor-link-icon" aria-hidden="true"></span><span class="wpdtrt-anchorlinks__anchor-link-liner">Heading 1</span></a></h2><p>Text</p></div>',
 			trim( $dom->saveHTML( $dom->getElementsByTagName( 'div' )[0] ) ),
 			'Expected first div to be a section containing a heading and text'
 		);
 		*/
 
 		$this->assertEquals(
-			'wpdtrt-anchorlinks__section wpdtrt-anchorlinks__anchor',
+			'wpdtrt-anchorlinks__section',
 			$dom
 				->getElementsByTagName( 'div' )[0]
 				->getAttribute( 'class' ),
@@ -315,24 +326,40 @@ class WPDTRT_AnchorlinksTest extends WP_UnitTestCase {
 		$this->assertEquals(
 			'heading-1',
 			$dom
-				->getElementsByTagName( 'div' )[0]
+				->getElementsByTagName( 'h2' )[0]
 				->getAttribute( 'id' ),
-			'Anchor has unexpected id'
+			'Anchor has unexpected data-anchorlinks-id'
+		);
+
+		$this->assertEquals(
+			'heading-1',
+			$dom
+				->getElementsByTagName( 'div' )[0]
+				->getAttribute( 'data-anchorlinks-id' ),
+			'Section has unexpected data-anchorlinks-id'
+		);
+
+		$this->assertEquals(
+			'heading-2',
+			$dom
+				->getElementsByTagName( 'h2' )[1]
+				->getAttribute( 'id' ),
+			'Anchor has unexpected data-anchorlinks-id'
 		);
 
 		$this->assertEquals(
 			'heading-2',
 			$dom
 				->getElementsByTagName( 'div' )[1]
-				->getAttribute( 'id' ),
-			'Anchor has unexpected id'
+				->getAttribute( 'data-anchorlinks-id' ),
+			'Section has unexpected data-anchorlinks-id'
 		);
 
 		$this->assertEquals(
 			1,
 			count(
 				$dom
-					->getElementsByTagName( 'div' )[0]
+					->getElementsByTagName( 'h2' )[0]
 					->getElementsByTagName( 'a' )
 			),
 			'Anchor does not contain a link'
@@ -350,7 +377,7 @@ class WPDTRT_AnchorlinksTest extends WP_UnitTestCase {
 		$this->assertEquals(
 			'#heading-1',
 			$dom
-				->getElementsByTagName( 'div' )[0]
+				->getElementsByTagName( 'h2' )[0]
 				->getElementsByTagName( 'a' )[0]
 				->getAttribute( 'href' ),
 			'Anchor link has unexpected href'
@@ -380,17 +407,18 @@ class WPDTRT_AnchorlinksTest extends WP_UnitTestCase {
 			0,
 			count(
 				$dom
-					->getElementsByTagName( 'h2' )
+					->getElementsByTagName( 'div' )
 			),
-			'Content contains unexpected number of headings'
+			'Content contains unexpected number of sections'
 		);
 
 		$this->assertEquals(
-			'wpdtrt-anchorlinks__section',
-			$dom
-				->getElementsByTagName( 'div' )[0]
-				->getAttribute( 'class' ),
-			'Section has unexpected classname'
+			0,
+			count(
+				$dom
+					->getElementsByTagName( 'h2' )
+			),
+			'Content contains unexpected number of headings'
 		);
 	}
 

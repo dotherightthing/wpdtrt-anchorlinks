@@ -51,7 +51,7 @@ Pinning toggles a class of `.wpdtrt-anchorlinks--sticky` on `.wpdtrt-anchorlinks
 To control dynamic content, add the following data attribute to an element:
 
 ```html
-data-wpdtrt-anchorlinks-controls="pinning"
+data-anchorlinks-controls="pinning"
 ```
 
 * When this element is scrolled out of the viewport, the 'pinned' layout state will be enhanced
@@ -62,7 +62,7 @@ data-wpdtrt-anchorlinks-controls="pinning"
 Add the following data attribute to a the relevant child of each anchor:
 
 ```html
-data-wpdtrt-anchorlinks-controls="highlighting"
+data-anchorlinks-controls="highlighting"
 ```
 
 * When this element is scrolled into the viewport, the matching anchor link will be highlighted.
@@ -75,16 +75,16 @@ data-wpdtrt-anchorlinks-controls="highlighting"
 Add the following data attribute to the element:
 
 ```html
-data-wpdtrt-anchorlinks-list-addition-clone="false"
-data-wpdtrt-anchorlinks-list-addition="1"
+data-anchorlinks-list-addition-clone="false"
+data-anchorlinks-list-addition="1"
 ```
 
 * This element will be removed from its current location and injected after the list
 * If there are multiple elements to inject, this element will be injected first, as it has an id of `1`
 
 ```html
-data-wpdtrt-anchorlinks-list-addition-clone="true"
-data-wpdtrt-anchorlinks-list-addition="2"
+data-anchorlinks-list-addition-clone="true"
+data-anchorlinks-list-addition="2"
 ```
 
 * This element will stay at its current location and a copy (clone) will be injected after the list

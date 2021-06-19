@@ -190,7 +190,34 @@ function wpdtrt_anchorlinks_plugin_init() {
 	 *
 	 * @see https://github.com/dotherightthing/wpdtrt-plugin-boilerplate/wiki/Options:-Adding-global-options Options: Adding global options
 	 */
-	$plugin_options = array();
+	$plugin_options = array(
+		'heading_level' => array(
+			'type'    => 'select',
+			'label'   => __( 'Heading level', 'wpdtrt-anchorlinks' ),
+			'options' => array(
+				'h1' => array(
+					'text' => 'H1',
+				),
+				'h2' => array(
+					'text' => 'H2',
+				),
+				'h3' => array(
+					'text' => 'H3',
+				),
+				'h4' => array(
+					'text' => 'H4',
+				),
+				'h5' => array(
+					'text' => 'H5',
+				),
+				'h6' => array(
+					'text' => 'H6',
+				),
+			),
+			'tip'     => __( 'Heading level to convert into anchors', 'wpdtrt-anchorlinks' ),
+			'default' => 'h2',
+		),
+	);
 
 	/**
 	 * Shortcode or Widget options

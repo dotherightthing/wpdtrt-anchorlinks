@@ -84,14 +84,15 @@ const wpdtrtAnchorlinksUi = {
     setTitleToSummary: ($jumpMenu) => {
         const $ = wpdtrtAnchorlinksUi.jQuery;
         const anchor = '#summary';
+        const $parentSection = $(`[data-anchorlinks-id="${anchor.substring(1)}"]`);
         const $anchor = $(anchor);
         const $title = $jumpMenu.find('.wpdtrt-anchorlinks__title-fixed').eq(0);
         const { highlightController } = wpdtrtAnchorlinksUi.domElements;
         let anchorTextAbbreviated;
         let stickyTitle = '';
 
-        if ($anchor.length && $anchor.is(highlightController)) {
-            anchorTextAbbreviated = $anchor.find('h2').attr('data-abbreviation');
+        if ($anchor.length && $parentSection.is(highlightController)) {
+            anchorTextAbbreviated = $anchor.attr('data-abbreviation');
 
             if (anchorTextAbbreviated) {
                 const abbreviations = [
@@ -192,7 +193,7 @@ const wpdtrtAnchorlinksUi = {
 
     /**
      * @function highlightAnchorLink
-     * @summary Highlight an anchor link, when its target is in view.
+     * @summary Highlight an anchor link, when its target section is in view.
      * @memberof wpdtrtAnchorlinksUi
      * @protected
      *
@@ -207,8 +208,11 @@ const wpdtrtAnchorlinksUi = {
 
             // ratio of the element which is visible in the viewport
             // (entering or leaving)
+            // TODO: this doesn't work for very tall sections
             if (change.intersectionRatio > 0.5) {
-                let $anchor = $(intersectingElement);
+                let $anchorParentSection = $(intersectingElement);
+                let anchorId = $anchorParentSection.attr('data-anchorlinks-id');
+                let $anchor = $(`#${anchorId}`);
                 let anchor = $anchor.get(0);
                 let $anchorLinkActive = wpdtrtAnchorlinksUi.getRelatedNavigation(anchor);
 
@@ -355,14 +359,19 @@ const wpdtrtAnchorlinksUi = {
     offsetFragment: () => {
         const $ = wpdtrtAnchorlinksUi.jQuery;
         const anchor = window.location.hash;
+        let offset = 32;
 
         if (typeof window.scrollBy === 'undefined') {
             return;
         }
 
+        if ($('#wpadminbar').length) {
+            offset += $('#wpadminbar').height();
+        }
+
         if ($(anchor).hasClass('wpdtrt-anchorlinks__anchor')) {
             window.scrollBy({
-                top: -32 // .wpdtrt-anchorlinks__section::before { padding-top }
+                top: -1 * offset // .wpdtrt-anchorlinks__section::before { padding-top }
             });
         }
     },
@@ -377,8 +386,8 @@ const wpdtrtAnchorlinksUi = {
         const $ = wpdtrtAnchorlinksUi.jQuery;
 
         wpdtrtAnchorlinksUi.domElements = {
-            highlightController: $('[data-wpdtrt-anchorlinks-controls="highlighting"]'),
-            pinController: $('[data-wpdtrt-anchorlinks-controls="pinning"]')
+            highlightController: $('[data-anchorlinks-controls="highlighting"]'),
+            pinController: $('[data-anchorlinks-controls="pinning"]')
         };
 
         wpdtrtAnchorlinksUi.sticky_jump_menu($('.wpdtrt-anchorlinks'));
