@@ -347,6 +347,27 @@ const wpdtrtAnchorlinksUi = {
     },
 
     /**
+     * @function offsetFragment
+     * @summary Prevent active fragment from headbutting the top of the browser window.
+     * @memberof wpdtrtAnchorlinksUi
+     * @protected
+     */
+    offsetFragment: () => {
+        const $ = wpdtrtAnchorlinksUi.jQuery;
+        const anchor = window.location.hash;
+
+        if (typeof window.scrollBy === 'undefined') {
+            return;
+        }
+
+        if ($(anchor).hasClass('wpdtrt-anchorlinks__anchor')) {
+            window.scrollBy({
+                top: -32 // .wpdtrt-anchorlinks__section::before { padding-top }
+            });
+        }
+    },
+
+    /**
      * @function init
      * @summary Initialise the component
      * @memberof wpdtrtAnchorlinksUi
@@ -361,6 +382,8 @@ const wpdtrtAnchorlinksUi = {
         };
 
         wpdtrtAnchorlinksUi.sticky_jump_menu($('.wpdtrt-anchorlinks'));
+
+        window.onhashchange = wpdtrtAnchorlinksUi.offsetFragment;
 
         console.log('wpdtrtAnchorlinksUi.init'); // eslint-disable-line no-console
     }
