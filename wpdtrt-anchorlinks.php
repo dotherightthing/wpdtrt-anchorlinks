@@ -239,11 +239,17 @@ function wpdtrt_anchorlinks_plugin_init() {
 			'tip'     => __( 'e.g. Outline', 'wpdtrt-anchorlinks' ),
 			'default' => __( 'Outline', 'wpdtrt-anchorlinks' ),
 		),
+		'exclude_widgets_on_pages'        => array(
+			'type'  => 'text',
+			'size'  => 30,
+			'label' => __( 'Exclude widgets from anchor links list on these pages', 'wpdtrt-anchorlinks' ),
+			'tip'   => __( 'Comma separated list of page IDs', 'wpdtrt-anchorlinks' ),
+		),
 		'additional_html'                 => array(
 			'type'  => 'text',
 			'size'  => 30,
 			'label' => __( 'Additional HTML', 'wpdtrt-anchorlinks' ),
-			'tip'   => __( 'Output in .wpdtrt-anchorlinks__additions', 'wpdtrt-anchorlinks' ),
+			'tip'   => __( 'Output an HTML string below the list', 'wpdtrt-anchorlinks' ),
 		),
 		'additional_from_sidebar_id_1'    => array(
 			'type'  => 'text',
@@ -336,6 +342,7 @@ function wpdtrt_anchorlinks_shortcode_init() {
 			'selected_instance_options' => array(
 				'post_id',
 				'title_text',
+				'exclude_widgets_on_pages',
 				'additional_html',
 				'additional_from_sidebar_id_1',
 				'additional_from_sidebar_order_1',

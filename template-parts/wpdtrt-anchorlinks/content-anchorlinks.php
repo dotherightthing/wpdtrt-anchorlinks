@@ -18,6 +18,7 @@ $after_title   = null; // register_sidebar.
 $after_widget  = null; // register_sidebar.
 
 // shortcode options.
+$exclude_widgets_on_pages        = null;
 $post_id                         = null; // $post->ID stand-in for unit tests
 $title_text                      = null;
 $additional_html                 = null;
@@ -38,6 +39,10 @@ if ( isset( $additional_from_sidebar_id_1 ) && ( '' === $additional_from_sidebar
 	$additional_from_sidebar_id_1 = null;
 }
 
+if ( isset( $exclude_widgets_on_pages ) && ( '' !== $exclude_widgets_on_pages ) ) {
+	$exclude_widgets_on_page_ids = explode( ',', $exclude_widgets_on_pages );
+}
+
 global $post;
 
 if ( isset( $post ) && is_object( $post ) ) {
@@ -56,12 +61,15 @@ if ( ( null !== $additional_from_sidebar_id_1 ) && ( null !== $additional_from_s
 
 	foreach ( $sidebars_widgets as $sidebars_widget ) {
 		if ( isset( $wp_registered_widgets[ $sidebars_widget ]['name'] ) ) {
-			$name = $wp_registered_widgets[ $sidebars_widget ]['name'];
+			$name    = $wp_registered_widgets[ $sidebars_widget ]['name'];
+			$post_id = strval( $post->ID );
 
-			array_push( $new_anchors, array(
-				$name . '#',
-				sanitize_title( $name ),
-			) );
+			if ( ! in_array( $post_id, $exclude_widgets_on_page_ids, true ) ) {
+				array_push( $new_anchors, array(
+					$name . '#',
+					sanitize_title( $name ),
+				) );
+			}
 		}
 	}
 

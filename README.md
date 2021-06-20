@@ -30,6 +30,32 @@ In a PHP template, as a template tag:
 ?>
 ```
 
+### Inject an HTML string below the list
+
+Add the following parameter to the shortcode:
+
+```php
+# HTML to appear in .wpdtrt-anchorlinks__additions
+additional_html='<div>Some HTML</div>'
+```
+
+### Inject widget titles into the list, from a widget sidebar which resides outside of the_content
+
+Add the following parameters to the shortcode:
+
+```php
+# Sidebar ID to source widgets from
+additional_from_sidebar_id_1='content-top'
+
+# DOM order of sidebar relative to the_content (0)
+# A negative value means that the sidebar appears before the_content.
+additional_from_sidebar_order_1='-1'
+
+# Exclude widgets titles from e.g. the maintenance page
+# Comma separated list of page IDs
+exclude_widgets_on_pages='12345, 67890'
+```
+
 ### Control the dynamic pinning of the anchor links
 
 Pinning keeps the navigation in view, while the rest of the page content is scrolled.
@@ -42,13 +68,12 @@ Dynamic content includes:
 
 * replacement of the anchor links list title with the summary heading
 * highlighting of the anchor link corresponding to the content section currently in view
-* injection of theme elements below the anchor links list
 
 Dynamic content is implemented using Intersection Observers (requires JavaScript / modern browser or MS Edge 15+).
 
 Pinning toggles a class of `.wpdtrt-anchorlinks--sticky` on `.wpdtrt-anchorlinks`.
 
-To control dynamic content, add the following data attribute to an element:
+To control dynamic content, add the following attribute to the shortcode element:
 
 ```html
 data-anchorlinks-controls="pinning"
@@ -69,26 +94,6 @@ data-anchorlinks-controls="highlighting"
 * When another element is scrolled into the viewport,
   * the previous matching anchor link will be unhighlighted
   * the new matching anchor link will be highlighted
-
-### Inject a theme element after the anchor list
-
-Add the following data attribute to the element:
-
-```html
-data-anchorlinks-list-addition-clone="false"
-data-anchorlinks-list-addition="1"
-```
-
-* This element will be removed from its current location and injected after the list
-* If there are multiple elements to inject, this element will be injected first, as it has an id of `1`
-
-```html
-data-anchorlinks-list-addition-clone="true"
-data-anchorlinks-list-addition="2"
-```
-
-* This element will stay at its current location and a copy (clone) will be injected after the list
-* If there are multiple elements to inject, this element will be injected second, as it has an id of `2`
 
 ### Styling
 
