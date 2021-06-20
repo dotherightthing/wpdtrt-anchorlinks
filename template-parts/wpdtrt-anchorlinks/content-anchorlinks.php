@@ -60,7 +60,7 @@ if ( ( null !== $additional_from_sidebar_id_1 ) && ( null !== $additional_from_s
 
 			array_push( $new_anchors, array(
 				$name . '#',
-				'section-' . sanitize_title( $name ),
+				sanitize_title( $name ),
 			) );
 		}
 	}
