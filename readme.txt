@@ -6,7 +6,7 @@ Tags: anchor links, content links, menu, navigation, sticky, scrollto
 Requires at least: 5.3.3
 Tested up to: 5.3.3
 Requires PHP: 7.2.15
-Stable tag: 0.4.7
+Stable tag: 0.4.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -32,6 +32,14 @@ See [WordPress Usage](README.md#wordpress-usage).
 1. Dynamic date context, highlighting, additional content injection ./images/screenshots/dynamic-date-highlighting-additional-content-injection.png
 
 == Changelog ==
+
+= 0.4.8 =
+* [e8b04af] Update wpdtrt-scss to 0.1.17
+* [b9f6051] Refactor jump links/anchors to use the heading rather than the section, show the icon on the left and include the text in the link/anchor, shorten data attributes (#24, dotherightthing/wpdtrt-scss#2)
+* [f39431b] Update wpdtrt-scss to 0.1.14
+* [a817052] Refactor jump links/anchors to use the heading rather than the section, show the icon on the left and include the text in the link/anchor, shorten data attributes (#24, dotherightthing/wpdtrt-scss#2)
+* [584b138] Prevent active fragment from headbutting the top of the browser window
+* [5d0a6be] Update wpdtrt-scss to 0.1.13
 
 = 0.4.7 =
 * [d48abe7] Update wpdtrt-plugin-boilerplate from 1.7.16 to 1.7.17
