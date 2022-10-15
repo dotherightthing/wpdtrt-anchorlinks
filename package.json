@@ -50,10 +50,10 @@
   "license": "ISC",
   "homepage": "https://github.com/dotherightthing/wpdtrt-anchorlinks",
   "srcDir": "/Volumes/DanBackup/Websites/wpdtrt-anchorlinks",
-  "devDependencies": {
-    "wpdtrt-npm-scripts": "github:dotherightthing/wpdtrt-npm-scripts#semver:*"
-  },
   "dependencies": {
     "wpdtrt-scss": "github:dotherightthing/wpdtrt-scss"
+  },
+  "devDependencies": {
+    "wpdtrt-npm-scripts": "github:dotherightthing/wpdtrt-npm-scripts#semver:*"
   }
 }
